@@ -1,0 +1,42 @@
+import checkoutFormModel from './checkoutFormModel';
+const {formfield:
+    {userName
+        ,adresse,
+    birthDate,
+    civility,
+    codePostale,
+    email,
+    emailPersonneAcontact,
+    gouvernorats,
+    identifiant_fiscale,
+    nom,
+    numFax,
+    numMobile,
+    numbureau,
+    passWord,
+    prenom,
+    raisonSocial,
+    rib,
+    siteWeb,
+    
+}}=checkoutFormModel;
+export default {[userName.name]:'',
+    [adresse.name]:'',
+[birthDate.name]:'',
+[civility.name]:'',
+[codePostale.name]:'',
+[email.name]:'',
+[emailPersonneAcontact.name]:'',
+[gouvernorats.name]:'',
+[identifiant_fiscale.name]:'',
+[nom.name]:'',
+[numFax.name]:'',
+[numMobile.name]:'',
+[numbureau.name]:'',
+[passWord.name]:'',
+[prenom.name]:'',
+[raisonSocial.name]:'',
+[rib.name]:'',
+[siteWeb.name]:'',
+
+};
