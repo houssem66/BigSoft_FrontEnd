@@ -18,6 +18,11 @@ import Register from './components/Grossiste/Register'
 import ProfileUser from './components/Profile/User/ProfileUser';
 import ProfileGrossiste from './components/Profile/Grossiste/ProfileGrossiste';
 import Stock from './components/Stock/Index';
+import Produit from './components/Stock/Produit/Index';
+import Ajout from './components/Stock/Produit/Ajout';
+import Edit from './components/Stock/Produit/Edit';
+import Details from './components/Stock/Produit/Details';
+import BonReception from './components/BonFournisseur/BonReception/BonReception';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -47,7 +52,12 @@ root.render(
           <Route path="editClient" element={<EditClient />} />
 
           <Route path="stock" element={<Stock />} />
+          <Route path="produit" element={<Produit />} />
+          <Route path="ajouterProduit" element={<Ajout />} />
+          <Route path="editProduit" element={<Edit />} />
+          <Route path="detailsProduit" element={<Details />} />
 
+          <Route path="bonReception" element={<BonReception />}></Route>
 
 
 

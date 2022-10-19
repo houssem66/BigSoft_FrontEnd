@@ -34,7 +34,9 @@ const Fournisseur = () => {
     //fetch data fournisseur
     useEffect(() => {
         if (Fetch){
-            fournisseurService.GetList().then(
+            const user = authService.getCurrentUser();
+            console.log(user.id)
+            fournisseurService.GetList(user.id).then(
                 (res) => {
     
                     setList(res.data);

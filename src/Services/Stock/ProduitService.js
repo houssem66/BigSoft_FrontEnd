@@ -1,19 +1,15 @@
 import axios from "axios";
-import authService from "./AuthServices";
-import authHeader from "./HeaderServices";
-const API_URL = "https://localhost:44353/api/Fournisseur";
-const user = authService.getCurrentUser();
+import authHeader from "../HeaderServices";
+const API_URL = "https://localhost:44353/api/Produit";
 
-const ajout = (fournisseur) => {
+
+const ajout = (Produit) => {
   const config = {
     headers: authHeader()
   };
-
-  console.log(config)
-  fournisseur.idGrossiste=user.id
     return axios
-  
-      .post(API_URL + "/Post", fournisseur,config)
+   
+      .post(API_URL + "/Post", Produit,config)
       .then((response) => {
         if (response.data) {
          
@@ -23,13 +19,13 @@ const ajout = (fournisseur) => {
         return response.data;
       });
   };
-  const GetList=(id)=>{
+  const GetList=()=>{
    
     const config = {
       headers: authHeader()
     };
     
-    return axios.get(API_URL+"/"+id,config);
+    return axios.get(API_URL,config);
   }; 
   const Delete=(id)=>{
    
@@ -48,7 +44,7 @@ const ajout = (fournisseur) => {
     return  axios.put(API_URL+"/Update",item,config);
   };
   
-  const fournisseurService = {
+  const ProduitService = {
     ajout,GetList,Delete,Put
   };
-  export default fournisseurService;
+  export default ProduitService;

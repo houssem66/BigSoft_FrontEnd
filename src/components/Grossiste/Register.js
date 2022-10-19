@@ -26,6 +26,8 @@ import GrossisteServices from '../../Services/GrossisteServies'
 import { useNavigate } from "react-router-dom";
 const steps = ['authentification' , 'information genérale', 'information sur personne a contacter'];
 const { formId, formField } = checkoutFormModel;
+let formData = new FormData();
+
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -50,9 +52,29 @@ function Register() {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   async function _submitForm(values, actions) {
-  
+    formData.append('Documents', values.documents);
+    formData.append('adresse', values.adresse);
+    formData.append('Nom', values.nom);
+    formData.append('prenom', values.prenom);
+    formData.append('emailPersAContact', values.emailPersAContact);
+    formData.append('userName', values.userName);
+    formData.append('raisonSocial', values.raisonSocial);
+    formData.append('email', values.email);
+    formData.append('civility', values.civility);
+    formData.append('codePostale', values.codePostale);
+    formData.append('gouvernorats', values.gouvernorats);
+    formData.append('identifiant_fiscale', values.identifiant_fiscale);
+    formData.append('nom', values.nom);
+    formData.append('numFax', values.numFax);
+    formData.append('numMobile', values.numMobile);
+    formData.append('numbureau', values.numbureau);
+    formData.append('id', values.id);
+    formData.append('rib', values.rib);
+    formData.append('siteWeb', values.siteWeb);
+    formData.append('birthDate', values.birthDate);
+    formData.append('password', values.passWord);
     try {
-      await GrossisteServices.signup(values).then(
+      await GrossisteServices.signup(formData).then(
         (response) => {
           navigate("/feed");
           window.location.reload();

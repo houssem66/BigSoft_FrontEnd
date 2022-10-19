@@ -120,7 +120,7 @@ function Client() {
                                     <Table.Cell>{item.id}</Table.Cell>
                                     <Table.Cell>{item.nom}</Table.Cell>
                                     <Table.Cell>{item.prenom}</Table.Cell>
-                                    <Table.Cell>{item.birthDate}</Table.Cell>
+                                    <Table.Cell>{item.birthDate.toString().substring(0,10)}</Table.Cell>
                                     <Table.Cell>{item.numMobile}</Table.Cell>
                                     <Table.Cell>{item.email}</Table.Cell>
                                     <Table.Cell>

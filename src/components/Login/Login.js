@@ -98,8 +98,8 @@ export default function SignInSide() {
         if (Err != "") {
             console.log(Err)
             return <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                <strong>{Err}</strong>
+                <AlertTitle>Erreur</AlertTitle>
+                <strong>Email ou mot de passe incorrecte</strong>
             </Alert>;
         }
     }

@@ -18,9 +18,14 @@ import List from '@mui/material/List';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { Link, useNavigate, Outlet } from "react-router-dom";
 const ListItems = () => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 const handleClick = () => {
     setOpen(!open);
+  }; 
+  const [open2, setOpen2] = React.useState(false);
+const handleClick2 = () => {
+  console.log(open2)
+    setOpen2(!open2);
   };
   let navig=useNavigate();
   return (<React.Fragment>
@@ -42,23 +47,12 @@ const handleClick = () => {
       </ListItemIcon>
       <ListItemText primary="Clients " />
     </ListItemButton>
-    <ListItemButton onClick={event=>{navig("/feed/stock");}}>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Stock" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+
     <ListItemButton onClick={handleClick}>
       <ListItemIcon>
         <InboxIcon />
       </ListItemIcon>
-      <ListItemText primary="Inbox" />
+      <ListItemText primary="Stock" />
       {open ? <ExpandLess /> : <ExpandMore />}
     </ListItemButton>
     <Collapse in={open} timeout="auto" unmountOnExit>
@@ -67,10 +61,47 @@ const handleClick = () => {
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText primary="Starred" />
+          <ListItemText onClick={event=>{navig("/feed/stock");}} primary="Inventaire" />
+        </ListItemButton> 
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/produit");}} primary="Produit" />
         </ListItemButton>
       </List>
-    </Collapse> </React.Fragment>);
+    </Collapse> 
+     <ListItemButton onClick={handleClick2}>
+      <ListItemIcon>
+        <InboxIcon />
+      </ListItemIcon>
+      <ListItemText primary="Gestion d'achat" />
+      {open2 ? <ExpandLess /> : <ExpandMore />}
+    </ListItemButton>
+    <Collapse in={open2} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/stock");}} primary="Bon de Commande" />
+        </ListItemButton> 
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/bonReception");}} primary="Bon de Reception" />
+        </ListItemButton> 
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/produit");}} primary="Facture" />
+        </ListItemButton>
+      </List>
+    </Collapse> 
+    
+    </React.Fragment>);
 }
 
 export default ListItems;

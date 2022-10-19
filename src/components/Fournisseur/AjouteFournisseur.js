@@ -12,6 +12,7 @@ import Civility from '../../Data/Civility.json'
 import Gouvernorats from '../../Data/Gouvernorats.json'
 import Button from '../FormsUI/Button'
 import { Button as Butt } from '@mui/material';
+import authService from "../../Services/AuthServices";
 
 function Ajout() {
     const FORM_VALIDATION = Yup.object().shape({
@@ -44,7 +45,7 @@ function Ajout() {
           
 
     });
-    console.log(Civility);
+    
     const INITIAL_FORM_STATE = {
 
         raisonSocial: '',
@@ -67,7 +68,7 @@ function Ajout() {
     }
     const handlesubmit = async (fournisseur) => {
 
-
+     
         try {
             await fournisseurService.ajout(fournisseur).then(
                 (response) => {
