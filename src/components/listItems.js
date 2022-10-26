@@ -90,7 +90,7 @@ const handleClick2 = () => {
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/bonReception");}} primary="Bon de Reception" />
+          <ListItemText onClick={event=>{navig("/feed/bonReception");}} primary="Bon de Reception" />
         </ListItemButton> 
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>

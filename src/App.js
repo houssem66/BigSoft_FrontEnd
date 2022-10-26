@@ -15,7 +15,6 @@ function App() {
       setRole(user.role)
     }
    
-    console.log(user)
   }, [])
   return (
     <div className="App">

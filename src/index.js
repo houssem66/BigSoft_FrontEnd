@@ -23,6 +23,8 @@ import Ajout from './components/Stock/Produit/Ajout';
 import Edit from './components/Stock/Produit/Edit';
 import Details from './components/Stock/Produit/Details';
 import BonReception from './components/BonFournisseur/BonReception/BonReception';
+import AjoutBon from './components/BonFournisseur/BonReception/AjoutBonReception';
+import DetailsBon from './components/BonFournisseur/BonReception/DetailsBonReception';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -35,7 +37,7 @@ root.render(
      
       <Route path="/login" element={<Login />}></Route>
       <Route path="/Register" element={<Register />}></Route>
-
+     
       <Route path="/" element={<App />}>
         <Route path="feed" element={<Feed />}>
           <Route path="profileUser" element={<ProfileUser />}></Route>
@@ -56,8 +58,10 @@ root.render(
           <Route path="ajouterProduit" element={<Ajout />} />
           <Route path="editProduit" element={<Edit />} />
           <Route path="detailsProduit" element={<Details />} />
+          <Route path="ajoutBonReception" element={<AjoutBon />}></Route>
 
           <Route path="bonReception" element={<BonReception />}></Route>
+          <Route path="detailsBonReception" element={<DetailsBon />}></Route>
 
 
 

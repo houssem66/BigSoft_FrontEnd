@@ -17,10 +17,11 @@ import Category from '../../../Data/Category.json'
 function Ajout() {
     const [PrixHT, setPrixHt] = React.useState('');
     const [TVA, setTVA] = React.useState('');
+    const [Unit, setUnit] = React.useState('');
     let tax = []
     let cat=[]
     let unit=[]
-    tax=Object.values(TVAList)
+    unit=Object.values(UnitOfMeasure)
     console.log(tax)
     const INITIAL_FORM_STATE = {
         productName: '',
@@ -57,7 +58,7 @@ function Ajout() {
             if (values.priceHT != null) {
                 setPrixHt(values.priceHT);
                 setTVA(values.tva)
-
+                setUnit(values.unitOfMeasure)
             }
 
         });
@@ -75,12 +76,12 @@ function Ajout() {
         if (PrixHT > 0) {
             if (TVA > 0) {
                 let x = (parseFloat(TVA) / 100) * parseFloat(PrixHT) + parseFloat(PrixHT)
-                
+            //  let  s=x.toFixed(2)
                 return x
             }
             else if (TVA == 0) {
-                let x = parseFloat(PrixHT)
-               
+                let x = parseFloat(PrixHT).toFixed(2)
+              //let s=x.toFixed(2)
                 return x
             }
 
@@ -200,7 +201,7 @@ function Ajout() {
                                 />
                             </Grid>
                             <Grid item md={5} >
-                                <Alert severity="success">prix TTC: <strong>{(CalculatePrixTTC() < 1) ? (<div></div>) : (CalculatePrixTTC())}</strong> </Alert>
+                                <Alert severity="success">prix TTC: <strong>{(CalculatePrixTTC() < 1) ? (<div></div>) : (CalculatePrixTTC())} TND  par {unit[Unit]}</strong> </Alert>
                             </Grid>
 
                         </Grid>

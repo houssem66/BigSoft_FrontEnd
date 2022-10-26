@@ -17,7 +17,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import clientService from '../../../Services/Stock/ProduitService'
+import ProduitService from '../../../Services/Stock/ProduitService'
 import UnitOfMeasure from '../../../Data/UnitOfMeasure.json'
 import Category from '../../../Data/Category.json'
 function Index() {
@@ -33,10 +33,10 @@ function Index() {
   const handleClose = () => {
       setOpen(false);
   };
-  //fetch data fournisseur
+  //fetch data Produit
   useEffect(() => {
       if (Fetch){
-          clientService.GetList().then(
+        ProduitService.GetList().then(
               (res) => {
   
                   setList(res.data);
@@ -55,6 +55,7 @@ function Index() {
       }
      
   },[Fetch]);
+  console.log("here")
   //Handles
   const handleEdit = (item) => {
 
@@ -66,7 +67,7 @@ function Index() {
 
   };
   const handleDelete = async (id) => {
-      await clientService.Delete(id).then((res) => { });
+      await ProduitService.Delete(id).then((res) => { });
       setFetch(true)
       setOpen(false);
   };
@@ -121,7 +122,6 @@ function Index() {
                 </Table.Header>
                 <Table.Body>
                     {list.map(item => (
-                        console.log(item),
                         <Table.Row key={item.id}>
                             <Table.Cell>{item.id}</Table.Cell>
                             <Table.Cell>{item.productName}</Table.Cell>
