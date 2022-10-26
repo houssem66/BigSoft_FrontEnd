@@ -9,7 +9,6 @@ const ajout = (fournisseur) => {
     headers: authHeader()
   };
 
-  console.log(config)
   fournisseur.idGrossiste=user.id
     return axios
   
@@ -23,13 +22,13 @@ const ajout = (fournisseur) => {
         return response.data;
       });
   };
-  const GetList=(id)=>{
+  const GetList=()=>{
    
     const config = {
       headers: authHeader()
     };
     
-    return axios.get(API_URL+"/"+id,config);
+    return axios.get(API_URL+"/"+user.id,config);
   }; 
   const Delete=(id)=>{
    
