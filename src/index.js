@@ -26,6 +26,9 @@ import BonReception from './components/BonFournisseur/BonReception/BonReception'
 import AjoutBon from './components/BonFournisseur/BonReception/AjoutBonReception';
 import DetailsBon from './components/BonFournisseur/BonReception/DetailsBonReception';
 import EditBon from './components/BonFournisseur/BonReception/EditBonReception';
+import FactureFournisseur from './components/BonFournisseur/Facture/index';
+import DetailsFactureFournisseur from './components/BonFournisseur/Facture/Details';
+import BonCommandeFournisseur from './components/BonFournisseur/BonCommande/index';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -65,6 +68,11 @@ root.render(
           <Route path="bonReception_ajout" element={<AjoutBon />}></Route>
           <Route path="bonReception_details" element={<DetailsBon />}></Route>
           <Route path="bonReception_edit" element={<EditBon />}></Route>
+
+          <Route path="factureFournisseur" element={<FactureFournisseur />}></Route>
+          <Route path="factureFournisseur_details" element={<DetailsFactureFournisseur />}></Route>
+
+          <Route path="bonCommandeFournisseur" element={<BonCommandeFournisseur />}></Route>
 
 
 
