@@ -12,7 +12,6 @@ const FileUPloadWrapper = ({
     const handleChange = (event) => {
 
         const file = event.currentTarget.files[0];
-        console.log("ok");
         setFieldValue(name, file);
     };
     const configTextfield = {

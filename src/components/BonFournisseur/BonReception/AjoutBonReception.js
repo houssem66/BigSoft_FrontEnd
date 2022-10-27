@@ -2,17 +2,49 @@ import React, { useEffect, useState } from 'react'
 import FournisseurService from '../../../Services/FournisseurService'
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthServices";
+import GrossisteService from '../../../Services/UserService'
+import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
 
 import Ajout from './Ajout';
 
 function AjoutBonReception() {
     let navig = useNavigate();
-    const [list, SetList] = useState([]);
+    const [listFournisseur, SetlistFournisseur] = useState([]);
+    const [Fournisseur, setFournisseur] = useState('');
+    const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
+    const handleSubmit = async (event) => {
+        console.log(event);
+        event.preventDefault();
+        const user = authService.getCurrentUser();
+
+        let aux = {
+            fournisseurId: Fournisseur.id,
+            grossisteId: user.id,
+            date: new Date(),
+            DetailsBonReceptionModels: detailsBonReceptionModels
+        }
+
+        try {
+            await BonReceptionService.ajout(aux).then(
+                (response) => {
+
+                    navig("/feed/bonReception");
+                    window.location.reload();
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         FournisseurService.GetList().then(
             (res) => {
 
-                SetList(res.data);
+                SetlistFournisseur(res.data);
 
             },
             (error) => {
@@ -27,7 +59,7 @@ function AjoutBonReception() {
         );
     }, [])
     return (
-        <>{(list)?(<Ajout selector="Fournisseur" list={list}></Ajout>):(<div>ajout</div>)}</>
+        <>{(listFournisseur) ? (<Ajout Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
     )
 }
 

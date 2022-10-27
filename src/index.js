@@ -25,6 +25,7 @@ import Details from './components/Stock/Produit/Details';
 import BonReception from './components/BonFournisseur/BonReception/BonReception';
 import AjoutBon from './components/BonFournisseur/BonReception/AjoutBonReception';
 import DetailsBon from './components/BonFournisseur/BonReception/DetailsBonReception';
+import EditBon from './components/BonFournisseur/BonReception/EditBonReception';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -55,13 +56,15 @@ root.render(
 
           <Route path="stock" element={<Stock />} />
           <Route path="produit" element={<Produit />} />
-          <Route path="ajouterProduit" element={<Ajout />} />
-          <Route path="editProduit" element={<Edit />} />
-          <Route path="detailsProduit" element={<Details />} />
-          <Route path="ajoutBonReception" element={<AjoutBon />}></Route>
+          <Route path="produit_ajout" element={<Ajout />} />
+          <Route path="produit_edit" element={<Edit />} />
+          <Route path="produit_details" element={<Details />} />
+       
 
           <Route path="bonReception" element={<BonReception />}></Route>
-          <Route path="detailsBonReception" element={<DetailsBon />}></Route>
+          <Route path="bonReception_ajout" element={<AjoutBon />}></Route>
+          <Route path="bonReception_details" element={<DetailsBon />}></Route>
+          <Route path="bonReception_edit" element={<EditBon />}></Route>
 
 
 

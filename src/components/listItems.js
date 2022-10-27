@@ -24,7 +24,6 @@ const handleClick = () => {
   }; 
   const [open2, setOpen2] = React.useState(false);
 const handleClick2 = () => {
-  console.log(open2)
     setOpen2(!open2);
   };
   let navig=useNavigate();

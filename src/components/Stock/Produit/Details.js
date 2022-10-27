@@ -34,13 +34,12 @@ function Details() {
   }
   return (<>
     <ThemeProvider theme={theme}>
-      <Box
+    <Box
         sx={{
           my: 8,
           mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+        
+          height: "100vh"
         }}
       >
         <Grid container spacing={30} direction="row" justifyContent="space-between" alignItems="flex-end">
@@ -55,7 +54,7 @@ function Details() {
             <strong style={{ color: "blue" }}> 0</strong>
           </Typography>
             <Button variant="contained" color="secondary" onClick={() => {
-              navigate('/feed/editProduit/', { state: { produit: location.state.produit } });
+              navigate('/feed/produit_edit/', { state: { produit: location.state.produit } });
             }} startIcon={<CreateIcon />}>Edit</Button>
           </Grid>
         </Grid>

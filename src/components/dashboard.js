@@ -93,7 +93,7 @@ function DashboardContent() {
 
         AuthService.logout();
 
-        navig("/feed");
+        navig("/");
         window.location.reload();
     };
     let navig = useNavigate();

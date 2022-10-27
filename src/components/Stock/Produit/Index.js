@@ -59,11 +59,11 @@ function Index() {
   //Handles
   const handleEdit = (item) => {
 
-      navig('/feed/editProduit/', { state: { produit: item } });
+      navig('/feed/produit_edit/', { state: { produit: item } });
 
   }; const handleDetails = (item) => {
 
-      navig('/feed/detailsProduit/', { state: { produit: item } });
+      navig('/feed/produit_details/', { state: { produit: item } });
 
   };
   const handleDelete = async (id) => {
@@ -96,7 +96,7 @@ function Index() {
 
         </Grid>
         <Grid item md={2}>
-            <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/ajouterProduit"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+            <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/produit_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
         <Grid item md={12}>
             <Table
                 bordered
