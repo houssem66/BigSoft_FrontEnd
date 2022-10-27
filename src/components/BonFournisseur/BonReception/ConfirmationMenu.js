@@ -10,6 +10,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService';
+import { useNavigate } from 'react-router-dom';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -50,9 +51,10 @@ const StyledMenu = styled((props) => (
         },
     },
 }));
-function ConfirmationMenu({ color, id }) {
+function ConfirmationMenu({ color, id, item }) {
     let formData = new FormData();
-
+   
+    let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -65,12 +67,15 @@ function ConfirmationMenu({ color, id }) {
     const handleSubmitFacture = () => {
         formData.append('Id', parseInt(id));
 
-        BonReceptionService.Confirm(formData).then((res) => {   window.location.reload(); })
+        BonReceptionService.Confirm(formData).then((res) => { window.location.reload(); })
 
     }
     const handleDetailsFacture = () => {
-
-        console.log("you clicked with Success")
+       
+        if (item) {
+            navigate("/feed/factureFournisseur_details", { state: { Facture: item } })
+        }
+      // 
 
     }
     return (<>{(color === "error") ? (<div>

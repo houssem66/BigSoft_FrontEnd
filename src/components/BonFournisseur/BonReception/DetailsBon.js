@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { useState } from "react";
 import TableC from './Table';
 
-function DetailsBon({selector,bon}) {
+function DetailsBon({selector,bon,title}) {
     const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
   return (
   <>{(bon)?   
@@ -34,7 +34,7 @@ function DetailsBon({selector,bon}) {
               <Grid item>
                 <Typography variant="h4" gutterBottom>
   
-                  <strong style={{ color: "blue" }}> Bon de réception</strong>
+                  <strong style={{ color: "blue" }}> {title}</strong>
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                   Date:

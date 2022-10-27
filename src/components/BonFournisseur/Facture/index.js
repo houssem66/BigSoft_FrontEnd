@@ -1,4 +1,4 @@
-import { Grid, List, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Button } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService';
+import FactureService from '../../../Services/BonFournisseur/FactureService';
 import { useState } from "react";
 import authService from "../../../Services/AuthServices";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,11 +16,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import ConfirmationMenu from "./ConfirmationMenu";
-
-function BonReception() {
+import Link from '@mui/material/Link';
+import ArticleIcon from '@mui/icons-material/Article';
+function FactureFournisseurIndex() {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
@@ -37,7 +36,7 @@ function BonReception() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            BonReceptionService.GetList().then(
+            FactureService.GetList().then(
                 (res) => {
                     setList(res.data);
                 },
@@ -55,22 +54,18 @@ function BonReception() {
 
     }, [Fetch]);
     //Handles
-    const handleEdit = (item) => {
-
-        navig('/feed/bonReception_edit/', { state: { Bon: item } });
-
-    };
-    const handleDetails = (item) => {
-
-        navig('/feed/bonReception_details/', { state: { Bon: item } });
-
-    };
     const handleDelete = async (id) => {
 
-        await BonReceptionService.Delete(id).then((res) => { });
+        await FactureService.Delete(id).then((res) => { });
         setFetch(true)
         setOpen(false);
     };
+    const handleDetails = (item) => {
+
+        navig('/feed/factureFournisseur_details/', { state: { Facture: item } });
+
+    };
+
     return (
         <Box
             sx={{
@@ -96,7 +91,8 @@ function BonReception() {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/bonReception_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+
+                </Grid>
                 <Grid item md={12}>
                     <Table
                         bordered
@@ -117,32 +113,41 @@ function BonReception() {
                             <Table.Column>Site Web Fournisseur</Table.Column>
                             <Table.Column>Prix Totale HT</Table.Column>
                             <Table.Column>Prix TTC</Table.Column>
-                            <Table.Column>Confirmation</Table.Column>
+                            <Table.Column>Bon Reception</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
                             {list.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
-                                    <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>
-                                    <Table.Cell>{item.fournisseur.email}</Table.Cell>
-                                    <Table.Cell>{item.fournisseur.numbureau}</Table.Cell>
-                                    <Table.Cell>{item.fournisseur.siteWeb}</Table.Cell>
+                                    <Table.Cell>{item.bonDeReceptionFournisseur.fournisseur.raisonSocial}</Table.Cell>
+                                    <Table.Cell>{item.bonDeReceptionFournisseur.fournisseur.email}</Table.Cell>
+                                    <Table.Cell>{item.bonDeReceptionFournisseur.fournisseur.numbureau}</Table.Cell>
+                                    <Table.Cell>{item.bonDeReceptionFournisseur.fournisseur.siteWeb}</Table.Cell>
 
                                     <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
                                     <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
-                                    <Table.Cell>{(item.confirmed)?(<ConfirmationMenu item={item}  color="success"/>)
-                                    :(<ConfirmationMenu  id={item.id} color="error"/>)}</Table.Cell>
+                                    <Table.Cell><Link onClick={(event, value) => {
+                                        event.preventDefault();
+                                        navig('/feed/bonReception_details/', { state: { Bon: item.bonDeReceptionFournisseur } });
+
+
+                                    }}
+                                        underline="hover"
+                                        sx={{ display: 'flex', alignItems: 'center' }}
+                                        color="inherit"
+                                        href="/"
+                                    >
+                                        <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                                        {item.date.toString().substring(0, 10)}
+                                    </Link></Table.Cell>
+
                                     <Table.Cell>
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        {(item.confirmed)?(<IconButton disabled onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
-                                            <EditIcon />
-                                        </IconButton>):( <IconButton  onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
-                                            <EditIcon />
-                                        </IconButton>)}
-                                       
+
+
                                         <IconButton onClick={() => { handleDetails(item) }} color="default" aria-label="Edit">
                                             <VisibilityIcon />
                                         </IconButton>
@@ -180,19 +185,19 @@ function BonReception() {
                                 </Table.Row>))}
 
 
-                    </Table.Body>
-                    <Table.Pagination
-                        shadow
-                        noMargin
-                        align="center"
-                        rowsPerPage={10}
-                        onPageChange={(page) => console.log({ page })}
-                    />
-                </Table>
+                        </Table.Body>
+                        <Table.Pagination
+                            shadow
+                            noMargin
+                            align="center"
+                            rowsPerPage={10}
+                            onPageChange={(page) => console.log({ page })}
+                        />
+                    </Table>
 
-            </Grid>
-        </Grid></Box >
+                </Grid>
+            </Grid></Box >
     )
 }
 
-export default BonReception    
+export default FactureFournisseurIndex
