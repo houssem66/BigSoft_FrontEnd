@@ -8,45 +8,65 @@ import GrainIcon from '@mui/icons-material/Grain';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
+{/*  */ }
 
 const BreadCrumb = () => {
   function handleClick(event, value, location) {
     event.preventDefault();
-    console.info( event.target.text);
-    if (event.target.text!="home"){
-      navigate("/feed/"+event.target.text);
-    }
-    else {
+    if (event.target.textContent === "home" || event.target.textContent === "") {
       navigate("/");
     }
+    else {
+
+      navigate("/feed/" + event.target.textContent);
+
+
+    }
   }
-  let navigate =useNavigate();
+  let navigate = useNavigate();
   let location = useLocation();
   const [home, sethome] = useState('/');
   const [indexPage, setindexPage] = useState('');
+  const [crudPage, setcrudPage] = useState('');
   useEffect((
   ) => {
     let x = location.pathname.split("/")
-    console.log(x);
-    setindexPage(x[2]);
-
-
+    if (x){
+     let y = x[2].toString().split("_")
+      setindexPage(y[0]);
+      setcrudPage(y[1])
+    }
+   
+    // console.log(y)
+   
   }, [location])
+  function show() {
+if (crudPage){
+
+  return <Typography
+  sx={{ display: 'flex', alignItems: 'center' }}
+  color="text.primary"
+>
+  <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+  {crudPage}
+</Typography>
+}
+   
+  }
   return (<Paper>
     <Grid item md={12} sx={{ my: 4, ml: 6 }}>
-      <div role="presentation" onClick={(e, value) => { handleClick(e, value, location) }}>
+      <div role="presentation" >
         <Breadcrumbs aria-label="breadcrumb">
-          {(home)?( <Link
+          {(home) ? (<Link onClick={(e, value) => { handleClick(e, value, location) }}
             underline="hover"
             sx={{ display: 'flex', alignItems: 'center' }}
             color="inherit"
             href="/"
           >
             <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-           home
-          </Link>):(<div></div>)}
-         {(indexPage)?( <Link
+            home
+          </Link>) : (<div></div>)}
+          {(indexPage) ? (<Link onClick={(e, value) => { handleClick(e, value, location) }}
             underline="hover"
             sx={{ display: 'flex', alignItems: 'center' }}
             color="inherit"
@@ -54,9 +74,8 @@ const BreadCrumb = () => {
           >
             <WhatshotIcon sx={{ mr: 0.5 }} fontSize="inherit" />
             {indexPage}
-          </Link>):(<div></div>)}
-         
-
+          </Link>) : (<div></div>)}
+          {show()}
         </Breadcrumbs>
       </div></Grid></Paper>
   );

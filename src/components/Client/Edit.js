@@ -17,13 +17,13 @@ import { Button as Butt } from '@mui/material';
 
 function getProper(typ) {
   switch (typ) {
-    case 0: console.log("ok");
+    case 0:
       return <Textfield
         name="cin"
         label="Cin"
       />;
 
-    case 1: console.log(typ);
+    case 1: 
       return <Textfield
         name="identifiant_fiscale"
         label="Identifiant Fiscale"

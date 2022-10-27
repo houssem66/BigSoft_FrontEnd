@@ -1,22 +1,12 @@
-import { Autocomplete, Button, Grid, List, Stack, TextField, Typography } from "@mui/material";
+import {  Grid,  Typography } from "@mui/material";
 import Box from '@mui/material/Box';
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useState } from "react";
-import authService from "../../../Services/AuthServices";
 import TableC from './Table';
-import FournisseurService from '../../../Services/FournisseurService'
-import GrossisteService from '../../../Services/UserService'
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
+
 function DetailsBon({selector,bon}) {
     const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
-
-  
-   
-   
   return (
-  <>{(bon)?
-    
+  <>{(bon)?   
     (<Box
         sx={{
           my: 4,
@@ -76,7 +66,7 @@ function DetailsBon({selector,bon}) {
   
         </Grid>
         <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
-          <TableC list={bon.detailsReceptions} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
+          <TableC listDetailsProp={bon.detailsReceptions} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels}selector="ok" ></TableC>
         </Grid>
        
       </Box>  )

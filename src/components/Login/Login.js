@@ -61,7 +61,7 @@ export default function SignInSide() {
             await AuthService.login(user).then(
                 (response) => {
 
-                    navigate("/feed");
+                    navigate("/");
                     window.location.reload();
                 },
                 (error) => {

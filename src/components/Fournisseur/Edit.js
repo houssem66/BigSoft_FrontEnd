@@ -65,8 +65,7 @@ function EditFournisseur() {
 
     }
     const handlesubmit = async (fournisseur) => {
-        console.log("before put");
-        console.log(fournisseur.id);
+      
         try {
             await fournisseurService.Put(fournisseur).then(
                 (response) => {

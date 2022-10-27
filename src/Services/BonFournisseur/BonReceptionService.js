@@ -46,8 +46,16 @@ const ajout = (BonReception) => {
     
     return  axios.put(API_URL+"/Update",item,config);
   };
+    const Confirm=(item)=>{
+  
+    const config = {
+      headers: authHeader()
+    };
+    console.log(item)
+    return  axios.put(API_URL+"/Confirmer",item,config);
+  };
   
   const ProduitService = {
-    ajout,GetList,Delete,Put
+    ajout,GetList,Delete,Put,Confirm
   };
   export default ProduitService;

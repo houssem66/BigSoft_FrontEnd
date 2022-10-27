@@ -18,61 +18,61 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ConfirmationMenu from "./ConfirmationMenu";
 
 function BonReception() {
-let navig = useNavigate();
-const [list, setList] = useState([]);
-const [open, setOpen] = useState(false);
-const [Fetch, setFetch] = useState(true);
-console.log(list)
+    let navig = useNavigate();
+    const [list, setList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [Fetch, setFetch] = useState(true);
 
-const handleClickOpen = () => {
-    setOpen(true);
-};
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-const handleClose = () => {
-    setOpen(false);
-};
-//fetch data fournisseur
-useEffect(() => {
-    if (Fetch){
-        BonReceptionService.GetList().then(
-            (res) => {
-
-                setList(res.data);
-                setFetch(false)
-            },
-            (error) => {
-                console.log("Private page", error.response);
-                // Invalid token
-                if (error.response && error.response.status === 403) {
-                    authService.logout();
-                    navig("/login");
-                    window.location.reload();
+    const handleClose = () => {
+        setOpen(false);
+    };
+    //fetch data fournisseur
+    useEffect(() => {
+        if (Fetch) {
+            setFetch(false)
+            BonReceptionService.GetList().then(
+                (res) => {
+                    setList(res.data);
+                },
+                (error) => {
+                    console.log("Private page", error.response);
+                    // Invalid token
+                    if (error.response && error.response.status === 403) {
+                        authService.logout();
+                        navig("/login");
+                        window.location.reload();
+                    }
                 }
-            }
-        );
-    }
-   
-},[Fetch]);
-//Handles
-const handleEdit =  (item) => {
+            );
+        }
 
-    navig('/feed/editFournisseur/',{state:{Bon:item}});
+    }, [Fetch]);
+    //Handles
+    const handleEdit = (item) => {
 
-};
-const handleDetails =  (item) => {
+        navig('/feed/bonReception_edit/', { state: { Bon: item } });
 
-    navig('/feed/detailsBonReception/',{state:{Bon:item}});
+    };
+    const handleDetails = (item) => {
 
-};
-const handleDelete = async (id) => {
-    await BonReceptionService.Delete(id).then((res) => { });
-    setFetch(true)
-    setOpen(false);
-};
-  return (
-    <Box
+        navig('/feed/bonReception_details/', { state: { Bon: item } });
+
+    };
+    const handleDelete = async (id) => {
+
+        await BonReceptionService.Delete(id).then((res) => { });
+        setFetch(true)
+        setOpen(false);
+    };
+    return (
+        <Box
             sx={{
                 my: 8,
                 mx: 4,
@@ -96,9 +96,9 @@ const handleDelete = async (id) => {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/ajoutBonReception"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/bonReception_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
                 <Grid item md={12}>
-                     <Table
+                    <Table
                         bordered
                         shadow={false}
                         color="secondary"
@@ -117,12 +117,13 @@ const handleDelete = async (id) => {
                             <Table.Column>Site Web Fournisseur</Table.Column>
                             <Table.Column>Prix Totale HT</Table.Column>
                             <Table.Column>Prix TTC</Table.Column>
+                            <Table.Column>Confirmation</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
                             {list.map(item => (
                                 <Table.Row key={item.id}>
-                                    <Table.Cell>{item.date.toString().substring(0,10)}</Table.Cell>
+                                    <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.email}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.numbureau}</Table.Cell>
@@ -130,14 +131,18 @@ const handleDelete = async (id) => {
 
                                     <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
                                     <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
+                                    <Table.Cell>{(item.confirmed)?(<ConfirmationMenu  color="success"/>):(<ConfirmationMenu id={item.id} color="error"/>)}</Table.Cell>
                                     <Table.Cell>
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        <IconButton onClick={()=>{handleEdit(item)}} color="error" aria-label="Edit">
+                                        {(item.confirmed)?(<IconButton disabled onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
                                             <EditIcon />
-                                        </IconButton>
-                                        <IconButton onClick={()=>{handleDetails(item)}} color="default" aria-label="Edit">
+                                        </IconButton>):( <IconButton  onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
+                                            <EditIcon />
+                                        </IconButton>)}
+                                       
+                                        <IconButton onClick={() => { handleDetails(item) }} color="default" aria-label="Edit">
                                             <VisibilityIcon />
                                         </IconButton>
                                         <div>
@@ -174,19 +179,19 @@ const handleDelete = async (id) => {
                                 </Table.Row>))}
 
 
-                        </Table.Body>
-                        <Table.Pagination
-                            shadow
-                            noMargin
-                            align="center"
-                            rowsPerPage={10}
-                            onPageChange={(page) => console.log({ page })}
-                        />
-                    </Table>
-                  
-                </Grid>
-            </Grid></Box>
-  )
+                    </Table.Body>
+                    <Table.Pagination
+                        shadow
+                        noMargin
+                        align="center"
+                        rowsPerPage={10}
+                        onPageChange={(page) => console.log({ page })}
+                    />
+                </Table>
+
+            </Grid>
+        </Grid></Box >
+    )
 }
 
 export default BonReception    

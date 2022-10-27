@@ -18,22 +18,36 @@ function ccyFormat(num) {
 
 
 
+//SetListDetails(FilteredList.splice(FilteredList.indexOf(row),1))
 
+function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listDetailsProp, selector }) {
 
-function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, list }) {
-
+    const [ListProduits, SetListProduits] = useState([]);
+    const [ListDetails, SetListDetails] = useState([]);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    let TotaleHt = (ListDetails) ? (priceTotaleHT(ListDetails)) : (0);
+    const TotaleTTc = (ListDetails) ? (priceTotaleTTC(ListDetails)) : (0);
+    const FilteredProduitList = ListProduits.filter((el) => {
+        return !(ListDetails.some((f) => {
+            return f.produit.id === el.id
+        }))
+    });
     function priceTotaleTTC(list) {
         let sum = 0;
+    
         if (list) {
             if (list) { }
             list.map((row) => {
-                sum += row.produit.priceHt * row.quantite
+                sum += row.produit.priceTTc * row.quantite
             })
         }
 
         return sum
     } function priceTotaleHT(list) {
         let sum = 0;
+        console.log("list totale ht",list);
         if (list) {
             if (list) { }
             list.map((row) => {
@@ -43,30 +57,27 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, list 
 
         return sum
     }
-
-    const [ListProduits, SetListProduits] = useState([]);
-    const [ListDetails, SetListDetails] = useState([]);
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    let TotaleHt = (ListDetails) ? (priceTotaleHT(ListDetails)) : (0);
-    const TotaleTTc = (ListDetails) ? (priceTotaleTTC(ListDetails)) : (0);
+    function DeleteRow(row) {
+        const auxDetails = ListDetails.filter((x) => x.produit.id !== row.produit.id)
+        const auxDetailsModel = detailsBonReceptionModels.filter((x) => x.idProduit !== row.produit.id)
+        SetListDetails(auxDetails);
+        SetDetailsBonReceptionModels(auxDetailsModel);
+    }
+   
     useEffect(() => {
+       
         ProduitService.GetList().then((res) => {
-
             SetListProduits(res.data);
         })
-
     }, [])
     useEffect(() => {
-        if (list) {
-            SetListDetails(list)
+        if (listDetailsProp) {
+            SetListDetails(listDetailsProp)
         }
 
-    }, [list])
-
-    //  const fileteredList = ListProduits.filter(item => ListDetails.includes(details => details.product))
-    return (<>{(list) ? (<TableContainer component={Paper}>
+    }, [listDetailsProp])
+ 
+    return (<>{(selector) ? (<TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
             <TableHead>
                 <TableRow>
@@ -74,7 +85,7 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, list 
                         Details
                     </TableCell>
                     <TableCell align="right">Prix</TableCell>
-                    
+
                 </TableRow>
                 <TableRow>
                     <TableCell>Nom Produit</TableCell>
@@ -117,16 +128,18 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, list 
                         Details
                     </TableCell>
                     <TableCell align="right">Prix</TableCell>
+                    <TableCell align="right">Actions</TableCell>
                 </TableRow>
                 <TableRow>
-                
+
                     <TableCell>Nom Produit</TableCell>
                     <TableCell align="right">Prix UnitTTC</TableCell>
                     <TableCell align="right">Qty</TableCell>
                     <TableCell align="right">MontantHT</TableCell>
                     <TableCell align="right">TVA</TableCell>
                     <TableCell align="right">MontantTTC</TableCell>
-                   
+                    <TableCell align="right"></TableCell>
+
 
                 </TableRow>
             </TableHead>
@@ -139,12 +152,13 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, list 
                         <TableCell align="right">{ccyFormat(row.produit.priceHt * row.quantite)}</TableCell>
                         <TableCell align="right">{row.produit.tva}</TableCell>
                         <TableCell align="right">{ccyFormat(row.produit.priceTTc * row.quantite)}</TableCell>
+                        <TableCell align="right" sx={{ width: "10%" }}><Button variant='contained' color='error' onClick={() => { DeleteRow(row) }}>Supprimer</Button></TableCell>
                     </TableRow>
                 ))}
                 <TableRow>
                     <TableCell rowSpan={1} />
                     <TableCell colSpan={3} align="center"><Button variant="contained" onClick={handleOpen}>ajouter Produit</Button></TableCell>
-                    <Modale detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ListProduits={ListProduits} SetListProduits={SetListProduits} handleClose={handleClose} SetListDetails={SetListDetails} ListDetails={ListDetails} open={open} ></Modale>
+                    <Modale detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ListProduits={FilteredProduitList} SetListProduits={SetListProduits} handleClose={handleClose} SetListDetails={SetListDetails} ListDetails={ListDetails} open={open} ></Modale>
                 </TableRow>
                 <TableRow>
                     <TableCell rowSpan={3} />

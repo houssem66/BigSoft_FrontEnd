@@ -1,13 +1,9 @@
-import { Autocomplete, Box, Modal, TextField, Typography } from '@mui/material'
+import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
-import { Formik, Form, useFormikContext } from 'formik';
+import { Formik, Form, } from 'formik';
 import * as Yup from 'yup';
 import Textfield from '../../FormsUI/Textfields'
-import { Alert, Grid } from "@mui/material";
-import Category from '../../../Data/Category.json'
-import Select from '../../FormsUI/Select'
-import TVAList from '../../../Data/TVA.json'
-import UnitOfMeasure from '../../../Data/UnitOfMeasure.json'
+import { Grid } from "@mui/material";
 import Button from '../../FormsUI/Button'
 import Auto from '../../FormsUI/AutoComplete'
 
@@ -21,7 +17,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 }
-function Modale(props) {
+function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListDetails, SetListDetails, handleClose, open, ListProduits, }) {
   const INITIAL_FORM_STATE = {
 
     produit: '',
@@ -37,22 +33,20 @@ function Modale(props) {
   });
 
   const handlesubmit = async (values) => {
-    console.log("props" ,props.detailsBonReceptionModels)
     let ojb = { idProduit: values.produit.id, quantite: values.quantite }
-    let DetailsBonReceptionModels = props.detailsBonReceptionModels;
+    let DetailsBonReceptionModels = detailsBonReceptionModels;
     DetailsBonReceptionModels.push(ojb);
-    props.SetDetailsBonReceptionModels(DetailsBonReceptionModels);
-    const listDetails = props.ListDetails
+    SetDetailsBonReceptionModels(DetailsBonReceptionModels);
+    const listDetails = ListDetails
     listDetails.push(values);
-    props.SetListDetails(listDetails);
-    const list = props.ListProduits
-    props.SetListProduits(list.filter(item => item != values.produit))
-    props.handleClose()
+    SetListDetails(listDetails);
+    const list = ListProduits
+    handleClose()
   }
   return (
     <Modal
-      open={props.open}
-      onClose={props.handleClose}
+      open={open}
+      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -77,7 +71,7 @@ function Modale(props) {
               <Grid md={4} item>
                 <Auto
                   name="produit"
-                  options={props.ListProduits}
+                  options={ListProduits}
                   optionName={"productName"}
                 />
               </Grid>

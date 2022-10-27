@@ -1,23 +1,18 @@
-import { Autocomplete, Button, Grid, List, Stack, TextField, Typography } from "@mui/material";
+import { Autocomplete, Button, Grid, TextField, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import authService from "../../../Services/AuthServices";
 import TableC from './Table';
-import FournisseurService from '../../../Services/FournisseurService'
 import GrossisteService from '../../../Services/UserService'
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
 
 
-function Ajout({ selector, list }) {
-  let navig = useNavigate();
+function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsBonReceptionModels,Fournisseur,setFournisseur,handleSubmit }) {
+  
   const [Grossiste, setGrossiste] = useState('');
-  const [Fournisseur, setFournisseur] = useState('');
-  const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
 
   const defaultProps = {
-    options: list,
+    options: listFournisseur,
     getOptionLabel: (option) => option.raisonSocial,
   };
   useEffect(() => {
@@ -29,38 +24,7 @@ function Ajout({ selector, list }) {
       setGrossiste(res.data)
     })
   }, [])
-  const handleSubmit = async () => {
-    console.log("selector",selector)
-    const user = authService.getCurrentUser();
-    if (selector === "Fournisseur") {
-      let aux = {
-        fournisseurId: Fournisseur.id,
-        grossisteId: user.id,
-        date: new Date(),
-        DetailsBonReceptionModels: detailsBonReceptionModels
-      }
-
-      try {
-        await BonReceptionService.ajout(aux).then(
-          (response) => {
-
-            navig("/feed/bonReception");
-            window.location.reload();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      console.log("marray jay")
-     }
-
-
-  }
-
+ 
   return (
     <Box
       sx={{
@@ -82,6 +46,7 @@ function Ajout({ selector, list }) {
                 disablePortal
                 id="combo-box-demo"
                 {...defaultProps}
+                
                 sx={{ width: 300 }}
                 onChange={(e, value) => { setFournisseur(value); }}
                 renderInput={(params) => <TextField {...params} label={selector} />}
@@ -128,10 +93,10 @@ function Ajout({ selector, list }) {
 
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
-        <TableC detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
+        <TableC  detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
       </Grid>
       <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
-        <Grid md={5} item><Button variant="contained" color="success" onClick={handleSubmit} fullWidth>Confirmer</Button></Grid>
+        <Grid md={5} item><Button variant="contained" color="success" onClick={(e)=>{handleSubmit(e)}} fullWidth>Confirmer</Button></Grid>
 
       </Grid>
     </Box>

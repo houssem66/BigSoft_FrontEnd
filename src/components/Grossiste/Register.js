@@ -5,16 +5,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { CircularProgress, Container, Grid, Paper } from '@mui/material';
-import Textfield from '../FormsUI/Textfields'
-import DateTimePicker from '../FormsUI/DataTimePicker'
-import Civility from '../../Data/Civility.json'
-import TypeClient from '../../Data/TypeClient.json'
-import Gouvernorats from '../../Data/Gouvernorats.json';
-import { Button as Butt } from '../FormsUI/Button';
-import * as Yup from 'yup';
-import { Formik, Form, FormikConfig, FormikValues } from 'formik';
-import Select from '../FormsUI/Select'
+import { CircularProgress, Container, Paper } from '@mui/material';
+import { Formik, Form,   } from 'formik';
 import Authenfication from './Authentification'
 import InformationGenerale from './InformationGenerale'
 import InformationPersonne from './InformationPersonne'
@@ -76,7 +68,7 @@ function Register() {
     try {
       await GrossisteServices.signup(formData).then(
         (response) => {
-          navigate("/feed");
+          navigate("/");
           window.location.reload();
         },
         (error) => {
