@@ -37,7 +37,8 @@ function BonReception() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            BonReceptionService.GetList().then(
+            let params ={include:"DetailsReceptions.Produit,Fournisseur.Grossiste,FactureFournisseur.DetailsFactures"}
+            BonReceptionService.GetList(params).then(
                 (res) => {
                     setList(res.data);
                 },
@@ -121,7 +122,7 @@ function BonReception() {
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {list.map(item => (
+                            {(list)?(list.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>
@@ -177,7 +178,21 @@ function BonReception() {
                                         </div>
                                     </Table.Cell>
 
-                                </Table.Row>))}
+                                </Table.Row>))):(
+                                      <Table.Row >
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                      <Table.Cell>empty</Table.Cell>
+                                  
+  
+                                  </Table.Row>
+                                )}
 
 
                     </Table.Body>

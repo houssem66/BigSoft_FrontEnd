@@ -92,7 +92,7 @@ function EditBon({ selector, listFournisseur,SetDetailsBonReceptionModels,detail
     </Grid>
     <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
       <TableC 
-      listDetailsProp={(bon.detailsReceptions.length>0)?(bon.detailsReceptions):(bon.detailsCommandes)}  
+      listDetailsProp={(bon.detailsReceptions)?(bon.detailsReceptions):(bon.detailsCommandes)}  
       detailsBonReceptionModels={detailsBonReceptionModels} 
       SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} >
 

@@ -5,11 +5,11 @@ const user = authService.getCurrentUser();
 
 const API_URL = "https://localhost:44353/api/BonReception";
 
-
+const config = {
+  headers: authHeader()
+};
 const ajout = (BonReception) => {
-  const config = {
-    headers: authHeader()
-  };
+  
     return axios
    
       .post(API_URL + "/Post", BonReception,config)
@@ -22,37 +22,27 @@ const ajout = (BonReception) => {
         return response.data;
       });
   };
-  const GetList=()=>{
-   
-    const config = {
-      headers: authHeader()
-    };
-    
-    return axios.get(API_URL+"/"+user.id,config);
-  }; 
+  const GetList = (params) => {
+
+    params.id = user.id;
+
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+};
   const Delete=(id)=>{
    
-    const config = {
-      headers: authHeader()
-    };
+  
     
     return  axios.delete(API_URL+"/"+id,config);
   };
   const Put=(item)=>{
   
-    const config = {
-      headers: authHeader()
-    };
-    
-    return  axios.put(API_URL+"/Update",item,config);
+   
+    return  axios.put(API_URL+"/Update/"+item.id,item,config);
   };
     const Confirm=(item)=>{
-  
-    const config = {
-      headers: authHeader()
-    };
-    console.log(item)
-    return  axios.put(API_URL+"/Confirmer",item,config);
+    
+    
+    return  axios.put(API_URL+"/Confirmer?id="+item,item,config);
   };
   
   const ProduitService = {

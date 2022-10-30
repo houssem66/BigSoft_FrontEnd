@@ -35,7 +35,8 @@ function FactureFournisseurIndex() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            FactureService.GetList().then(
+            let params={include:"BonDeReceptionFournisseur.Fournisseur,BonDeReceptionFournisseur.Grossiste,DetailsFactures,BonDeReceptionFournisseur.DetailsReceptions.Produit"}
+            FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);
                 },

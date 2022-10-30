@@ -1,5 +1,9 @@
 import axios from "axios";
 import authHeader from "../HeaderServices";
+import authService from "../AuthServices";
+
+const user = authService.getCurrentUser();
+
 const API_URL = "https://localhost:44353/api/Produit";
 
 
@@ -9,7 +13,7 @@ const ajout = (Produit) => {
   };
     return axios
    
-      .post(API_URL + "/Post", Produit,config)
+      .post(API_URL + "/Post?id="+user.id, Produit,config)
       .then((response) => {
         if (response.data) {
          
@@ -25,7 +29,7 @@ const ajout = (Produit) => {
       headers: authHeader()
     };
     
-    return axios.get(API_URL,config);
+    return axios.get(API_URL+"?id="+user.id,config);
   }; 
   const Delete=(id)=>{
    
@@ -41,7 +45,7 @@ const ajout = (Produit) => {
       headers: authHeader()
     };
     
-    return  axios.put(API_URL+"/Update",item,config);
+    return  axios.put(API_URL+"/Update?id="+item.id,item,config);
   };
   
   const ProduitService = {

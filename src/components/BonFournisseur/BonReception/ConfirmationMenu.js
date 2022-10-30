@@ -65,9 +65,9 @@ function ConfirmationMenu({ color, id, item }) {
         setAnchorEl(null);
     };
     const handleSubmitFacture = () => {
-        formData.append('Id', parseInt(id));
+      
 
-        BonReceptionService.Confirm(formData).then((res) => { window.location.reload(); })
+        BonReceptionService.Confirm(id).then((res) => { window.location.reload(); })
 
     }
     const handleDetailsFacture = () => {

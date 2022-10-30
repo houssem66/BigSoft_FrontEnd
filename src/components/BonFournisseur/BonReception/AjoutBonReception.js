@@ -27,8 +27,8 @@ function AjoutBonReception() {
             await BonReceptionService.ajout(aux).then(
                 (response) => {
 
-                    navig("/feed/bonReception");
-                    window.location.reload();
+                  navig("/feed/bonReception");
+                 window.location.reload();
                 },
                 (error) => {
                     console.log(error);

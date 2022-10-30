@@ -4,22 +4,20 @@ import authHeader from "../HeaderServices";
 const user = authService.getCurrentUser();
 
 const API_URL = "https://localhost:44353/api/FactureFournisseur";
+const config = {
+  headers: authHeader()
+};
 
 
-
-  const GetList=()=>{
+  const GetList=(params)=>{
+    params.id=user.id
    
-    const config = {
-      headers: authHeader()
-    };
     
-    return axios.get(API_URL+"/"+user.id,config);
-  }; 
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    }; 
   const Delete=(id)=>{
    
-    const config = {
-      headers: authHeader()
-    };
+  
     
     return  axios.delete(API_URL+"/"+id,config);
   };

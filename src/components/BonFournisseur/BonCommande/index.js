@@ -40,7 +40,7 @@ function BonDeCommandeIndex() {
             BonCommandeService.GetList(params).then(
                 (res) => {
                     setList(res.data);
-                    console.log("data", res.data);
+                  
                 },
                 (error) => {
                     console.log("Private page", error.response);
@@ -125,7 +125,7 @@ function BonDeCommandeIndex() {
                         </Table.Header>
                         <Table.Body>
                             {list.map(item => (
-                                console.log(item),
+                              
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>
