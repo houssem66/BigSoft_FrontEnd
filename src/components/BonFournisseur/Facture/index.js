@@ -2,7 +2,6 @@ import { Grid, Typography } from "@mui/material";
 import { Button } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
-import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

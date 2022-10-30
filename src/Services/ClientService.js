@@ -25,7 +25,7 @@ const GetList = () => {
 
 
 
-  return axios.get(API_URL+"/"+user.id, config);
+  return axios.get(API_URL + "/" + user.id, config);
 };
 const Delete = (id) => {
 
@@ -35,9 +35,8 @@ const Delete = (id) => {
 };
 const Put = (item) => {
 
-
-
-  return axios.put(API_URL + "/Update", item, config);
+console.log("item",item)
+  return axios.put(API_URL + "/Update?id="+item.id, item, config);
 };
 const clientService = {
   ajout, GetList, Delete, Put
