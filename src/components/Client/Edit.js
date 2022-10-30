@@ -23,7 +23,7 @@ function getProper(typ) {
         label="Cin"
       />;
 
-    case 1: 
+    case 1:
       return <Textfield
         name="identifiant_fiscale"
         label="Identifiant Fiscale"
@@ -103,13 +103,13 @@ function EditClient() {
   }
   const handlesubmit = async (client) => {
 
-
+    console.log(client)
     try {
       await clientService.Put(client).then(
         (response) => {
 
-          navigate("/feed/client");
-          window.location.reload();
+            navigate("/feed/client");
+            window.location.reload();
         },
         (error) => {
           console.log(error);

@@ -34,6 +34,7 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
             return f.produit.id === el.id
         }))
     });
+    console.log("details ion table",listDetailsProp)
     function priceTotaleTTC(list) {
         let sum = 0;
     
@@ -47,7 +48,6 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
         return sum
     } function priceTotaleHT(list) {
         let sum = 0;
-        console.log("list totale ht",list);
         if (list) {
             if (list) { }
             list.map((row) => {

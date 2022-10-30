@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import FournisseurService from '../../../Services/FournisseurService'
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthServices";
-import GrossisteService from '../../../Services/UserService'
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
-import Ajout from './Ajout';
+import BonCommandeService from '../../../Services/BonFournisseur/BonCommandeService'
+import Ajout from '../BonReception/Ajout';
 
-function AjoutBonReception() {
+export default function AjoutBon() {
     let navig = useNavigate();
     const [listFournisseur, SetlistFournisseur] = useState([]);
     const [Fournisseur, setFournisseur] = useState('');
@@ -20,15 +19,17 @@ function AjoutBonReception() {
             fournisseurId: Fournisseur.id,
             grossisteId: user.id,
             date: new Date(),
-            DetailsBonReceptionModels: detailsBonReceptionModels
+            DetailsBonCommandes: detailsBonReceptionModels,
+            prixTotaleTTc:0,
+            prixTotaleHt:0
         }
 
         try {
-            await BonReceptionService.ajout(aux).then(
+            await BonCommandeService.ajout(aux).then(
                 (response) => {
 
-                  navig("/feed/bonReception");
-                 window.location.reload();
+                   navig("/feed/bonCommandeFournisseur");
+                   window.location.reload();
                 },
                 (error) => {
                     console.log(error);
@@ -58,8 +59,6 @@ function AjoutBonReception() {
         );
     }, [])
     return (
-        <>{(listFournisseur) ? (<Ajout title=" Bon de réception" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
+        <>{(listFournisseur) ? (<Ajout title="bon de commande" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
     )
 }
-
-export default AjoutBonReception

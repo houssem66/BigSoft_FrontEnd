@@ -91,7 +91,12 @@ function EditBon({ selector, listFournisseur,SetDetailsBonReceptionModels,detail
 
     </Grid>
     <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
-      <TableC listDetailsProp={bon.detailsReceptions}  detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
+      <TableC 
+      listDetailsProp={(bon.detailsReceptions)?(bon.detailsReceptions):(bon.detailsCommandes)}  
+      detailsBonReceptionModels={detailsBonReceptionModels} 
+      SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} >
+
+      </TableC>
     </Grid>
     <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
       <Grid md={5} item><Button variant="contained" color="success" onClick={(e)=>{handleSubmit(e)}} fullWidth>Confirmer</Button></Grid>

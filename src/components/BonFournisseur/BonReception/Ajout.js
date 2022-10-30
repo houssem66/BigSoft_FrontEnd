@@ -7,8 +7,8 @@ import TableC from './Table';
 import GrossisteService from '../../../Services/UserService'
 
 
-function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsBonReceptionModels,Fournisseur,setFournisseur,handleSubmit }) {
-  
+function Ajout({ title,selector, listFournisseur, SetDetailsBonReceptionModels, detailsBonReceptionModels, Fournisseur, setFournisseur, handleSubmit }) {
+
   const [Grossiste, setGrossiste] = useState('');
 
   const defaultProps = {
@@ -24,7 +24,7 @@ function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsB
       setGrossiste(res.data)
     })
   }, [])
- 
+
   return (
     <Box
       sx={{
@@ -46,7 +46,7 @@ function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsB
                 disablePortal
                 id="combo-box-demo"
                 {...defaultProps}
-                
+
                 sx={{ width: 300 }}
                 onChange={(e, value) => { setFournisseur(value); }}
                 renderInput={(params) => <TextField {...params} label={selector} />}
@@ -61,7 +61,7 @@ function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsB
             <Grid item>
               <Typography variant="h4" gutterBottom>
 
-                <strong style={{ color: "blue" }}> Bon de réception</strong>
+                <strong style={{ color: "blue" }}> {title}</strong>
               </Typography>
               <Typography variant="body1" gutterBottom>
                 Date:
@@ -93,10 +93,10 @@ function Ajout({ selector, listFournisseur,SetDetailsBonReceptionModels,detailsB
 
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
-        <TableC  detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
+        <TableC detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
       </Grid>
       <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
-        <Grid md={5} item><Button variant="contained" color="success" onClick={(e)=>{handleSubmit(e)}} fullWidth>Confirmer</Button></Grid>
+        <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirmer</Button></Grid>
 
       </Grid>
     </Box>

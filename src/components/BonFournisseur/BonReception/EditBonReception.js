@@ -13,7 +13,7 @@ function EditBonReception() {
   const [listFournisseur, SetlistFournisseur] = useState([]);
   const [Fournisseur, setFournisseur] = useState('');
   const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
-  const [bon, SetBon] = useState()
+  const [bon, SetBon] = useState('')
   useEffect(() => {
     if (location.state.Bon) {
       SetBon(location.state.Bon)
@@ -74,7 +74,16 @@ function EditBonReception() {
     );
   }, [])
   return (
-    <>{(listFournisseur && bon && (detailsBonReceptionModels)) ? (<Edit bon={bon} Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Edit>) : (<div>Edit</div>)}</>
+    <>{(listFournisseur && bon && (detailsBonReceptionModels)) ? 
+      (<Edit bon={bon} 
+      Fournisseur={Fournisseur}
+       setFournisseur={setFournisseur}
+        detailsBonReceptionModels={detailsBonReceptionModels} 
+        SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} 
+        selector="Fournisseur" handleSubmit={handleSubmit}
+         listFournisseur={listFournisseur}>
+      </Edit>) 
+    : (<div>Edit</div>)}</>
   )
 }
 
