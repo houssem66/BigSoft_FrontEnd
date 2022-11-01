@@ -20,21 +20,20 @@ function ccyFormat(num) {
 
 //SetListDetails(FilteredList.splice(FilteredList.indexOf(row),1))
 
-function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listDetailsProp, selector }) {
+function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listDetailsProp, selector,client }) {
 
     const [ListProduits, SetListProduits] = useState([]);
     const [ListDetails, SetListDetails] = useState([]);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    let TotaleHt = (ListDetails) ? (priceTotaleHT(ListDetails)) : (0);
-    const TotaleTTc = (ListDetails) ? (priceTotaleTTC(ListDetails)) : (0);
+    let TotaleHt = (ListDetails) ? (priceTotaleHT(ListDetails)) : (priceTotaleHT([]));
+    const TotaleTTc = (ListDetails) ? (priceTotaleTTC(ListDetails)) : (priceTotaleTTC([]));
     const FilteredProduitList = ListProduits.filter((el) => {
         return !(ListDetails.some((f) => {
             return f.produit.id === el.id
         }))
     });
-    console.log("details ion table",listDetailsProp)
     function priceTotaleTTC(list) {
         let sum = 0;
     
@@ -65,8 +64,8 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
     }
    
     useEffect(() => {
-       
-        ProduitService.GetList().then((res) => {
+       let params={include:"StockProduit"}
+        ProduitService.GetList(params).then((res) => {
             SetListProduits(res.data);
         })
     }, [])
@@ -158,7 +157,13 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
                 <TableRow>
                     <TableCell rowSpan={1} />
                     <TableCell colSpan={3} align="center"><Button variant="contained" onClick={handleOpen}>ajouter Produit</Button></TableCell>
-                    <Modale detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ListProduits={FilteredProduitList} SetListProduits={SetListProduits} handleClose={handleClose} SetListDetails={SetListDetails} ListDetails={ListDetails} open={open} ></Modale>
+                    <Modale
+                     detailsBonReceptionModels={detailsBonReceptionModels} 
+                     SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} 
+                     ListProduits={FilteredProduitList} SetListProduits={SetListProduits} 
+                     client={client}
+                     handleClose={handleClose} SetListDetails={SetListDetails} ListDetails={ListDetails}
+                      open={open} ></Modale>
                 </TableRow>
                 <TableRow>
                     <TableCell rowSpan={3} />

@@ -69,7 +69,7 @@ function BonDeCommandeIndex() {
     };
     const handleDetails = (item) => {
 
-        navig('/feed/factureFournisseur_details/', { state: { Bon: item } });
+        navig('/feed/bonCommandeFournisseur_details/', { state: { Bon: item } });
 
     };
     return (

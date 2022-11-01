@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import FournisseurService from '../../../Services/FournisseurService'
+import FournisseurService from '../../../Services/ClientService'
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthServices";
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
-import Ajout from './Ajout';
-
-function AjoutBonReception() {
+import BonLivraison from '../../../Services/BonClient/BonLivraisonService'
+import AjoutL from '../../BonFournisseur/BonReception/Ajout';
+function Ajout() {
     let navig = useNavigate();
     const [listFournisseur, SetlistFournisseur] = useState([]);
     const [Fournisseur, setFournisseur] = useState('');
     const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
     const handleSubmit = async (event) => {
-        console.log(event);
         event.preventDefault();
         const user = authService.getCurrentUser();
-
+console.log("client",Fournisseur.id)
         let aux = {
-            fournisseurId: Fournisseur.id,
+            clientId: Fournisseur.id,
             grossisteId: user.id,
             date: new Date(),
-            DetailsBonReceptionModels: detailsBonReceptionModels
+            detailsLivraisonsModel: detailsBonReceptionModels
         }
 
         try {
-            await BonReceptionService.ajout(aux).then(
+            await BonLivraison.ajout(aux).then(
                 (response) => {
 
-                  navig("/feed/bonReception");
-                 window.location.reload();
+                    navig("/feed/bonLivraison");
+                    window.location.reload();
                 },
                 (error) => {
                     console.log(error);
@@ -43,7 +41,6 @@ function AjoutBonReception() {
             (res) => {
 
                 SetlistFournisseur(res.data);
-
             },
             (error) => {
                 console.log("Private page", error.response);
@@ -57,8 +54,18 @@ function AjoutBonReception() {
         );
     }, [])
     return (
-        <>{(listFournisseur) ? (<Ajout title=" Bon de réception" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
+        <>{(listFournisseur) ?
+            (<AjoutL
+                title=" Bon de livraison"
+                Fournisseur={Fournisseur}
+                setFournisseur={setFournisseur}
+                detailsBonReceptionModels={detailsBonReceptionModels}
+                SetDetailsBonReceptionModels={SetDetailsBonReceptionModels}
+                selector="Client" handleSubmit={handleSubmit} listFournisseur={listFournisseur}
+                client={true}
+                ></AjoutL>)
+            : (<div>ajout</div>)}</>
     )
 }
 
-export default AjoutBonReception
+export default Ajout
