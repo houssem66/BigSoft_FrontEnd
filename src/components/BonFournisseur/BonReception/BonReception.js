@@ -1,4 +1,4 @@
-import { Grid, List, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Button } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';

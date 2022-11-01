@@ -7,7 +7,7 @@ import TableC from './Table';
 import GrossisteService from '../../../Services/UserService'
 
 
-function Ajout({ title,selector, listFournisseur, SetDetailsBonReceptionModels, detailsBonReceptionModels, Fournisseur, setFournisseur, handleSubmit }) {
+function Ajout({ title,selector, listFournisseur, SetDetailsBonReceptionModels, detailsBonReceptionModels, Fournisseur, setFournisseur, handleSubmit ,client}) {
 
   const [Grossiste, setGrossiste] = useState('');
 
@@ -93,7 +93,7 @@ function Ajout({ title,selector, listFournisseur, SetDetailsBonReceptionModels, 
 
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
-        <TableC detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
+        <TableC client={client} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
       </Grid>
       <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
         <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirmer</Button></Grid>

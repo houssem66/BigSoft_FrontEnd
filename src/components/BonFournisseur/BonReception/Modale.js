@@ -1,11 +1,13 @@
 import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
-import { Formik, Form, } from 'formik';
+import { Formik, Form, useFormikContext, } from 'formik';
 import * as Yup from 'yup';
 import Textfield from '../../FormsUI/Textfields'
 import { Grid } from "@mui/material";
 import Button from '../../FormsUI/Button'
 import Auto from '../../FormsUI/AutoComplete'
+import { useRef } from 'react';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -17,21 +19,48 @@ const style = {
   boxShadow: 24,
   p: 4,
 }
-function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListDetails, SetListDetails, handleClose, open, ListProduits, }) {
+function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListDetails, SetListDetails, handleClose, open, ListProduits, client }) {
+  let product = useRef();
+  const [quantite, setQuantite] = useState(0);
   const INITIAL_FORM_STATE = {
-
+    client: client,
     produit: '',
     quantite: ''
 
   };
   const FORM_VALIDATION = Yup.object().shape({
     produit: Yup.object("").nullable().required('required'),
-    quantite: Yup.number("Doit etre un nombre").required('required'),
+    quantite: Yup.number("Doit etre un nombre").required('required').when('client',
+      {
+        is: true,
+        then: Yup.number("Doit etre un nombre").lessThan(quantite+1)
+      }),
 
 
 
   });
+  const AutoSubmitToken = () => {
+    const { values, submitForm } = useFormikContext();
+    const produit = values.produit;
+    console.log("client",client);
+    let quantite = 0
+    if (produit){
+      produit.stockProduit.forEach(element => {
+        quantite += parseInt(element.quantite)
+      });
+      setQuantite(quantite);
+    }
+ 
+    // React.useEffect(() => {
 
+    //   if (values.typeClient != null) {
+    //     setTypeCLient(values.typeClient);
+
+
+    //   }
+
+    // }, [values.typeClient]);
+  };
   const handlesubmit = async (values) => {
     let ojb = { idProduit: values.produit.id, quantite: values.quantite }
     let DetailsBonReceptionModels = detailsBonReceptionModels;
@@ -61,6 +90,8 @@ function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListD
 
         >
           <Form>
+            <AutoSubmitToken />
+
             <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
               <Grid item md={12} >
                 <Typography variant="button" display="block" gutterBottom>
@@ -73,6 +104,7 @@ function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListD
                   name="produit"
                   options={ListProduits}
                   optionName={"productName"}
+                  ref={product}
                 />
               </Grid>
               <Grid md={4} item >
@@ -87,6 +119,7 @@ function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListD
             <Button >
               Enregistrer
             </Button>
+            <input type="hidden" name='client'></input>
           </Form>
 
         </Formik>

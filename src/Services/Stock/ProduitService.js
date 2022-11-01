@@ -23,13 +23,13 @@ const ajout = (Produit) => {
         return response.data;
       });
   };
-  const GetList=()=>{
+  const GetList=(params)=>{
    
     const config = {
       headers: authHeader()
     };
     
-    return axios.get(API_URL+"?id="+user.id,config);
+    return axios.get(API_URL+"?id="+user.id+"&include="+params.include,config);
   }; 
   const Delete=(id)=>{
    

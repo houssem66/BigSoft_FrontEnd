@@ -14,12 +14,17 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import {  useNavigate } from "react-router-dom";
 const ListItems = () => {
   const [open, setOpen] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+
 const handleClick = () => {
     setOpen(!open);
   }; 
   const [open2, setOpen2] = React.useState(false);
 const handleClick2 = () => {
     setOpen2(!open2);
+  };
+  const handleClick3 = () => {
+    setOpen3(!open3);
   };
   let navig=useNavigate();
   return (<React.Fragment>
@@ -94,7 +99,47 @@ const handleClick2 = () => {
         </ListItemButton>
       </List>
     </Collapse> 
-    
+    <ListItemButton onClick={handleClick3}>
+      <ListItemIcon>
+        <InboxIcon />
+      </ListItemIcon>
+      <ListItemText primary="Gestion de vente" />
+      {open2 ? <ExpandLess /> : <ExpandMore />}
+    </ListItemButton>
+    <Collapse in={open3} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/bonCommandeClient");}} primary="Bon de Commande" />
+        </ListItemButton> 
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/bonLivraison");}} primary="Bon de Livraison" />
+        </ListItemButton> 
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/bonSortie");}} primary="Bon de sortie" />
+        </ListItemButton>
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/devis");}} primary="Devis" />
+        </ListItemButton>
+        <ListItemButton  sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText onClick={event=>{navig("/feed/factureClient");}} primary="Facture" />
+        </ListItemButton>
+      </List>
+    </Collapse> 
     </React.Fragment>);
 }
 

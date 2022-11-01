@@ -3,11 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService';
 import { useNavigate } from 'react-router-dom';
@@ -51,9 +47,7 @@ const StyledMenu = styled((props) => (
         },
     },
 }));
-function ConfirmationMenu({ color, id, item }) {
-    let formData = new FormData();
-   
+function ConfirmationMenu({ color, id, item }) {   
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);

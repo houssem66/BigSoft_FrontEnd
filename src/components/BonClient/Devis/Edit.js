@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import FournisseurService from '../../../Services/FournisseurService'
+import FournisseurService from '../../../Services/ClientService'
 import { useLocation, useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthServices";
-import GrossisteService from '../../../Services/UserService'
-import BonReceptionService from '../../../Services/BonFournisseur/BonReceptionService'
-
-import Edit from './EditBon';
-
-function EditBonReception() {
+import BonLivraison from '../../../Services/BonClient/DevisService'
+import EditBon from '../../BonFournisseur/BonReception/EditBon';
+function Edit() {
   let location = useLocation();
   let navig = useNavigate();
   const [listFournisseur, SetlistFournisseur] = useState([]);
@@ -15,11 +12,11 @@ function EditBonReception() {
   const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
   const [bon, SetBon] = useState('')
   useEffect(() => {
-    if (location.state.Bon) {
+    if (location.state.Bon.detailsDevis) {
       SetBon(location.state.Bon)
-      setFournisseur(location.state.Bon.fournisseur)
+      setFournisseur(location.state.Bon.client)
       let aux = []
-      location.state.Bon.detailsReceptions.forEach(element => {
+      location.state.Bon.detailsDevis.forEach(element => {
         let ojb = { idProduit: element.idProduit, quantite: element.quantite }
         aux.push(ojb)
       });
@@ -27,24 +24,25 @@ function EditBonReception() {
     }
 
   }, [])
+  console.log(location.state.Bon)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const user = authService.getCurrentUser();
 
     let aux = {
-      id:location.state.Bon.id,
-      fournisseurId: Fournisseur.id,
+      id: location.state.Bon.id,
+      clientId: Fournisseur.id,
       grossisteId: user.id,
       date: new Date(),
-      DetailsBonReceptionModels: detailsBonReceptionModels
+      DetailsDevisModels: detailsBonReceptionModels
     }
 
     try {
-      await BonReceptionService.Put(aux).then(
+      await BonLivraison.Put(aux).then(
         (response) => {
 
-          navig("/feed/bonReception");
+          navig("/feed/devis");
           window.location.reload();
         },
         (error) => {
@@ -74,18 +72,20 @@ function EditBonReception() {
     );
   }, [])
   return (
-    <>{(listFournisseur && bon && (detailsBonReceptionModels)) ? 
-      (<Edit bon={bon} 
-      Fournisseur={Fournisseur}
-       setFournisseur={setFournisseur}
-        detailsBonReceptionModels={detailsBonReceptionModels} 
-        SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} 
-        selector="Fournisseur" handleSubmit={handleSubmit}
-         listFournisseur={listFournisseur} title="Bon de réception"
-         >
-      </Edit>) 
-    : (<div>Edit</div>)}</>
+    <>{(listFournisseur && bon && (detailsBonReceptionModels)) ?
+      (<EditBon bon={bon}
+        title="devis"
+        Fournisseur={Fournisseur}
+        setFournisseur={setFournisseur}
+        detailsBonReceptionModels={detailsBonReceptionModels}
+        SetDetailsBonReceptionModels={SetDetailsBonReceptionModels}
+        selector="Client" handleSubmit={handleSubmit}
+        listFournisseur={listFournisseur}
+
+      >
+      </EditBon>)
+      : (<div>ss</div>)}</>
   )
 }
 
-export default EditBonReception
+export default Edit

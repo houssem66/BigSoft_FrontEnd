@@ -11,8 +11,9 @@ function DetailsBonReception() {
         SetBon(location.state.Bon)
     },[location])
     return (
-        <>
-        <DetailsBon selector={"Fournisseur"} title="Bon de réception" bon={bon}></DetailsBon>
+        <>{(bon)?(  <DetailsBon selector={"Fournisseur"} title="Bon de réception" bon={bon}></DetailsBon>)
+            :(<div></div>)}
+      
         </>
     )
 }
