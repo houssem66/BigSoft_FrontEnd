@@ -1,26 +1,50 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import DetailsBon from '../../BonFournisseur/BonReception/DetailsBon'
+import FactureService from '../../../Services/BonClient/FactureClientService';
+import authService from "../../../Services/AuthServices";
+
 function Details() {
+  let navig = useNavigate()
   let location = useLocation();
   const [facture, setfacture] = useState('');
   useEffect(() => {
-    if (location.state.Facture.detailsFactures) {
-      console.log("ok")
-      setfacture(location.state.Facture.bonLivraisonClient)
+    // console.log("it works",   ) 
+    if (Number.isInteger(location.state.Facture)) {
+      let params = { include: "BonLivraisonClient.Grossiste,BonLivraisonClient.Client,DetailsFactures,BonLivraisonClient.DetailsLivraisons.Produit" }
+      params.idP = location.state.Facture
+      FactureService.GetList(params).then(
+        (res) => {
+          setfacture(res.data[0].bonLivraisonClient	);
+        },
+        (error) => {
+          console.log("Private page", error.response);
+          // Invalid token
+          if (error.response && error.response.status === 403) {
+            authService.logout();
+            navig("/login");
+            window.location.reload();
+          }
+        }
+      );
     }
     else {
-      setfacture(location.state.Facture);
+      if (location.state.Facture.detailsFactures) {
+        setfacture(location.state.Facture.bonLivraisonClient)
+      }
+      else {
+        setfacture(location.state.Facture);
+      }
     }
+
 
 
   }, [location])
-  console.log("facture", facture)
 
-    
+
   return (
-<>
+    <>
       {(facture) ?
         (
 
@@ -30,7 +54,7 @@ function Details() {
           <div>not ok</div>
         )
       }
-    </>  )
+    </>)
 }
 
 export default Details

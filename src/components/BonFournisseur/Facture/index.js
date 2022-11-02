@@ -36,6 +36,7 @@ function FactureFournisseurIndex() {
         if (Fetch) {
             setFetch(false)
             let params={include:"BonDeReceptionFournisseur.Fournisseur,BonDeReceptionFournisseur.Grossiste,DetailsFactures,BonDeReceptionFournisseur.DetailsReceptions.Produit"}
+            params.idP = 0
             FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);

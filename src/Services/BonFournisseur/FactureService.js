@@ -11,9 +11,9 @@ const config = {
 
   const GetList=(params)=>{
     params.id=user.id
-   
+   console.log("ipd",params.idP)
     
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&idP="+params.idP, config);
     }; 
   const Delete=(id)=>{
    

@@ -13,7 +13,7 @@ const config = {
     params.id=user.id
    
     
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&idP="+params.idP, config);
     }; 
   const Delete=(id)=>{
    

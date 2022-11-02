@@ -36,7 +36,7 @@ function Index() {
   //fetch data Produit
   useEffect(() => {
       if (Fetch){
-        let params={include:"StockProduit"}
+        let params={include:"StockProduit,DetailsFactures.FactureFournisseur,DetailsFactureClients.FactureClient"}
         ProduitService.GetList(params).then(
               (res) => {
   
@@ -56,7 +56,6 @@ function Index() {
       }
      
   },[Fetch]);
-  console.log("here")
   //Handles
   const handleEdit = (item) => {
 
