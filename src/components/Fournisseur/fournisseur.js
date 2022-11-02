@@ -23,6 +23,7 @@ const Fournisseur = () => {
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
+    const [name, setName] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,11 +34,11 @@ const Fournisseur = () => {
     };
     //fetch data fournisseur
     useEffect(() => {
-        if (Fetch){
+        if (Fetch) {
 
             fournisseurService.GetList().then(
                 (res) => {
-    
+
                     setList(res.data);
                     setFetch(false)
                 },
@@ -52,17 +53,17 @@ const Fournisseur = () => {
                 }
             );
         }
-       
-    },[Fetch]);
-    //Handles
-    const handleEdit =  (item) => {
 
-        navig('/feed/editFournisseur/',{state:{fournisseur:item}});
+    }, [Fetch]);
+    //Handles
+    const handleEdit = (item) => {
+
+        navig('/feed/editFournisseur/', { state: { fournisseur: item } });
 
     };
-    const handleDetails =  (item) => {
+    const handleDetails = (item) => {
 
-        navig('/feed/detailsFournisseur/',{state:{fournisseur:item}});
+        navig('/feed/detailsFournisseur/', { state: { fournisseur: item } });
 
     };
     const handleDelete = async (id) => {
@@ -70,6 +71,16 @@ const Fournisseur = () => {
         setFetch(true)
         setOpen(false);
     };
+    //Filtering list 
+    let filteredList = list.filter((item) => {
+        if (name != '') {
+            return item.raisonSocial.toLowerCase().includes(name.toLowerCase())
+                || item.nomPersAContact.toLowerCase().includes(name.toLowerCase())
+                || item.prenomPersAContact.toLowerCase().includes(name.toLowerCase())
+        } return item
+    });
+
+    console.log(name)
     return (
         <Box
             sx={{
@@ -85,9 +96,11 @@ const Fournisseur = () => {
                     <Input
                         clearable
                         underlined
+                        value={name}
                         color="success"
                         labelPlaceholder="Search"
                         width="100%"
+                        onChange={(e, v) => { setName(e.target.value) }}
                         contentRight={
                             <SearchIcon filled width="16" height="16" fill="#f5a623" />
                         }
@@ -118,7 +131,7 @@ const Fournisseur = () => {
                             <Table.Column>Actions</Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {list.map(item => (
+                            {filteredList.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.id}</Table.Cell>
                                     <Table.Cell>{item.raisonSocial}</Table.Cell>
@@ -130,10 +143,10 @@ const Fournisseur = () => {
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        <IconButton onClick={()=>{handleEdit(item)}} color="error" aria-label="Edit">
+                                        <IconButton onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
                                             <EditIcon />
                                         </IconButton>
-                                        <IconButton onClick={()=>{handleDetails(item)}} color="default" aria-label="Edit">
+                                        <IconButton onClick={() => { handleDetails(item) }} color="default" aria-label="Edit">
                                             <VisibilityIcon />
                                         </IconButton>
                                         <div>
@@ -182,7 +195,7 @@ const Fournisseur = () => {
                 </Grid>
             </Grid></Box>
     )
-        
+
 }
 
 export default Fournisseur;

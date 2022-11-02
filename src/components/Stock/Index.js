@@ -1,5 +1,5 @@
-import { createTheme, Grid, Paper, ThemeProvider, Typography } from "@mui/material";
-import { Button } from "@nextui-org/react";
+import { createTheme, Grid, MenuItem, Paper, Select, ThemeProvider, Typography } from "@mui/material";
+import { Button, useAsyncList } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
 import AddIcon from '@mui/icons-material/Add';
@@ -19,7 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import StockService from '../../Services/Stock/StockService'
 import UnitOfMeasure from '../../Data/UnitOfMeasure.json'
-import Category from '../../Data/Category.json'
+import category from '../../Data/Category.json'
 const theme = createTheme({
   typography: {
     button: {
@@ -34,16 +34,37 @@ const theme = createTheme({
 function Index() {
   let navig = useNavigate();
   const [store, setStore] = useState([]);
+  const [name, setName] = useState('');
+  const [aux, setAux] = useState([]);
   const [open, setOpen] = useState(false);
   const [Fetch, setFetch] = useState(true);
+  const [Category, setCategory] = useState('');
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
   let unit = Object.values(UnitOfMeasure)
-  let cat = Object.values(Category)
+  let cat = Object.values(category)
   const handleClose = () => {
     setOpen(false);
   };
+  let filteredList = aux.filter((item) => {
+    if (name != '') {
+   
+      return item.produit.productName.toLowerCase().includes(name.toLowerCase())   
+      
+     
+    }
+    return item
+  }).filter((item)=>{
+    if (Category!='')
+    {
+      return  item.produit.category === Category
+    }
+    return item;
+  });
   useEffect(() => {
 
     if (Fetch) {
@@ -51,6 +72,7 @@ function Index() {
       StockService.GetList(include).then(
         (res) => {
           setStore(res.data);
+          setAux(res.data.stockProduit)
           setFetch(false)
         },
         (error) => {
@@ -66,9 +88,80 @@ function Index() {
     }
 
   }, [Fetch]);
-  console.log("store", store)
 
-  return (<>{(store.stockProduit)?(  <ThemeProvider theme={theme}>
+  async function sort({ items, sortDescriptor }) {
+    if (sortDescriptor.direction === "descending") {
+      switch (sortDescriptor.column) {
+        case ".0.1": setAux(aux.sort((a, b) => {
+
+          return a.produit.priceHt - b.produit.priceHt
+        }))
+          break;
+        case ".0.2":
+          setAux(aux.sort((a, b) => {
+
+            return a.produit.priceTTc - b.produit.priceTTc
+          }))
+          break;
+        case ".0.6": setAux(aux.sort((a, b) => {
+
+          return a.quantite - b.quantite
+        }))
+          break;
+        case ".0.7": setAux(aux.sort((a, b) => {
+
+          return a.prixTotaleHt - b.prixTotaleHt
+        }))
+          break;
+        case ".0.8": setAux(aux.sort((a, b) => {
+
+          return a.prixTotaleTTc - b.prixTotaleTTc
+        }))
+          break;
+        default:
+      }
+
+    }
+    else {
+      switch (sortDescriptor.column) {
+        case ".0.1": setAux(aux.sort((a, b) => {
+
+          return b.produit.priceHt - a.produit.priceHt
+        }))
+
+          break;
+        case ".0.2": setAux(aux.sort((a, b) => {
+
+          return b.produit.priceTTc - a.produit.priceTTc
+        }))
+          break;
+        case ".0.6": setAux(aux.sort((a, b) => {
+
+          return b.quantite - a.quantite
+        }))
+          break;
+        case ".0.7": setAux(aux.sort((a, b) => {
+
+          return b.prixTotaleHt - a.prixTotaleHt
+        }))
+          break;
+        case ".0.8": setAux(aux.sort((a, b) => {
+
+          return b.prixTotaleTTc - a.prixTotaleTTc
+        }))
+          break;
+        default:
+          break;
+      }
+      //  filteredList.sort((a, b) => { return b.prixTotaleTTc - a.prixTotaleTTc })
+
+    }
+
+
+  }
+  const list = useAsyncList({ sort });
+
+  return (<>{(store.stockProduit) ? (<ThemeProvider theme={theme}>
     <Box
       sx={{
 
@@ -90,19 +183,21 @@ function Index() {
         </Grid>
         <Grid item md={6}></Grid>
         <Grid item md={3}>
-        <Typography variant='body1'>{(store.storeName)?(store.storeName):(<div>....</div>)}</Typography>
-      </Grid>
-      <Grid item md={3}>
-        <Typography variant='body1'>{(store.storeName)?(store.sum +' TND'):(<div>....</div>)}</Typography>
-      </Grid>
-      <Grid item md={6}>
+          <Typography variant='body1'>{(store.storeName) ? (store.storeName) : (<div>....</div>)}</Typography>
+        </Grid>
+        <Grid item md={3}>
+          <Typography variant='body1'>{(store.storeName) ? (store.sum + ' TND') : (<div>....</div>)}</Typography>
+        </Grid>
+        <Grid item md={6}>
 
+        </Grid>
       </Grid>
-      </Grid>
-      
+
       <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
-        <Grid item md={10}>
+        <Grid item md={8}>
           <Input
+            value={name}
+            onChange={(e) => { setName(e.target.value) }}
             clearable
             underlined
             color="success"
@@ -113,6 +208,20 @@ function Index() {
             }
           />
 
+        </Grid>
+        <Grid item md={2} >
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={Category}
+            sx={{ fontSize: "15px" }}
+            label="Age"
+            onChange={handleChange}
+            fullWidth
+          >
+            <MenuItem sx={{ fontSize: "15px" }} value={0}>Boissons</MenuItem>
+            <MenuItem sx={{ fontSize: "15px" }} value={1}>Alimentaire</MenuItem>
+          </Select>
         </Grid>
         <Grid item md={2}>
           <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/produit_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
@@ -130,21 +239,22 @@ function Index() {
               border: "3",
 
             }}
-
+            sortDescriptor={list.sortDescriptor}
+            onSortChange={list.sort}
           >
             <Table.Header>
               <Table.Column>productName</Table.Column>
-              <Table.Column>Prix Unitaire Ht</Table.Column>
-              <Table.Column>Prix Unitaire TTc</Table.Column>
+              <Table.Column allowsSorting>Prix Unitaire Ht</Table.Column>
+              <Table.Column allowsSorting>Prix Unitaire TTc</Table.Column>
               <Table.Column>category</Table.Column>
               <Table.Column>TVA</Table.Column>
-              <Table.Column>Unité de mésure</Table.Column>
-              <Table.Column>Quantite</Table.Column>
-              <Table.Column>Prix Totale TTC</Table.Column>
-              <Table.Column>Prix Totale HT</Table.Column>
+              <Table.Column >Unité de mésure</Table.Column>
+              <Table.Column allowsSorting>Quantite</Table.Column>
+              <Table.Column allowsSorting>Prix Totale TTC</Table.Column>
+              <Table.Column allowsSorting>Prix Totale HT</Table.Column>
             </Table.Header>
             <Table.Body>
-              {store.stockProduit.map(item => (
+              {filteredList.map(item => (
                 <Table.Row key={item.id}>
                   <Table.Cell>{item.produit.productName}</Table.Cell>
                   <Table.Cell>{item.produit.priceHt}</Table.Cell>
@@ -172,8 +282,8 @@ function Index() {
             />
           </Table>
         </Grid>
-      </Grid></Box></ThemeProvider>):(<div>not ok</div>)}</>
-  
+      </Grid></Box></ThemeProvider>) : (<div>not ok</div>)}</>
+
   )
 }
 

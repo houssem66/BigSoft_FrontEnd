@@ -23,6 +23,7 @@ function Client() {
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
+    const [name, setName] = useState('');
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -30,6 +31,13 @@ function Client() {
     const handleClose = () => {
         setOpen(false);
     };
+    let filteredList = list.filter((item) => {
+        if (name != '') {
+            return item.nom.toLowerCase().includes(name.toLowerCase())
+                || item.prenom.toLowerCase().includes(name.toLowerCase())
+                || item.email.toLowerCase().includes(name.toLowerCase())
+        } return item
+    });
     //fetch data fournisseur
     useEffect(() => {
         if (Fetch){
@@ -81,6 +89,8 @@ function Client() {
                 <Grid item md={10}>
                     <Input
                         clearable
+                        value={name}
+                        onChange={(e)=>{setName(e.target.value)}}
                         underlined
                         color="success"
                         labelPlaceholder="Search"
@@ -115,7 +125,7 @@ function Client() {
                             <Table.Column>Actions</Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {list.map(item => (
+                            {filteredList.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.id}</Table.Cell>
                                     <Table.Cell>{item.nom}</Table.Cell>
