@@ -1,12 +1,15 @@
 import axios from "axios";
-import authHeader from "./HeaderServices";
+import authHeader from "../HeaderServices";
+import authService from "../AuthServices";
+
 const API_URL = "https://localhost:44353/api/Stock";
+const user = authService.getCurrentUser();
 
-
+const config = {
+  headers: authHeader()
+};
 const ajout = (Stock) => {
-  const config = {
-    headers: authHeader()
-  };
+  
     return axios
    
       .post(API_URL + "/Post", Stock,config)
@@ -19,27 +22,20 @@ const ajout = (Stock) => {
         return response.data;
       });
   };
-  const GetList=()=>{
+  const GetList=(include)=>{
    
-    const config = {
-      headers: authHeader()
-    };
+   
     
-    return axios.get(API_URL,config);
+    return axios.get(API_URL+"?id="+user.id+"&include="+include,config);
   }; 
   const Delete=(id)=>{
    
-    const config = {
-      headers: authHeader()
-    };
+    
     
     return  axios.delete(API_URL+"/"+id,config);
   };
   const Put=(item)=>{
   
-    const config = {
-      headers: authHeader()
-    };
     
     return  axios.put(API_URL+"/Update",item,config);
   };

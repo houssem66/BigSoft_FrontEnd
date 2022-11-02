@@ -36,7 +36,8 @@ function Index() {
   //fetch data Produit
   useEffect(() => {
       if (Fetch){
-        ProduitService.GetList().then(
+        let params={include:"StockProduit"}
+        ProduitService.GetList(params).then(
               (res) => {
   
                   setList(res.data);

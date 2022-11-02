@@ -17,7 +17,7 @@ function Infromation(props) {
     const [produit,SetProduit]=useState(props.Produit)
     let unit=Object.values(UnitOfMeasure)
     let cat=Object.values(Category)
-    console.log(produit)
+    console.log("here",produit.stockProduit[0].prixTotaleTTc)
     return (
         <>{(props.Produit!=null)?(  <ThemeProvider theme={theme}>
                 
@@ -70,7 +70,7 @@ function Infromation(props) {
                          </Typography>
                         </Grid>
                         <Grid md={4}sx={{mt:2}}>
-                        <Typography variant='body1'>0.0000 TND</Typography>
+                        <Typography variant='body1'>{( produit.stockProduit[0])?(produit.stockProduit[0].prixTotaleTTc):(0) } TND</Typography>
                         </Grid>
                        
                     </Grid>
