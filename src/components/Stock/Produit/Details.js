@@ -43,7 +43,7 @@ function Details() {
         }}
       >
         <Grid container spacing={30} direction="row" justifyContent="space-between" alignItems="flex-end">
-          <Grid item md={2}><Typography variant="h4" gutterBottom>
+          <Grid item md={3}><Typography variant="h4" gutterBottom>
            {location.state.produit.productName}
           </Typography></Grid>
           <Grid item>
@@ -51,7 +51,7 @@ function Details() {
           </Grid>
           <Grid item md={2}> <Typography variant="body1" gutterBottom>
             En stock
-            <strong style={{ color: "blue" }}> {location.state.produit.stockProduit[0].quantite}</strong>
+            <strong style={{ color: "blue" }}> {(location.state.produit.stockProduit[0])?(location.state.produit.stockProduit[0].quantite):(0) }</strong>
           </Typography>
             <Button variant="contained" color="secondary" onClick={() => {
               navigate('/feed/produit_edit/', { state: { produit: location.state.produit } });

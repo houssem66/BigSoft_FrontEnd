@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { createTheme, Grid, Paper, ThemeProvider, Typography } from "@mui/material";
 import { Button } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
@@ -20,9 +20,20 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import StockService from '../../Services/Stock/StockService'
 import UnitOfMeasure from '../../Data/UnitOfMeasure.json'
 import Category from '../../Data/Category.json'
+const theme = createTheme({
+  typography: {
+    button: {
+      color: "#808080"
+    }, body1: {
+      fontWeight: "600",
+      fontSize: "24px",
+      color: "blueviolet"
+    },
+  },
+});
 function Index() {
   let navig = useNavigate();
-  const [list, setList] = useState([]);
+  const [store, setStore] = useState([]);
   const [open, setOpen] = useState(false);
   const [Fetch, setFetch] = useState(true);
   const handleClickOpen = () => {
@@ -39,7 +50,7 @@ function Index() {
       let include = "StockProduit.Produit";
       StockService.GetList(include).then(
         (res) => {
-          setList(res.data.stockProduit);
+          setStore(res.data);
           setFetch(false)
         },
         (error) => {
@@ -55,17 +66,40 @@ function Index() {
     }
 
   }, [Fetch]);
-  console.log("list", list)
-  return (
+  console.log("store", store)
+
+  return (<>{(store.stockProduit)?(  <ThemeProvider theme={theme}>
     <Box
       sx={{
-        my: 8,
+
         mx: 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+
       }}
     >
+      <Grid sx={{ ml: 5 }} container spacing={1}>
+        <Grid md={3} item>
+          <Typography variant='h5'>Information logistiques</Typography>
+        </Grid>
+        <Grid item md={9}></Grid>
+        <Grid item md={3}><Typography variant='button'>Lieu de stockage</Typography></Grid>
+        <Grid item md={3}>
+          <Typography variant='button'>Valeur monitaire</Typography>
+        </Grid>
+        <Grid item md={6}></Grid>
+        <Grid item md={3}>
+        <Typography variant='body1'>{(store.storeName)?(store.storeName):(<div>....</div>)}</Typography>
+      </Grid>
+      <Grid item md={3}>
+        <Typography variant='body1'>{(store.storeName)?(store.sum +' TND'):(<div>....</div>)}</Typography>
+      </Grid>
+      <Grid item md={6}>
+
+      </Grid>
+      </Grid>
+      
       <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
         <Grid item md={10}>
           <Input
@@ -88,13 +122,13 @@ function Index() {
             shadow={false}
             color="secondary"
             lined={true}
-          
+
             aria-label="Example pagination  table"
             css={{
               height: "auto",
               minWidth: "100%",
-              border:"3",
-             
+              border: "3",
+
             }}
 
           >
@@ -110,22 +144,22 @@ function Index() {
               <Table.Column>Prix Totale HT</Table.Column>
             </Table.Header>
             <Table.Body>
-              {list.map(item => (
-                        <Table.Row key={item.id}>
-                            <Table.Cell>{item.produit.productName}</Table.Cell>
-                            <Table.Cell>{item.produit.priceHt}</Table.Cell>
-                            <Table.Cell>{item.produit.priceTTc}</Table.Cell>
-                            <Table.Cell>{cat[item.produit.category]}</Table.Cell>
-                            <Table.Cell>{item.produit.tva}%</Table.Cell>
-                            <Table.Cell>{unit [item.produit.unitOfMeasure]}</Table.Cell>
-                            <Table.Cell>{item.quantite}</Table.Cell>
-                            <Table.Cell>{item.prixTotaleHt}</Table.Cell>
-                            <Table.Cell>{item.prixTotaleTTc}</Table.Cell>
-                         
-                          
+              {store.stockProduit.map(item => (
+                <Table.Row key={item.id}>
+                  <Table.Cell>{item.produit.productName}</Table.Cell>
+                  <Table.Cell>{item.produit.priceHt}</Table.Cell>
+                  <Table.Cell>{item.produit.priceTTc}</Table.Cell>
+                  <Table.Cell>{cat[item.produit.category]}</Table.Cell>
+                  <Table.Cell>{item.produit.tva}%</Table.Cell>
+                  <Table.Cell>{unit[item.produit.unitOfMeasure]}</Table.Cell>
+                  <Table.Cell>{item.quantite}</Table.Cell>
+                  <Table.Cell>{item.prixTotaleHt}</Table.Cell>
+                  <Table.Cell>{item.prixTotaleTTc}</Table.Cell>
 
-                        </Table.Row>))} 
-           
+
+
+                </Table.Row>))}
+
 
 
             </Table.Body>
@@ -138,7 +172,8 @@ function Index() {
             />
           </Table>
         </Grid>
-      </Grid></Box>
+      </Grid></Box></ThemeProvider>):(<div>not ok</div>)}</>
+  
   )
 }
 

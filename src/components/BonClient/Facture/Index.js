@@ -35,7 +35,9 @@ function Index() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params={include:"BonLivraisonClient.Grossiste,BonLivraisonClient.Client,DetailsFactures,BonLivraisonClient.DetailsLivraisons.Produit"}
+            let params={include:"BonLivraisonClient.Grossiste,BonLivraisonClient.Client,DetailsFactures,BonLivraisonClient.DetailsLivraisons.Produit",idP:0}
+            params.idP = 0
+
             FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);

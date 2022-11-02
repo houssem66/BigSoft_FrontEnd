@@ -17,7 +17,6 @@ function Infromation(props) {
     const [produit,SetProduit]=useState(props.Produit)
     let unit=Object.values(UnitOfMeasure)
     let cat=Object.values(Category)
-    console.log("here",produit.stockProduit[0].prixTotaleTTc)
     return (
         <>{(props.Produit!=null)?(  <ThemeProvider theme={theme}>
                 
