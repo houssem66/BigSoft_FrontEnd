@@ -44,14 +44,14 @@ function Details() {
       >
         <Grid container spacing={30} direction="row" justifyContent="space-between" alignItems="flex-end">
           <Grid item md={2}><Typography variant="h4" gutterBottom>
-            Coca
+           {location.state.produit.productName}
           </Typography></Grid>
           <Grid item>
 
           </Grid>
           <Grid item md={2}> <Typography variant="body1" gutterBottom>
             En stock
-            <strong style={{ color: "blue" }}> 0</strong>
+            <strong style={{ color: "blue" }}> {location.state.produit.stockProduit[0].quantite}</strong>
           </Typography>
             <Button variant="contained" color="secondary" onClick={() => {
               navigate('/feed/produit_edit/', { state: { produit: location.state.produit } });
