@@ -13,7 +13,7 @@ const config = {
     params.id=user.id
    console.log("ipd",params.idP)
     
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&idP="+params.idP, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&iDC="+params.iDC, config);
     }; 
   const Delete=(id)=>{
    
@@ -23,8 +23,12 @@ const config = {
   };
 
 
+  const GetById=(id)=>{
   
+   
+    return  axios.get(API_URL+"/Get/"+id,config);
+  };
   const FactureService = {
-    GetList,Delete
+    GetList,Delete,GetById
   };
   export default FactureService;

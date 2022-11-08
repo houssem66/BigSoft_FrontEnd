@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { Button } from "@nextui-org/react";
+import { Button, useAsyncList } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
 import Box from '@mui/material/Box';
@@ -18,13 +18,63 @@ import DialogTitle from '@mui/material/DialogTitle';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-
-function BonDeCommandeIndex() {
+import typeCLient from '../../../Data/TypeClient.json'
+function BonDeCommandeIndex({iDC}) {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
+    const [name, setName] = useState('');
 
+    async function sort({ items, sortDescriptor }) {
+        if (sortDescriptor.direction === "descending") {
+            switch (sortDescriptor.column) {
+
+                case ".0.5":
+                    setList(list.sort((a, b) => {
+
+                        return a.prixTotaleHt - b.prixTotaleHt
+                    }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return a.prixTotaleTTc - b.prixTotaleTTc
+                }))
+                    break;
+
+                default:
+            }
+
+        }
+        else {
+            switch (sortDescriptor.column) {
+                case ".0.5": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleHt - a.prixTotaleHt
+                }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleTTc - a.prixTotaleTTc
+                }))
+                    break;
+                default:
+                    break;
+            }
+            //  filteredList.sort((a, b) => { return b.prixTotaleTTc - a.prixTotaleTTc })
+
+        }
+
+
+    }
+    const listSort = useAsyncList({ sort });
+    let filteredList = list.filter((item) => {
+
+        if (name !== '') {
+            return item.fournisseur.raisonSocial.toLowerCase().includes(name.toLowerCase())||item.fournisseur.email.toLowerCase().includes(name.toLowerCase())
+        }
+        else return item
+    })
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -36,11 +86,11 @@ function BonDeCommandeIndex() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params = { include: "Fournisseur.Grossiste,DetailsCommandes.Produit" }
+            let params = { include: "Fournisseur" }
+            params.iDC=(iDC)?(iDC):(0)
             BonCommandeService.GetList(params).then(
                 (res) => {
                     setList(res.data);
-                  
                 },
                 (error) => {
                     console.log("Private page", error.response);
@@ -64,12 +114,12 @@ function BonDeCommandeIndex() {
     };
     const handleEdit = (item) => {
 
-        navig('/feed/bonCommandeFournisseur_edit/', { state: { Bon: item } });
+        navig('/feed/bonCommandeFournisseur_edit/', { state: { Bon: item.id } });
 
     };
     const handleDetails = (item) => {
 
-        navig('/feed/bonCommandeFournisseur_details/', { state: { Bon: item } });
+        navig('/feed/bonCommandeFournisseur_details/', { state: { Bon: item.id } });
 
     };
     return (
@@ -86,6 +136,8 @@ function BonDeCommandeIndex() {
                 <Grid item md={10}>
                     <Input
                         clearable
+                        value={name}
+                        onChange={(e) => { setName(e.target.value) }}
                         underlined
                         color="success"
                         labelPlaceholder="Search"
@@ -111,7 +163,8 @@ function BonDeCommandeIndex() {
                             height: "auto",
                             minWidth: "100%",
                         }}
-
+                        sortDescriptor={listSort.sortDescriptor}
+                        onSortChange={listSort.sort}
                     >
                         <Table.Header>
                             <Table.Column>Date</Table.Column>
@@ -119,13 +172,13 @@ function BonDeCommandeIndex() {
                             <Table.Column>Email Fournisseur</Table.Column>
                             <Table.Column>Numéro Bureau</Table.Column>
                             <Table.Column>Site Web Fournisseur</Table.Column>
-                            <Table.Column>Prix Totale HT</Table.Column>
-                            <Table.Column>Prix TTC</Table.Column>
+                            <Table.Column allowsSorting>Prix Totale HT</Table.Column>
+                            <Table.Column allowsSorting>Prix TTC</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {list.map(item => (
-                              
+                            {filteredList.map(item => (
+
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>

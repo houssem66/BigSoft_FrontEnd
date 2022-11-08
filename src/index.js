@@ -58,6 +58,8 @@ import DetailsClD from './components/BonClient/Devis/Details';
 import AjoutCLD from './components/BonClient/Devis/Ajout';
 import EditClD from './components/BonClient/Devis/Edit';
 import DevisCl from './components/BonClient/Devis/Index';
+import Dashboard from './components/dashboard';
+import NotFound from './components/NotFound/NotFound';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -67,32 +69,32 @@ root.render(
 
     <Routes>
       {/**Sprint 1 routing */}
-      <Route path="/create" element={<SignUp />}></Route>
-     
+      <Route path="/Register" element={<SignUp />}></Route>
+
       <Route path="/login" element={<Login />}></Route>
-      <Route path="/Register" element={<Register />}></Route>
-     
+      <Route path="/create" element={<Register />}></Route>
+
       <Route path="/" element={<App />}>
         <Route path="feed" element={<Feed />}>
           <Route path="profileUser" element={<ProfileUser />}></Route>
           <Route path="profileGrossiste" element={<ProfileGrossiste />}></Route>
-          <Route path="fournisseur" element={<Fournisseur />} />
-          <Route path="ajouterFourni" element={<Ajouter />} />
-          <Route path="editFournisseur/" element={<EditFournisseur />} />
-          <Route path="commande" element={<Commande />} />
-          <Route path="detailsFournisseur" element={<DetailsFournisseur />} />
-          <Route path="ajouterClient" element={<AjoutClient />} />
 
+          <Route path="vendor" element={<Fournisseur />} />
+          <Route path="vendor_add" element={<Ajouter />} />
+          <Route path="vendor_edit" element={<EditFournisseur />} />
+          <Route path="vendor_details" element={<DetailsFournisseur />} />
+
+          <Route path="client_ajout" element={<AjoutClient />} />
           <Route path="client" element={<Client />} />
-          <Route path="detailsClient" element={<DetailsClient />} />
-          <Route path="editClient" element={<EditClient />} />
+          <Route path="client_details" element={<DetailsClient />} />
+          <Route path="client_edit" element={<EditClient />} />
 
           <Route path="stock" element={<Stock />} />
           <Route path="produit" element={<Produit />} />
           <Route path="produit_ajout" element={<Ajout />} />
           <Route path="produit_edit" element={<Edit />} />
           <Route path="produit_details" element={<Details />} />
-       
+
 
           <Route path="bonReception" element={<BonReception />}></Route>
           <Route path="bonReception_ajout" element={<AjoutBon />}></Route>
@@ -111,7 +113,7 @@ root.render(
           <Route path="bonLivraison_ajout" element={<AjoutBl />}></Route>
           <Route path="bonLivraison_details" element={<DetailsBL />}></Route>
           <Route path="bonLivraison_edit" element={<EditBL />}></Route>
-          
+
           <Route path="factureClient" element={<FactureClient />}></Route>
           <Route path="factureClient_details" element={<DetailsCl />}></Route>
 
@@ -136,7 +138,9 @@ root.render(
 
 
       </Route>
-
+      <Route path="*" element={ <NotFound />}>
+       
+      </Route>
     </Routes>
 
   </BrowserRouter>

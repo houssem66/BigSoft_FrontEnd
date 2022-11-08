@@ -67,7 +67,7 @@ function ConfirmationMenu({ color, id, item }) {
     const handleDetailsFacture = () => {
        
         if (item) {
-            navigate("/feed/factureFournisseur_details", { state: { Facture: item } })
+            navigate("/feed/factureFournisseur_details", { state: { Facture: item.factureFournisseur.id } })
         }
       // 
 

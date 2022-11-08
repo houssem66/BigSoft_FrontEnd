@@ -118,7 +118,7 @@ function Ajout() {
             case "1":
                 return <Textfield
                     name="identifiant_fiscale"
-                    label="Identifiant Fiscale"
+                    label="Fiscale Fiscale"
                 />;
           
         }
@@ -138,27 +138,27 @@ function Ajout() {
                 <Grid container component="main" sx={{ mx: 3, my: 2, maxWidth: "90%" }} direction="row" spacing={4} alignItems="flex-start" justifyContent="space-between"  >
                     <Grid md={12} item>
                         <Typography component="h1" variant="h5">
-                            Ajouter un client
+                            Add a client
                         </Typography>
                     </Grid>
                     <Grid item md={12}>
                         <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    informations Générale:
+                                     General informations:
                                 </Typography>
                             </Grid>
 
                             <Grid md={6} item>
                                 <Textfield
                                     name="nom"
-                                    label="Nom"
+                                    label="Name"
                                 />
                             </Grid>
                             <Grid md={6} item >
                                 <Textfield
                                     name="prenom"
-                                    label="Prénom"
+                                    label="Last Name"
                                 />
                             </Grid>
                             <Grid item md={12}>
@@ -183,12 +183,12 @@ function Ajout() {
                             <Grid item md={6} >
                                 <Textfield
                                     name="numMobile"
-                                    label="Numéro téléphone mobile"
+                                    label="Mobile phone number"
                                 />
                             </Grid> <Grid item md={6} >
                                 <Textfield
                                     name="phoneBureau"
-                                    label="Numéro téléphone bureau"
+                                    label="office phone number"
                                 />
                             </Grid>
                             
@@ -199,14 +199,14 @@ function Ajout() {
                         <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    informations Monétair:
+                                    monitary informations:
                                 </Typography>
                             </Grid>
 
                             <Grid md={6} item>
                                 <Select
                                     name="typeClient"
-                                    label="type de client"
+                                    label="client type"
                                     options={TypeClient}
                                 />
                             </Grid>
@@ -227,13 +227,13 @@ function Ajout() {
                         <Grid justifyContent="space-between" sx={{ my: 2 }} spacing={5} container  >
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    Adresse :
+                                    Adress :
                                 </Typography>
                             </Grid>
                             <Grid item md={2} >
                                 <Textfield
                                     name="codePostale"
-                                    label="Code Postale"
+                                    label="Zip Code"
                                 />
                             </Grid>
                             <Grid item md={3} >
@@ -246,7 +246,7 @@ function Ajout() {
                             <Grid item md={7} >
                                 <Textfield
                                     name="adresse"
-                                    label="Adresse"
+                                    label="Adress"
                                     multiline
                                     rows={3}
                                 />
@@ -259,12 +259,12 @@ function Ajout() {
                             alignItems="flex-end">
                             <Grid item >
                                 <Butt variant='contained' color="error" onClick={() => { annuler() }} >
-                                    annuler
+                                    Cancel
                                 </Butt>
                             </Grid>
                             <Grid item >
                                 <Button >
-                                    Enregistrer
+                                    Save
                                 </Button>
                             </Grid>
                         </Grid>

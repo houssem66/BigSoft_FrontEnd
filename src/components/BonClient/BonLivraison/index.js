@@ -21,7 +21,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import ConfirmationMenu from "./ConfirmationMenu";
 import TypeClient from '../../../Data/TypeClient.json'
 
-function Index() {
+function Index({iDC}) {
   let navig = useNavigate();
  let type=Object.values(TypeClient)
 
@@ -40,7 +40,8 @@ function Index() {
   useEffect(() => {
       if (Fetch) {
           setFetch(false)
-          let params ={include:"DetailsLivraisons.Produit,Client,Grossiste,FactureClient.DetailsFactures"}
+          let params ={include:"Client,FactureClient"}
+          params.iDC=(iDC)?(iDC):(0)
           bonLivraisonService.GetList(params).then(
               (res) => {
                   setList(res.data);
@@ -61,12 +62,12 @@ function Index() {
   //Handles
   const handleEdit = (item) => {
 
-      navig('/feed/bonLivraison_edit/', { state: { Bon: item } });
+      navig('/feed/bonLivraison_edit/', { state: { Bon: item.id } });
 
   };
   const handleDetails = (item) => {
 
-      navig('/feed/bonLivraison_details/', { state: { Bon: item } });
+      navig('/feed/bonLivraison_details/', { state: { Bon: item.id } });
 
   };
   const handleDelete = async (id) => {
@@ -135,7 +136,7 @@ function Index() {
 
                             <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
                             <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
-                            <Table.Cell>{(item.confirmed)?(<ConfirmationMenu item={item}  color="success"/>)
+                            <Table.Cell>{(item.confirmed)?(<ConfirmationMenu item={item.factureClient}  color="success"/>)
                             :(<ConfirmationMenu  id={item.id} color="error"/>)}</Table.Cell>
                             <Table.Cell>
                                 <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">

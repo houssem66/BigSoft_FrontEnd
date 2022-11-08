@@ -11,10 +11,10 @@ function Authentification() {
           Authentification
         </Typography></Grid>
       <Grid item md={12}> <Textfield name="userName" label="User Name" /></Grid>
-      <Grid item md={12}> <Textfield name="raisonSocial" label="Raison Sociale" /></Grid>
+      <Grid item md={12}> <Textfield name="raisonSocial" label="Corporate Name" /></Grid>
       <Grid item md={12}> <Textfield name="email" label="Email" /></Grid>
-      <Grid item md={6}> <Textfield name="passWord" type="password" label="Mote de passe" /></Grid>
-      <Grid item md={6}> <Textfield name="confirmPassword" type="password" label="confirmer le mot de pass " /></Grid>
+      <Grid item md={6}> <Textfield name="passWord" type="password" label="Password" /></Grid>
+      <Grid item md={6}> <Textfield name="confirmPassword" type="password" label="Password Confirm" /></Grid>
     
     </Grid>
   )

@@ -61,7 +61,7 @@ function EditFournisseur() {
     let navigate = useNavigate();
 
     const annuler = (e) => {
-        navigate("/feed/fournisseur");
+        navigate("/feed/vendor");
 
     }
     const handlesubmit = async (fournisseur) => {
@@ -70,7 +70,7 @@ function EditFournisseur() {
             await fournisseurService.Put(fournisseur).then(
                 (response) => {
 
-                    navigate("/feed/fournisseur");
+                    navigate("/feed/vendor");
                     window.location.reload();
                 },
                 (error) => {
@@ -97,34 +97,34 @@ function EditFournisseur() {
                 <Grid container component="main" sx={{ mx: 3, my: 2, maxWidth: "90%" }} direction="row" spacing={4} alignItems="flex-start" justifyContent="space-between"  >
                     <Grid md={12} item>
                         <Typography component="h1" variant="h5">
-                            Ajouter un fournisseur
+                            Edit the vendor   <strong style={{color:"purple"}}> {location.state.fournisseur.raisonSocial}</strong>
                         </Typography>
                     </Grid>
                     <Grid item md={12}>
                         <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    informations sur entreprise:
+                                  Corporate informations:
                                 </Typography>
                             </Grid>
 
                             <Grid md={6} item>
                                 <Textfield
                                     name="raisonSocial"
-                                    label="Raison Sociale"
+                                    label="Corporate Name"
                                 />
                             </Grid>
                             <Grid md={6} item >
                                 <Textfield
                                     name="siteWeb"
-                                    label="Site Web"
+                                    label="WebSite"
                                 />
                             </Grid>
 
                             <Grid item md={6} >
                                 <Textfield
                                     name="numFax"
-                                    label="Numéro Fax"
+                                    label="Fax Number"
                                 />
                             </Grid>
                         </Grid>
@@ -133,26 +133,26 @@ function EditFournisseur() {
                         <Grid justifyContent="space-between" sx={{ my: 2 }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    Personne a contacter :
+                                person to contact :
                                 </Typography>
                             </Grid>
 
                             <Grid item md={6} >
                                 <Textfield
                                     name="nomPersAContact"
-                                    label="Nom "
+                                    label="Name "
                                 />
                             </Grid>
                             <Grid item md={6} >
                                 <Textfield
                                     name="prenomPersAContact"
-                                    label="Prénom"
+                                    label="Last Name"
                                 />
                             </Grid>
                             <Grid item md={6} >
                                 <Textfield
                                     name="numbureau"
-                                    label="Numéro de bureau"
+                                    label="Office Number"
                                 />
                             </Grid>
                             <Grid item md={6}>
@@ -174,13 +174,13 @@ function EditFournisseur() {
                         <Grid justifyContent="space-between" sx={{ my: 2 }} spacing={5} container  >
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    Adresse :
+                                    Adress :
                                 </Typography>
                             </Grid>
                             <Grid item md={2} >
                                 <Textfield
                                     name="codePostale"
-                                    label="Code Postale"
+                                    label="Postal Code"
                                 />
                             </Grid>
                             <Grid item md={3} >
@@ -193,7 +193,7 @@ function EditFournisseur() {
                             <Grid item md={7} >
                                 <Textfield
                                     name="adresse"
-                                    label="Adresse"
+                                    label="Adress"
                                     multiline
                                     rows={3}
                                 />
@@ -206,12 +206,12 @@ function EditFournisseur() {
                             alignItems="flex-end">
                             <Grid item >
                                 <Butt variant='outlined' color="error" onClick={() => { annuler() }} >
-                                    annuler
+                                    Cancel
                                 </Butt>
                             </Grid>
                             <Grid item >
                                 <Button >
-                                    Enregistrer
+                                    Save
                                 </Button>
                             </Grid>
                         </Grid>

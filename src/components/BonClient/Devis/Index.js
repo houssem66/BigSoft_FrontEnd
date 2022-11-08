@@ -19,7 +19,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import TypeClient from '../../../Data/TypeClient.json'
-function Index() {
+function Index({iDC}) {
   let navig = useNavigate();
   const [list, setList] = useState([]);
   const [open, setOpen] = useState(false);
@@ -37,7 +37,8 @@ function Index() {
   useEffect(() => {
       if (Fetch) {
           setFetch(false)
-          let params = { include: "Client.Grossiste,DetailsDevis.Produit" }
+          let params = { include: "Client" }
+          params.iDC=(iDC)?(iDC):(0)
           BonCommandeService.GetList(params).then(
               (res) => {
                   setList(res.data);
@@ -65,12 +66,12 @@ function Index() {
   };
   const handleEdit = (item) => {
 
-      navig('/feed/devis_edit/', { state: { Bon: item } });
+      navig('/feed/devis_edit/', { state: { Bon: item.id } });
 
   };
   const handleDetails = (item) => {
 
-      navig('/feed/devis_details/', { state: { Bon: item } });
+      navig('/feed/devis_details/', { state: { Bon: item.id } });
 
   };
   return (

@@ -12,19 +12,19 @@ function InformationPersonne() {
 
             <Grid item md={12}>
                 <Typography component="h1" variant="h4" align="center">
-                    Personne a contacter
+                    Person to contact
                 </Typography>
             </Grid>
             <Grid item md={6} >
                 <Textfield
                     name="nom"
-                    label="Nom "
+                    label="Name "
                 />
             </Grid>
             <Grid item md={6} >
                 <Textfield
                     name="prenom"
-                    label="Prénom"
+                    label="LastName"
                 />
             </Grid>
             <Grid item md={3} >
@@ -44,13 +44,13 @@ function InformationPersonne() {
             <Grid item md={6} >
                 <Textfield
                     name="numbureau"
-                    label="Numéro bureau"
+                    label="Office number"
                 />
             </Grid>
             <Grid item md={6} >
                 <Textfield
                     name="numMobile"
-                    label="Numéro Mobile"
+                    label="mobile number"
                 />
             </Grid>
             <Grid item md={4} >
