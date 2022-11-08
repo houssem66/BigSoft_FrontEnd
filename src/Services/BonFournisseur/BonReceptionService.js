@@ -26,7 +26,7 @@ const ajout = (BonReception) => {
 
     params.id = user.id;
 
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&iDC="+params.iDC, config);
 };
   const Delete=(id)=>{
    
@@ -44,8 +44,12 @@ const ajout = (BonReception) => {
     
     return  axios.put(API_URL+"/Confirmer?id="+item,item,config);
   };
+  const GetById=(id)=>{
   
+   
+    return  axios.get(API_URL+"/Get/"+id,config);
+  };
   const ProduitService = {
-    ajout,GetList,Delete,Put,Confirm
+    ajout,GetList,Delete,Put,Confirm,GetById
   };
   export default ProduitService;

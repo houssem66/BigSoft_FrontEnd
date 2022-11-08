@@ -15,16 +15,25 @@ function EditBon() {
   const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
   const [bon, SetBon] = useState('')
   useEffect(() => {
-    SetBon(location.state.Bon)
-
-    setFournisseur(location.state.Bon.fournisseur)
-    let aux = []
-    location.state.Bon.detailsCommandes.forEach(element => {
-      let ojb = { idProduit: element.idProduit, quantite: element.quantite }
-      aux.push(ojb)
-    });
-    SetDetailsBonReceptionModels(aux);
-
+    if (location.state.Bon) {
+      BonCommandeService.GetById(location.state.Bon).then(
+          (res) => {
+              SetBon(res.data);
+              setFournisseur(res.data.fournisseur)
+          },
+          (error) => {
+              console.log("Private page", error.response);
+              // Invalid token
+              if (error.response && error.response.status === 403) {
+                  authService.logout();
+                  navig("/login");
+                  window.location.reload();
+              }
+          }
+      );
+     
+  }
+  
     FournisseurService.GetList().then(
       (res) => {
 
@@ -42,12 +51,34 @@ function EditBon() {
       }
     );
   }, [location])
+  useEffect(()=>{
+    if ( bon.detailsCommandes){
+        let aux = []
+    bon.detailsCommandes.forEach(element => {
+        let ojb = { idProduit: element.idProduit, quantite: element.quantite }
+        aux.push(ojb)
+    });
+    SetDetailsBonReceptionModels(aux);
+    }    
+
+},[bon])
+  useEffect(()=>{
+    if ( bon.detailsCommandes){
+        let aux = []
+    bon.detailsCommandes.forEach(element => {
+        let ojb = { idProduit: element.idProduit, quantite: element.quantite }
+        aux.push(ojb)
+    });
+    SetDetailsBonReceptionModels(aux);
+    }    
+
+},[bon])
   const handleSubmit = async (event) => {
     event.preventDefault();
     const user = authService.getCurrentUser();
 
     let aux = {
-      id: location.state.Bon.id,
+      id: bon.id,
       fournisseurId: Fournisseur.id,
       grossisteId: user.id,
       date: new Date(),

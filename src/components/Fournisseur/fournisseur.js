@@ -58,12 +58,12 @@ const Fournisseur = () => {
     //Handles
     const handleEdit = (item) => {
 
-        navig('/feed/editFournisseur/', { state: { fournisseur: item } });
+        navig('/feed/vendor_edit/', { state: { fournisseur: item } });
 
     };
     const handleDetails = (item) => {
 
-        navig('/feed/detailsFournisseur/', { state: { fournisseur: item } });
+        navig('/feed/vendor_details/', { state: { fournisseur: item } });
 
     };
     const handleDelete = async (id) => {
@@ -108,7 +108,7 @@ const Fournisseur = () => {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/ajouterFourni"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/vendor_add"); }} auto icon={<AddIcon />}>Add</Button></Grid>
                 <Grid item md={12}>
                     <Table
                         bordered
@@ -123,11 +123,11 @@ const Fournisseur = () => {
                     >
                         <Table.Header>
                             <Table.Column>Id</Table.Column>
-                            <Table.Column>Raison Sociale</Table.Column>
-                            <Table.Column>Numéro Fax</Table.Column>
-                            <Table.Column>Nom personne a contacter</Table.Column>
-                            <Table.Column>Prénom personne a contacter</Table.Column>
-                            <Table.Column>Numéro Bureau</Table.Column>
+                            <Table.Column>Corporate Name</Table.Column>
+                            <Table.Column>Fax Number</Table.Column>
+                            <Table.Column>Name person to contact</Table.Column>
+                            <Table.Column>Lastname person to contact</Table.Column>
+                            <Table.Column>Office Number</Table.Column>
                             <Table.Column>Actions</Table.Column>
                         </Table.Header>
                         <Table.Body>
@@ -161,19 +161,19 @@ const Fournisseur = () => {
                                                     {"Confirmer le suppression"}
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                                    <DialogContentText id="alert-dialog-description"><p>  You will delete the vendor    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
 
 
                                                     </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
-                                                    <Button color="gradient" onClick={handleClose} auto>fermer</Button>
+                                                    <Button color="gradient" onClick={handleClose} auto>Close</Button>
                                                     <Button color="warning" onClick={() => {
 
                                                         handleDelete(item.id);
 
                                                     }} autoFocus>
-                                                        supprimer
+                                                        Delete
                                                     </Button>
                                                 </DialogActions>
                                             </Dialog>

@@ -26,7 +26,7 @@ const ajout = (BonLivraison) => {
 
     params.id = user.id;
 
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&iDC="+params.iDC, config);
 };
   const Delete=(id)=>{
    
@@ -39,6 +39,12 @@ const ajout = (BonLivraison) => {
    
     return  axios.put(API_URL+"/Update/"+item.id,item,config);
   };
+  const GetById=(id)=>{
+  
+   
+    return  axios.get(API_URL+"/Get/"+id,config);
+  };
+
     const Confirm=(item)=>{
     
     
@@ -46,6 +52,6 @@ const ajout = (BonLivraison) => {
   };
   
   const ProduitService = {
-    ajout,GetList,Delete,Put,Confirm
+    ajout,GetList,Delete,Put,Confirm,GetById
   };
   export default ProduitService;

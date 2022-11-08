@@ -8,13 +8,10 @@ function Details() {
   let location = useLocation();
   const [facture, setfacture] = useState('');
   useEffect(() => {
-    if (Number.isInteger(location.state.Facture)){
-      let params = { include: "BonDeReceptionFournisseur.Fournisseur,BonDeReceptionFournisseur.Grossiste,DetailsFactures,BonDeReceptionFournisseur.DetailsReceptions.Produit" }
-      params.idP = location.state.Facture
-      FactureService.GetList(params).then(
+    if (location.state.Facture) {
+      FactureService.GetById(location.state.Facture).then(
         (res) => {
-          console.log(res.data[0].bonDeReceptionFournisseur)
-         setfacture(res.data[0].bonDeReceptionFournisseur	);
+          setfacture(res.data.bonDeReceptionFournisseur);
         },
         (error) => {
           console.log("Private page", error.response);
@@ -26,22 +23,9 @@ function Details() {
           }
         }
       );
-    }else 
-    {
-      if (location.state.Facture.detailsFactures) {
-        console.log("ok")
-        setfacture(location.state.Facture.bonDeReceptionFournisseur)
-      }
-      else {
-        console.log("notok")
-        setfacture(location.state.Facture);
-      }
-  
-    }
-   
 
+    }
   }, [location])
-  console.log("facture", facture)
 
   return (
     <>

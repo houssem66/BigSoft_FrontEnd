@@ -156,10 +156,10 @@ function DashboardContent() {
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip></>) : (<><Button color="primary" variant="contained" onClick={() => { navig("/create") }}>
-                            Créer un compte
+                            Become a memeber
                         </Button>
                             <Button color="success" variant="contained" onClick={() => { navig("/login") }}>
-                                se connecter
+                               Login
                             </Button></>)}
 
                         <Menu
@@ -178,7 +178,6 @@ function DashboardContent() {
                             }}
                         >
                             <MenuItem onClick={() => { handleClose(); handleProfile(); }}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
                             <MenuItem onClick={e => {
                                 handleClose();
                                 logOut();

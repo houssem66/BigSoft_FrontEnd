@@ -99,7 +99,7 @@ export default function SignInSide() {
             console.log(Err)
             return <Alert severity="error">
                 <AlertTitle>Erreur</AlertTitle>
-                <strong>Email ou mot de passe incorrecte</strong>
+                <strong>Email or password incorrect</strong>
             </Alert>;
         }
     }
@@ -201,18 +201,7 @@ export default function SignInSide() {
                                 Register
                             </Button>
 
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
+                          
                             <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>

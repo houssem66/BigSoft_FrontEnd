@@ -154,10 +154,10 @@ function DashboardContent() {
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip></>) : (<><Button color="primary" variant="contained" onClick={() => { navig("/create") }}>
-                            Créer un compte
+                           Become a member
                         </Button>
                             <Button color="success" variant="contained" onClick={() => { navig("/login") }}>
-                                se connecter
+                               Login
                             </Button></>)}
 
                         <Menu

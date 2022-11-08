@@ -1,5 +1,5 @@
-import { Grid, Typography } from "@mui/material";
-import { Button } from "@nextui-org/react";
+import { Grid, MenuItem, Select, Typography } from "@mui/material";
+import { Button, useAsyncList } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,12 +20,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ConfirmationMenu from "./ConfirmationMenu";
 
-function BonReception() {
+function BonReception({iDC}) {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
-
+    const [name, setName] = useState('');
+    const [Category, setCategory] = useState('');
+    const handleChange = (event) => {
+        setCategory(event.target.value);
+        console.log(event.target.value, "category")
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -37,7 +42,8 @@ function BonReception() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params ={include:"DetailsReceptions.Produit,Fournisseur.Grossiste,FactureFournisseur.DetailsFactures"}
+            let params = { include: "Fournisseur,FactureFournisseur" }
+            params.iDC=(iDC)?(iDC):(0)
             BonReceptionService.GetList(params).then(
                 (res) => {
                     setList(res.data);
@@ -58,12 +64,12 @@ function BonReception() {
     //Handles
     const handleEdit = (item) => {
 
-        navig('/feed/bonReception_edit/', { state: { Bon: item } });
+        navig('/feed/bonReception_edit/', { state: { Bon: item.id } });
 
     };
     const handleDetails = (item) => {
 
-        navig('/feed/bonReception_details/', { state: { Bon: item } });
+        navig('/feed/bonReception_details/', { state: { Bon: item.id } });
 
     };
     const handleDelete = async (id) => {
@@ -72,6 +78,66 @@ function BonReception() {
         setFetch(true)
         setOpen(false);
     };
+    async function sort({ items, sortDescriptor }) {
+        if (sortDescriptor.direction === "descending") {
+            switch (sortDescriptor.column) {
+
+                case ".0.5":
+                    setList(list.sort((a, b) => {
+
+                        return a.prixTotaleHt - b.prixTotaleHt
+                    }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return a.prixTotaleTTc - b.prixTotaleTTc
+                }))
+                    break;
+
+                default:
+            }
+
+        }
+        else {
+            switch (sortDescriptor.column) {
+                case ".0.5": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleHt - a.prixTotaleHt
+                }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleTTc - a.prixTotaleTTc
+                }))
+                    break;
+                default:
+                    break;
+            }
+            //  filteredList.sort((a, b) => { return b.prixTotaleTTc - a.prixTotaleTTc })
+
+        }
+
+
+    }
+    const listSort = useAsyncList({ sort });
+    let filteredList = list.filter((item) => {
+
+        if (name !== '') {
+            return item.fournisseur.raisonSocial.toLowerCase().includes(name.toLowerCase())
+                || item.fournisseur.email.toLowerCase().includes(name.toLowerCase())
+        }
+        else return item
+    }).filter((item) => {
+        if (Category !== '') {
+            if (Category) {
+                return item.confirmed
+            }
+            else return !(item.confirmed)
+
+        }
+
+        return item
+    })
     return (
         <Box
             sx={{
@@ -83,8 +149,11 @@ function BonReception() {
             }}
         >
             <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
-                <Grid item md={10}>
+                <Grid item md={8}>
                     <Input
+                        value={name}
+                        onChange={(e) => { setName(e.target.value) }}
+
                         clearable
                         underlined
                         color="success"
@@ -95,6 +164,23 @@ function BonReception() {
                         }
                     />
 
+                </Grid>
+                <Grid item md={2}>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={Category}
+                        sx={{ fontSize: "15px" }}
+                        label="Confirmation"
+                        onChange={handleChange}
+                        fullWidth
+                        defaultValue="Tous"
+
+                    >
+                        <MenuItem sx={{ fontSize: "15px" }} value={''}>Tous</MenuItem>
+                        <MenuItem sx={{ fontSize: "15px" }} value={true}>Confirmé</MenuItem>
+                        <MenuItem sx={{ fontSize: "15px" }} value={false}>Non confirmé</MenuItem>
+                    </Select>
                 </Grid>
                 <Grid item md={2}>
                     <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/bonReception_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
@@ -108,7 +194,8 @@ function BonReception() {
                             height: "auto",
                             minWidth: "100%",
                         }}
-
+                        sortDescriptor={listSort.sortDescriptor}
+                        onSortChange={listSort.sort}
                     >
                         <Table.Header>
                             <Table.Column>Date</Table.Column>
@@ -116,13 +203,13 @@ function BonReception() {
                             <Table.Column>Email Fournisseur</Table.Column>
                             <Table.Column>Numéro Bureau</Table.Column>
                             <Table.Column>Site Web Fournisseur</Table.Column>
-                            <Table.Column>Prix Totale HT</Table.Column>
-                            <Table.Column>Prix TTC</Table.Column>
+                            <Table.Column allowsSorting>Prix Totale HT</Table.Column>
+                            <Table.Column allowsSorting>Prix Totale TTC</Table.Column>
                             <Table.Column>Confirmation</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {(list)?(list.map(item => (
+                            {(list) ? (filteredList.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.fournisseur.raisonSocial}</Table.Cell>
@@ -132,18 +219,18 @@ function BonReception() {
 
                                     <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
                                     <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
-                                    <Table.Cell>{(item.confirmed)?(<ConfirmationMenu item={item}  color="success"/>)
-                                    :(<ConfirmationMenu  id={item.id} color="error"/>)}</Table.Cell>
+                                    <Table.Cell>{(item.confirmed) ? (<ConfirmationMenu item={item} color="success" />)
+                                        : (<ConfirmationMenu id={item.id} color="error" />)}</Table.Cell>
                                     <Table.Cell>
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        {(item.confirmed)?(<IconButton disabled onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
+                                        {(item.confirmed) ? (<IconButton disabled onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
                                             <EditIcon />
-                                        </IconButton>):( <IconButton  onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
+                                        </IconButton>) : (<IconButton onClick={() => { handleEdit(item) }} color="error" aria-label="Edit">
                                             <EditIcon />
                                         </IconButton>)}
-                                       
+
                                         <IconButton onClick={() => { handleDetails(item) }} color="default" aria-label="Edit">
                                             <VisibilityIcon />
                                         </IconButton>
@@ -178,35 +265,35 @@ function BonReception() {
                                         </div>
                                     </Table.Cell>
 
-                                </Table.Row>))):(
-                                      <Table.Row >
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                      <Table.Cell>empty</Table.Cell>
-                                  
-  
-                                  </Table.Row>
-                                )}
+                                </Table.Row>))) : (
+                                <Table.Row >
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
+                                    <Table.Cell>empty</Table.Cell>
 
 
-                    </Table.Body>
-                    <Table.Pagination
-                        shadow
-                        noMargin
-                        align="center"
-                        rowsPerPage={10}
-                        onPageChange={(page) => console.log({ page })}
-                    />
-                </Table>
+                                </Table.Row>
+                            )}
 
-            </Grid>
-        </Grid></Box >
+
+                        </Table.Body>
+                        <Table.Pagination
+                            shadow
+                            noMargin
+                            align="center"
+                            rowsPerPage={10}
+                            onPageChange={(page) => console.log({ page })}
+                        />
+                    </Table>
+
+                </Grid>
+            </Grid></Box >
     )
 }
 

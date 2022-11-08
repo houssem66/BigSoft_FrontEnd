@@ -9,14 +9,13 @@ function Details() {
   let navig = useNavigate()
   let location = useLocation();
   const [facture, setfacture] = useState('');
+ 
   useEffect(() => {
-    // console.log("it works",   ) 
-    if (Number.isInteger(location.state.Facture)) {
-      let params = { include: "BonLivraisonClient.Grossiste,BonLivraisonClient.Client,DetailsFactures,BonLivraisonClient.DetailsLivraisons.Produit" }
-      params.idP = location.state.Facture
-      FactureService.GetList(params).then(
+    if (location.state.Facture) {
+      console.log(location.state.Facture)
+      FactureService.GetById(location.state.Facture).then(
         (res) => {
-          setfacture(res.data[0].bonLivraisonClient	);
+          setfacture(res.data.bonLivraisonClient);
         },
         (error) => {
           console.log("Private page", error.response);
@@ -28,20 +27,11 @@ function Details() {
           }
         }
       );
-    }
-    else {
-      if (location.state.Facture.detailsFactures) {
-        setfacture(location.state.Facture.bonLivraisonClient)
-      }
-      else {
-        setfacture(location.state.Facture);
-      }
-    }
 
-
+    }
 
   }, [location])
-
+ 
 
   return (
     <>

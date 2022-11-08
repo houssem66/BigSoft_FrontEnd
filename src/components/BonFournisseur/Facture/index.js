@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { Button } from "@nextui-org/react";
+import { Button ,useAsyncList} from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
 import Box from '@mui/material/Box';
@@ -18,11 +18,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from '@mui/material/Link';
 import ArticleIcon from '@mui/icons-material/Article';
-function FactureFournisseurIndex() {
+function FactureFournisseurIndex({iDC}) {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
+    const [name, setName] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,8 +36,8 @@ function FactureFournisseurIndex() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params={include:"BonDeReceptionFournisseur.Fournisseur,BonDeReceptionFournisseur.Grossiste,DetailsFactures,BonDeReceptionFournisseur.DetailsReceptions.Produit"}
-            params.idP = 0
+            let params={include:"BonDeReceptionFournisseur.Fournisseur"}
+            params.iDC=(iDC)?(iDC):(0)
             FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);
@@ -63,7 +64,7 @@ function FactureFournisseurIndex() {
     };
     const handleDetails = (item) => {
 
-        navig('/feed/factureFournisseur_details/', { state: { Facture: item } });
+        navig('/feed/factureFournisseur_details/', { state: { Facture: item.id } });
 
     };
 
@@ -130,7 +131,7 @@ function FactureFournisseurIndex() {
                                     <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
                                     <Table.Cell><Link onClick={(event, value) => {
                                         event.preventDefault();
-                                        navig('/feed/bonReception_details/', { state: { Bon: item.bonDeReceptionFournisseur } });
+                                        navig('/feed/bonReception_details/', { state: { Bon: item.bonDeReceptionId } });
 
 
                                     }}

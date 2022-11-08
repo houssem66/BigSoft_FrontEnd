@@ -1,6 +1,6 @@
 import { Fade, Grid, IconButton, Paper, Typography } from "@mui/material";
 import { Button } from "@nextui-org/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, makeStyles, ThemeProvider } from '@mui/material/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -18,9 +18,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
-import { useNavigate, Outlet } from "react-router-dom";
 import Generale from './Génrale'
-import Historique from './Historique'
 import Facture from './Facture'
 import BonReception from './BonReception'
 import Commande from './Commande'
@@ -80,6 +78,7 @@ const DetailsFournisseur = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    let navigate=useNavigate()
     const location = useLocation();
     const [fournisseur, SetFournisseur] = React.useState(location.state.fournisseur);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -93,12 +92,10 @@ const DetailsFournisseur = () => {
 
     function getProper() {
         switch (navigator) {
-            case "Generale": return <Generale  />
-            case "Commande": return <Commande />
-            case "Historique": return <Historique />
-            case "Bon": return <BonReception />
-            case "Facture": return <Facture />
-            default: return <Generale />
+            case "Commande": return <Commande iDC={fournisseur.id} />
+            case "Bon": return <BonReception iDC={fournisseur.id}/>
+            case "Facture": return <Facture iDC={fournisseur.id}/>
+            default: return <BonReception iDC={fournisseur.id}/>
         }
 
     }
@@ -119,7 +116,7 @@ const DetailsFournisseur = () => {
                     <Grid item md={12}>
                         <Grid container sx={{}} spacing={-10}>
                             <Grid item md={7}>
-                                <Button color="secondary" sx={{}} variant="contained"> Ajouter aux favoris </Button>
+                                <Button color="secondary" sx={{}} variant="contained"> Add to favorites </Button>
                             </Grid>
                             <Grid item md={3}  >
                                 <IconButton onClick={handleClick} color="default" variant="contained">   <MoreHorizIcon /> </IconButton>
@@ -133,13 +130,13 @@ const DetailsFournisseur = () => {
                                     open={open}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose} disableRipple>
+                                    <MenuItem onClick={()=>{navigate("/feed/vendor_edit",{ state: { fournisseur: fournisseur } })}} disableRipple>
                                         <EditIcon />
                                         Edit
                                     </MenuItem>
                                     <MenuItem onClick={handleClose} disableRipple>
                                         <DeleteIcon />
-                                        Supprimer
+                                        Delete
                                     </MenuItem>
 
                                 </StyledMenu>
@@ -149,11 +146,11 @@ const DetailsFournisseur = () => {
                     <Grid item md={12}>
                         <Grid container spacing={1}>
                             <Grid item md={12}>
-                                <Typography variant="h6" gutterBottom> Informations Génerale  </Typography>
+                                <Typography variant="h6" gutterBottom> General information  </Typography>
                             </Grid>
                             <Divider sx={{ borderBottomWidth: 1, width: '100%' }} />
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> Raison sociale  </Typography>
+                                <Typography variant="button" gutterBottom> Corporate Name  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.raisonSocial} </Typography>
@@ -165,20 +162,20 @@ const DetailsFournisseur = () => {
                             </Grid>
 
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> Site web  </Typography>
+                                <Typography variant="button" gutterBottom> WebiteSite  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.siteWeb}    </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom>Adresse  </Typography>
+                                <Typography variant="button" gutterBottom>Adress  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.adresse}  </Typography>
                             </Grid>
 
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom>Numéro Fax  </Typography>
+                                <Typography variant="button" gutterBottom>Fax Number  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.numFax}  </Typography>
@@ -186,22 +183,22 @@ const DetailsFournisseur = () => {
 
                             <Divider sx={{ borderBottomWidth: 1, width: '100%' }} />
                             <Grid item md={12}>
-                                <Typography variant="h6" gutterBottom> Informations sur personne a contacter </Typography>
+                                <Typography variant="h6" gutterBottom> Person to contact informations </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> Nom  </Typography>
+                                <Typography variant="button" gutterBottom> Name  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.nomPersAContact}  </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> Prénom  </Typography>
+                                <Typography variant="button" gutterBottom> LastName  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.prenomPersAContact}   </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> Numéro Bureau  </Typography>
+                                <Typography variant="button" gutterBottom> office Number  </Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant="body1" gutterBottom> {fournisseur.numbureau}   </Typography>
@@ -216,11 +213,9 @@ const DetailsFournisseur = () => {
                 <Grid container spacing={3}>
                     <Grid item md={12} >
                         <Tabs value={value} sx={{ width: "100%" }} onChange={handleChange} aria-label="icon label tabs example">
-                            <Tab onClick={() => { setNavigator("Generale") }} icon={<AccountBalanceRoundedIcon />} label="Générale" />
-                            <Tab onClick={() => { setNavigator("Historique") }} icon={<HistoryIcon />} label="Historique" />
-                            <Tab onClick={() => { setNavigator("Bon") }} icon={<ReceiptIcon />} label="Bon de réception" />
-                            <Tab onClick={() => { setNavigator("Commande") }} icon={<GetAppIcon />} label="Commande" />
-                            <Tab onClick={() => { setNavigator("Facture") }} icon={<ReceiptLongIcon />} label="Facture" />
+                            <Tab onClick={() => { setNavigator("Bon") }}iconPosition="end" icon={<ReceiptIcon />} label="Reciepts orders" />
+                            <Tab onClick={() => { setNavigator("Commande") }}iconPosition="end" icon={<GetAppIcon />} label="Purchase orders" />
+                            <Tab onClick={() => { setNavigator("Facture") }}iconPosition="end" icon={<ReceiptLongIcon />} label="Invoices" />
 
                         </Tabs>
                     </Grid>

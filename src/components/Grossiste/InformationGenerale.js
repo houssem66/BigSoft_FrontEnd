@@ -19,7 +19,7 @@ function InformationGenerale(props) {
       <Grid item md={6} >
         <Textfield
           name="codePostale"
-          label="Code Postale"
+          label="ZIP code"
         />
       </Grid>
       <Grid item md={6} >
@@ -30,13 +30,13 @@ function InformationGenerale(props) {
         />
       </Grid>
       <Grid item md={12}>
-        <Textfield name="adresse" label="Adresse " multiline rows={3} />
+        <Textfield name="adresse" label="Adress" multiline rows={3} />
       </Grid>
       <Grid item md={6}>
-        <Textfield name="siteWeb" label="Site Web " />
+        <Textfield name="siteWeb" label="WebSite" />
       </Grid>
       <Grid item md={6}>
-        <Textfield name="numFax" label="Numéro Fax " />
+        <Textfield name="numFax" label="Fax Number" />
       </Grid>
       <Grid item md={6}>
         <Textfield name="rib" label="Rib " />
@@ -44,7 +44,7 @@ function InformationGenerale(props) {
       <Grid item md={6} >
         <Textfield
           name="identifiant_fiscale"
-          label="Identifiant Fiscale"
+          label="Fiscal identifier"
         />
       </Grid>
        <Grid item md={12}>

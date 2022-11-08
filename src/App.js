@@ -14,7 +14,7 @@ function App() {
     if (user!=null){
       setRole(user.role)
     }
-   
+   console.log("user")
   }, [])
   return (
     <div className="App">
@@ -22,8 +22,9 @@ function App() {
       <NextUIProvider>
         <Provider store={store}>
           {
-          (role=="Grossiste")?( <Dashboard />):(<DashboardUser></DashboardUser>)}
-         
+          (role=="Grossiste")?( <Dashboard />
+          ):(<DashboardUser></DashboardUser>)}
+        
         </Provider>
       </NextUIProvider>
 

@@ -51,7 +51,7 @@ function Index() {
     setOpen(false);
   };
   let filteredList = aux.filter((item) => {
-    if (name != '') {
+    if (name !== '') {
    
       return item.produit.productName.toLowerCase().includes(name.toLowerCase())   
       
@@ -59,8 +59,9 @@ function Index() {
     }
     return item
   }).filter((item)=>{
-    if (Category!='')
+    if (Category!=='')
     {
+      
       return  item.produit.category === Category
     }
     return item;

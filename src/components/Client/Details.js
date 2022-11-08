@@ -19,11 +19,11 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import { useNavigate, Outlet } from "react-router-dom";
-import Generale from "./Generale";
+import BonCommanneTab from "./BonCommandeTab";
 import Facture from "./Facture";
-import Commande from "./Commande";
-import BonReception from "./BonReception";
-import Historique from "./Historique";
+import DevisTab from "./DevisTab";
+import BonLivraisonTab from "./BonLivraisonTab";
+import BonSortieTab from "./BonSortieTab";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TypeClient from '../../Data/TypeClient.json'
 import Gouvernorats from '../../Data/Gouvernorats.json'
@@ -84,6 +84,7 @@ function DetailsClient() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  let navigate=useNavigate();
   const location = useLocation();
   const [client, SetClient] = React.useState(location.state.client);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -96,12 +97,12 @@ function DetailsClient() {
   };
   function getProper() {
     switch (navigator) {
-      case "Generale": return <Generale />
-      case "Commande": return <Commande />
-      case "Historique": return <Historique />
-      case "Bon": return <BonReception />
-      case "Facture": return <Facture />
-      default: return <Generale />
+      case "Commande": return <BonCommanneTab iDC={client.id}/>
+      case "Devis": return <DevisTab  iDC={client.id}/>
+      case "Sortie": return <BonSortieTab  iDC={client.id}/>
+      case "Livraison": return <BonLivraisonTab  iDC={client.id}/>
+      case "Facture": return <Facture  iDC={client.id}/>
+      default: return <BonCommanneTab  iDC={client.id}/>
     }
 
   } function Proper() {
@@ -124,7 +125,6 @@ function DetailsClient() {
         </Grid></>;
     }
   }
-  console.log(location.state.client);
   return (
     <ThemeProvider theme={theme}>
 
@@ -142,7 +142,7 @@ function DetailsClient() {
             <Grid item md={12}>
               <Grid container sx={{}} spacing={-10}>
                 <Grid item md={7}>
-                  <Button color="secondary" sx={{}} variant="contained"> Ajouter aux favoris </Button>
+                  <Button color="secondary" sx={{}} variant="contained"> Add to favorites </Button>
                 </Grid>
                 <Grid item md={3}  >
                   <IconButton onClick={handleClick} color="default" variant="contained">   <MoreHorizIcon /> </IconButton>
@@ -173,17 +173,17 @@ function DetailsClient() {
               <Grid container spacing={1}>
                 <Grid item md={12}>
                 <Divider sx={{ borderBottomWidth: 1, width: '100%' }} />
-                  <Typography variant="h6" gutterBottom> Informations Génerale  </Typography>
+                  <Typography variant="h6" gutterBottom> General informations  </Typography>
                 </Grid>
               
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom> Nom   </Typography>
+                  <Typography variant="button" gutterBottom> Name   </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.nom} </Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom> Prénom   </Typography>
+                  <Typography variant="button" gutterBottom> Last Name   </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.prenom} </Typography>
@@ -196,20 +196,20 @@ function DetailsClient() {
                 </Grid>
 
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom> Date de naissance  </Typography>
+                  <Typography variant="button" gutterBottom> Birthday  </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.birthDate}    </Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom>Numéro Mobile  </Typography>
+                  <Typography variant="button" gutterBottom>Mobile Number  </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.numMobile}  </Typography>
                 </Grid>
 
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom>Numéro Bureau  </Typography>
+                  <Typography variant="button" gutterBottom>Office Number  </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.phoneBureau}  </Typography>
@@ -217,10 +217,10 @@ function DetailsClient() {
 
                 <Divider sx={{ borderBottomWidth: 1, width: '100%' }} />
                 <Grid item md={12}>
-                  <Typography variant="h6" gutterBottom> Informations Monétaire </Typography>
+                  <Typography variant="h6" gutterBottom>  Monetary Informations</Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom> Type Client  </Typography>
+                  <Typography variant="button" gutterBottom> Client Type  </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {TypeClient[client.typeClient]}  </Typography>
@@ -231,7 +231,7 @@ function DetailsClient() {
                   <Typography variant="h6" gutterBottom> Adresse: </Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom> Code Postale  </Typography>
+                  <Typography variant="button" gutterBottom>  Zip Code </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1" gutterBottom> {client.codePostale}  </Typography>
@@ -244,7 +244,7 @@ function DetailsClient() {
                   <Typography variant="body1" gutterBottom> {Gouvernorats[client.gouvernorats]}    </Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="button" gutterBottom>Adresse  </Typography>
+                  <Typography variant="button" gutterBottom>Adress  </Typography>
                 </Grid>
                 <Grid item md={12}>
                   <Typography variant="body1"  paragraph> {client.adresse}  </Typography>
@@ -259,11 +259,11 @@ function DetailsClient() {
           <Grid container spacing={3}>
             <Grid item md={12} >
               <Tabs value={value} sx={{ width: "100%" }} onChange={handleChange} aria-label="icon label tabs example">
-                <Tab onClick={() => { setNavigator("Generale") }} icon={<AccountBalanceRoundedIcon />} label="Générale" />
-                <Tab onClick={() => { setNavigator("Historique") }} icon={<HistoryIcon />} label="Historique" />
-                <Tab onClick={() => { setNavigator("Bon") }} icon={<ReceiptIcon />} label="Bon de réception" />
-                <Tab onClick={() => { setNavigator("Commande") }} icon={<GetAppIcon />} label="Commande" />
-                <Tab onClick={() => { setNavigator("Facture") }} icon={<ReceiptLongIcon />} label="Facture" />
+                <Tab onClick={() => { setNavigator("Commande") }} iconPosition="end" icon={<AccountBalanceRoundedIcon />} label="Purchase orders" />
+                <Tab onClick={() => { setNavigator("Devis") }}iconPosition="end" icon={<HistoryIcon />} label="Sales quotes" />
+                <Tab onClick={() => { setNavigator("Sortie") }}iconPosition="end" icon={<ReceiptIcon />} label="Exit Orders" />
+                <Tab onClick={() => { setNavigator("Livraison") }}iconPosition="end" icon={<GetAppIcon />} label="Delivery orders" />
+                <Tab onClick={() => { setNavigator("Facture") }}iconPosition="end" icon={<ReceiptLongIcon />} label="invoices" />
 
               </Tabs>
             </Grid>

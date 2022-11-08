@@ -11,27 +11,44 @@ function Edit() {
   const [Fournisseur, setFournisseur] = useState('');
   const [detailsBonReceptionModels, SetDetailsBonReceptionModels] = useState([]);
   const [bon, SetBon] = useState('')
+ 
   useEffect(() => {
-    if (location.state.Bon.detailsDevis) {
-      SetBon(location.state.Bon)
-      setFournisseur(location.state.Bon.client)
-      let aux = []
-      location.state.Bon.detailsDevis.forEach(element => {
-        let ojb = { idProduit: element.idProduit, quantite: element.quantite }
-        aux.push(ojb)
-      });
-      SetDetailsBonReceptionModels(aux);
+    if (location.state.Bon) {
+        BonLivraison.GetById(location.state.Bon).then(
+            (res) => {
+                SetBon(res.data);
+                setFournisseur(res.data.client)
+            },
+            (error) => {
+                console.log("Private page", error.response);
+                // Invalid token
+                if (error.response && error.response.status === 403) {
+                    authService.logout();
+                    navig("/login");
+                    window.location.reload();
+                }
+            }
+        );
+
     }
 
-  }, [])
-  console.log(location.state.Bon)
-
+}, [location])
+  useEffect(() => {
+    if (bon.detailsDevis) {
+        let aux = []
+        bon.detailsDevis.forEach(element => {
+            let ojb = { idProduit: element.idProduit, quantite: element.quantite }
+            aux.push(ojb)
+        });
+        SetDetailsBonReceptionModels(aux);
+    }
+}, [bon])
   const handleSubmit = async (event) => {
     event.preventDefault();
     const user = authService.getCurrentUser();
 
     let aux = {
-      id: location.state.Bon.id,
+      id: bon.id,
       clientId: Fournisseur.id,
       grossisteId: user.id,
       date: new Date(),

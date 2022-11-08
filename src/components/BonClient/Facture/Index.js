@@ -18,7 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from '@mui/material/Link';
 import ArticleIcon from '@mui/icons-material/Article';
-function Index() {
+function Index({iDC}) {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
@@ -35,9 +35,9 @@ function Index() {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params={include:"BonLivraisonClient.Grossiste,BonLivraisonClient.Client,DetailsFactures,BonLivraisonClient.DetailsLivraisons.Produit",idP:0}
+            let params={include:"BonLivraisonClient.Client",idP:0}
             params.idP = 0
-
+            params.iDC=(iDC)?(iDC):(0)
             FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);
@@ -64,7 +64,7 @@ function Index() {
     };
     const handleDetails = (item) => {
 
-        navig('/feed/factureClient_details/', { state: { Facture: item } });
+        navig('/feed/factureClient_details/', { state: { Facture: item.id } });
 
     };
   return (
@@ -130,7 +130,7 @@ function Index() {
                             <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
                             <Table.Cell><Link onClick={(event, value) => {
                                 event.preventDefault();
-                                navig('/feed/bonLivraison_details/', { state: { Bon: item.bonLivraisonClient } });
+                                navig('/feed/bonLivraison_details/', { state: { Bon: item.bonLivraisonClient.id } });
 
 
                             }}

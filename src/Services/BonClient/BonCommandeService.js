@@ -26,7 +26,7 @@ const ajout = (item) => {
 
     params.id = user.id;
 
-    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include, config);
+    return axios.get(API_URL + "?id=" + params.id+"&include="+params.include+"&iDC="+params.iDC, config);
 };
   const Delete=(id)=>{
    
@@ -39,9 +39,14 @@ const ajout = (item) => {
    
     return  axios.put(API_URL+"/Update/"+item.id,item,config);
   };
+const GetById=(id)=>{
+  
+   
+    return  axios.get(API_URL+"/Get/"+id,config);
+  };
 
   
   const ProduitService = {
-    ajout,GetList,Delete,Put
+    ajout,GetList,Delete,Put,GetById
   };
   export default ProduitService;

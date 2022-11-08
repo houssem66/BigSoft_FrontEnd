@@ -18,6 +18,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import clientService from '../../Services/ClientService'
+import typeCLient from '../../Data/TypeClient.json'
+
 function Client() {
     let navig = useNavigate();
     const [list, setList] = useState([]);
@@ -63,11 +65,11 @@ function Client() {
     //Handles
     const handleEdit = (item) => {
 
-        navig('/feed/editClient/', { state: { client: item } });
+        navig('/feed/client_edit/', { state: { client: item } });
 
     }; const handleDetails = (item) => {
 
-        navig('/feed/detailsClient/', { state: { client: item } });
+        navig('/feed/client_details/', { state: { client: item } });
 
     };
     const handleDelete = async (id) => {
@@ -102,7 +104,7 @@ function Client() {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/ajouterClient"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/client_ajout"); }} auto icon={<AddIcon />}>Add</Button></Grid>
                 <Grid item md={12}>
                     <Table
                         bordered
@@ -117,15 +119,18 @@ function Client() {
                     >
                         <Table.Header>
                             <Table.Column>Id</Table.Column>
-                            <Table.Column>Nom</Table.Column>
-                            <Table.Column>Prénom</Table.Column>
+                            <Table.Column>Name</Table.Column>
+                            <Table.Column>Last Name</Table.Column>
                             <Table.Column>Birthday</Table.Column>
-                            <Table.Column>Numéro télephone</Table.Column>
+                            <Table.Column>Phone Number</Table.Column>
                             <Table.Column>Email</Table.Column>
+                            <Table.Column>Client Type</Table.Column>
+                            <Table.Column>Identifiant</Table.Column>
                             <Table.Column>Actions</Table.Column>
                         </Table.Header>
                         <Table.Body>
                             {filteredList.map(item => (
+                                console.log(item.typeClient!==0),
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.id}</Table.Cell>
                                     <Table.Cell>{item.nom}</Table.Cell>
@@ -133,6 +138,9 @@ function Client() {
                                     <Table.Cell>{item.birthDate.toString().substring(0,10)}</Table.Cell>
                                     <Table.Cell>{item.numMobile}</Table.Cell>
                                     <Table.Cell>{item.email}</Table.Cell>
+                                    <Table.Cell>{(item.typeClient!==0)?(Object.values(typeCLient)[item.typeClient]+"(Fiscale)")
+                                    :(Object.values(typeCLient)[item.typeClient]+"(cin)") }</Table.Cell>
+                                    <Table.Cell>{(item.cin)?(item.cin):(item.identifiant_fiscale) }</Table.Cell>
                                     <Table.Cell>
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
@@ -155,19 +163,19 @@ function Client() {
                                                     {"Confirmer le suppression"}
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le client    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                                    <DialogContentText id="alert-dialog-description"><p>  You will delete the client    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
 
 
                                                     </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
-                                                    <Button color="gradient" onClick={handleClose} auto>Annuler</Button>
+                                                    <Button color="gradient" onClick={handleClose} auto>Close</Button>
                                                     <Button color="warning" onClick={() => {
 
                                                         handleDelete(item.id);
 
                                                     }} autoFocus>
-                                                        Supprimer
+                                                        Delete
                                                     </Button>
                                                 </DialogActions>
                                             </Dialog>
