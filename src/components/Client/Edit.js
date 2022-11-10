@@ -31,25 +31,51 @@ function getProper(typ) {
   }
 }
 function EditClient() {
-
+  const [date,setDate]=React.useState('');
+  const [client,setClient]=React.useState('');
   const location = useLocation();
-  console.log(location.state.client.typeClient);
-  const INITIAL_FORM_STATE = {
-    id: location.state.client.id,
-    nom: location.state.client.nom,
-    prenom: location.state.client.prenom,
-    codePostale: location.state.client.codePostale,
-    birthDate: location.state.client.birthDate,
-    email: location.state.client.email,
-    phoneBureau: location.state.client.phoneBureau,
-    numMobile: location.state.client.numMobile,
-    adresse: location.state.client.adresse,
-    civility: location.state.client.civility,
-    gouvernorats: location.state.client.gouvernorats,
-    typeClient: location.state.client.typeClient,
-    cin: location.state.client.cin,
-    identifiant_fiscale: location.state.client.identifiant_fiscale,
-  };
+  React.useEffect(() => {
+    if (location.state.client) {
+
+    
+      const Date = location.state.client.birthDate.toString().substring(0, 10).split("-");
+      setClient(location.state.client)
+      setDate(Date[0] + "-" + Date[1] + '-' + Date[2])
+      console.log(Date,"array")
+      console.log("result",Date[2] + "-" + Date[1] + '-' + Date[0])
+    }
+  }, [location.state])  
+  const INITIAL_FORM_STATE = (client)?( {
+    id: client.id,
+    nom: client.nom,
+    prenom: client.prenom,
+    codePostale: client.codePostale,
+    birthDate: date,
+    email: client.email,
+    phoneBureau: client.phoneBureau,
+    numMobile: client.numMobile,
+    adresse: client.adresse,
+    civility: client.civility,
+    gouvernorats: client.gouvernorats,
+    typeClient: client.typeClient,
+    cin: client.cin,
+    identifiant_fiscale: client.identifiant_fiscale,
+  }):( {
+    nom: '',
+    prenom: '',
+    codePostale: '',
+    birthDate: '',
+    email: '',
+    phoneBureau: '',
+    numMobile: '',
+    adresse: '',
+    civility: '',
+    gouvernorats: '',
+    typeClient: '',
+    cin: '',
+    identifiant_fiscale: '',
+  })
+ 
   const [type, setTypeCLient] = React.useState(1);
 
 
@@ -103,26 +129,26 @@ function EditClient() {
   }
   const handlesubmit = async (client) => {
 
-    console.log(client)
-    try {
-      await clientService.Put(client).then(
-        (response) => {
+    console.log(client.birthDate,"birthdate")
+    // try {
+    //   await clientService.Put(client).then(
+    //     (response) => {
 
-            navigate("/feed/client");
-            window.location.reload();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    //         navigate("/feed/client");
+    //         window.location.reload();
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
   }
 
   return (
-    <Formik initialValues={{
+    <>{(client)?(  <Formik initialValues={{
       ...INITIAL_FORM_STATE
     }}
       validationSchema={FORM_VALIDATION}
@@ -270,7 +296,8 @@ function EditClient() {
           </Grid>
         </Grid>
       </Form>
-    </Formik>
+    </Formik>):(<div>empty</div>)}</>
+  
   )
 }
 

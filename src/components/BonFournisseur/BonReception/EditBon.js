@@ -109,12 +109,12 @@ function EditBon({ selector, listFournisseur, SetDetailsBonReceptionModels, deta
         <Grid item md={3}>Adress:<strong>{(Fournisseur) ? (Fournisseur.adresse) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
         <Grid item md={3}>Adress: <strong>{Grossiste.adresse}</strong></Grid>
-        <Grid item md={3}>Mobile phone number:<strong>{(Fournisseur) ? (Fournisseur.numFax) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Office phone number:<strong>{(Fournisseur) ? (Fournisseur.phoneBureau) : (<div></div>)} </strong></Grid>
+        <Grid item md={6} ></Grid>
+        <Grid item md={3}>Office phone number: <strong>{Grossiste.numMobile}</strong></Grid>
+        <Grid item md={3}>Mobile phone number:<strong>{(Fournisseur) ? (Fournisseur.numMobile) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
         <Grid item md={3}>Mobile phone number: <strong>{Grossiste.numMobile}</strong></Grid>
-        <Grid item md={3}>Office phone number:<strong>{(Fournisseur) ? (Fournisseur.numbureau) : (<div></div>)} </strong></Grid>
-        <Grid item md={6} ></Grid>
-        <Grid item md={3}>Office phone number: <strong>{Grossiste.numbureau}</strong></Grid>
 
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>

@@ -175,10 +175,10 @@ const DetailsFournisseur = () => {
                             </Grid>
 
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom>Fax Number  </Typography>
+                                <Typography variant="button" gutterBottom>Office Number  </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="body1" gutterBottom> {fournisseur.numFax}  </Typography>
+                                <Typography variant="body1" gutterBottom> {fournisseur.phoneBureau}  </Typography>
                             </Grid>
 
                             <Divider sx={{ borderBottomWidth: 1, width: '100%' }} />
@@ -198,10 +198,10 @@ const DetailsFournisseur = () => {
                                 <Typography variant="body1" gutterBottom> {fournisseur.prenomPersAContact}   </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="button" gutterBottom> office Number  </Typography>
+                                <Typography variant="button" gutterBottom> Mobile Number  </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant="body1" gutterBottom> {fournisseur.numbureau}   </Typography>
+                                <Typography variant="body1" gutterBottom> {fournisseur.numMobile}   </Typography>
                             </Grid>
                         </Grid>
                     </Grid>

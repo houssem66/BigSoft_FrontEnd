@@ -248,19 +248,19 @@ function Index({ iDC }) {
                                                     {"Confirmer le suppression"}
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                                    <DialogContentText id="alert-dialog-description"><p>  You will delete the Delivery order    <Typography component="h1" variant="h5">{item.date.toString().substring(0, 10)}</Typography> !!</p>
 
 
                                                     </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
-                                                    <Button color="gradient" onClick={handleClose} auto>fermer</Button>
+                                                    <Button color="gradient" onClick={handleClose} auto>Cancel</Button>
                                                     <Button color="warning" onClick={() => {
 
                                                         handleDelete(item.id);
 
                                                     }} autoFocus>
-                                                        supprimer
+                                                        Delete
                                                     </Button>
                                                 </DialogActions>
                                             </Dialog>

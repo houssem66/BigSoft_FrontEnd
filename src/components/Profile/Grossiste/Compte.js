@@ -13,6 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import GrossisteServies from '../../../Services/GrossisteServies';
 import UserService from '../../../Services/UserService';
 import Textfield from '../../../components/FormsUI/Textfields';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { set } from 'date-fns';
 
 
 
@@ -29,17 +32,23 @@ const theme = createTheme({
 function Compte(props) {
   let navigate = useNavigate();
   let formData = new FormData();
+  const [user, setUser] = useState('')
+  const [defaultDate, setdefaultDate] = useState('')
+  useEffect(() => {
+    if (props.Grossiste) {
 
-  const user = (props.Grossiste);
-
-
-  const INITIAL_FORM_STATE = {
+      setUser(props.Grossiste);
+      const Date = props.Grossiste.birthDate.toString().substring(0, 10).split("-");
+      setdefaultDate(Date[0] + "-" + Date[1] + '-' + Date[2])
+    }
+  }, [props.Grossiste])
+  const INITIAL_FORM_STATE = (user) ? ({
 
     id: user.id,
     documents: "",
     userName: user.userName,
     adresse: user.adresse,
-    birthDate: "25-04-1996",
+    birthDate: defaultDate,
     civility: user.civility,
     codePostale: user.codePostale,
     email: user.email,
@@ -55,7 +64,30 @@ function Compte(props) {
     rib: user.rib,
     siteWeb: user.siteWeb,
 
-  };
+  }) : (
+    {
+
+      id: '',
+      userName: '',
+      adresse: '',
+      birthDate: "",
+      civility: '',
+      codePostale: '',
+      email: '',
+      emailPersAContact: '',
+      gouvernorats: '',
+      identifiant_fiscale: '',
+      nom: '',
+      numFax: '',
+      numMobile: '',
+      numbureau: '',
+      prenom: '',
+      raisonSocial: '',
+      rib: '',
+      siteWeb: '',
+
+    }
+  )
   const FORM_VALIDATION = Yup.object().shape({
     raisonSocial: Yup.string().required('Obligatoire'),
     userName: Yup.string().required('Obligatoire').test('Unique UserName', 'UserName already in use', function (value) {
@@ -90,11 +122,11 @@ function Compte(props) {
     numbureau: Yup.number().integer().typeError('Please enter a valid phone number').required('Obligatoire'),
     emailPersAContact: Yup.string().email('Invalid email.').required('Obligatoire'),
     birthDate: Yup.date().required('Obligatoire'),
-    
+
   });
   const handleSubmit = async (values) => {
 
-   
+
     formData.append('Documents', values.documents);
     formData.append('adresse', values.adresse);
     formData.append('Nom', values.nom);
@@ -115,7 +147,7 @@ function Compte(props) {
     formData.append('rib', values.rib);
     formData.append('siteWeb', values.siteWeb);
     formData.append('birthDate', values.birthDate);
- console.log(values);
+    console.log(values.birthDate)
     try {
       await GrossisteServies.Put(formData).then(
         (response) => {
@@ -133,7 +165,7 @@ function Compte(props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>{(user) ? (<ThemeProvider theme={theme}>
       <Formik initialValues={{
         ...INITIAL_FORM_STATE
       }}
@@ -142,7 +174,6 @@ function Compte(props) {
         onSubmit={values => {
 
           handleSubmit(values);
-          console.log(values.emailPersAContact);
           //setFile(values.documents);
 
 
@@ -183,7 +214,7 @@ function Compte(props) {
                   /></Grid>
                   <Grid item md={12} >
                     <Typography variant="button" display="block" gutterBottom>
-                     General informations:
+                      General informations:
                     </Typography>
                   </Grid>
                   <Grid item md={6} >
@@ -219,7 +250,7 @@ function Compte(props) {
                   </Grid>
                   <Grid item md={12} >
                     <Typography variant="button" display="block" gutterBottom>
-                       person to contact details :
+                      person to contact details :
                     </Typography>
                   </Grid>
                   <Grid item md={6} >
@@ -262,9 +293,7 @@ function Compte(props) {
                   </Grid>
                   <Grid item md={12}>
                     <Grid container justifyContent="flex-start" alignItems="flex-start" >
-                      <Grid item md={4}>
-                        <Typography variant="button" gutterBottom> Birthdate:<b>{user.birthDate}</b>  </Typography>
-                      </Grid>
+                     
                       <Grid item md={4} >
                         <DateTimePicker
                           name="birthDate"
@@ -274,10 +303,10 @@ function Compte(props) {
                       </Grid>
                     </Grid>
                   </Grid>
-                    <Grid item md={12}>
-                   < FileUploader val="Upload Identifiant" name="documents"></FileUploader>
+                  <Grid item md={12}>
+                    < FileUploader val="Upload Identifiant" name="documents"></FileUploader>
                   </Grid>
-                 
+
                   <Grid item md={12}>
                     <Button color="secondary" fullWidth>
                       save
@@ -293,7 +322,8 @@ function Compte(props) {
 
         </Form>
       </Formik>
-    </ThemeProvider>
+    </ThemeProvider>) : (<div>no user</div>)}</>
+
   )
 }
 

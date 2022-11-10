@@ -84,7 +84,7 @@ function DetailsBon({selector,bon,title}) {
           <Grid item md={3}>Adress:<strong>{(bon.fournisseur) ? (bon.fournisseur.adresse) : (bon.client.adresse)} </strong></Grid>
           <Grid item md={6} ></Grid>
           <Grid item md={3}>Adress: <strong>{bon.grossiste.adresse}</strong></Grid>
-          <Grid item md={3}>Mobile phone number:<strong>{(bon.fournisseur) ? (bon.fournisseur.numFax) : (bon.client.numMobile)} </strong></Grid>
+          <Grid item md={3}>Mobile phone number:<strong>{(bon.fournisseur) ? (bon.fournisseur.numMobile) : (bon.client.numMobile)} </strong></Grid>
           <Grid item md={6} ></Grid>
           <Grid item md={3}>Mobile phone number: <strong>{bon.grossiste.numMobile}</strong></Grid>
          

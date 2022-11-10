@@ -13,6 +13,7 @@ import Gouvernorats from '../../Data/Gouvernorats.json'
 import Button from '../FormsUI/Button'
 import { Button as Butt } from '@mui/material';
 import FormeJuridique from '../../Data/FormeJuridique.json'
+import { useState } from 'react';
 
 function EditFournisseur() {
     const location = useLocation();
@@ -48,7 +49,7 @@ function EditFournisseur() {
         .matches(/^[0-9]{8}[A-Za-z]$/, "Must be a In this format 12345678X.")
 
     });
-    
+   
     const INITIAL_FORM_STATE = {
       
         id: location.state.fournisseur.id,

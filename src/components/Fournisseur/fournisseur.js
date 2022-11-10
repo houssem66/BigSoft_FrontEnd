@@ -124,7 +124,7 @@ const Fournisseur = () => {
                         <Table.Header>
                             <Table.Column>Id</Table.Column>
                             <Table.Column>Corporate Name</Table.Column>
-                            <Table.Column>Fax Number</Table.Column>
+                            <Table.Column>Mobile Number</Table.Column>
                             <Table.Column>Name person to contact</Table.Column>
                             <Table.Column>Lastname person to contact</Table.Column>
                             <Table.Column>Office Number</Table.Column>
@@ -135,10 +135,10 @@ const Fournisseur = () => {
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.id}</Table.Cell>
                                     <Table.Cell>{item.raisonSocial}</Table.Cell>
-                                    <Table.Cell>{item.numFax}</Table.Cell>
+                                    <Table.Cell>{item.numMobile}</Table.Cell>
                                     <Table.Cell>{item.nomPersAContact}</Table.Cell>
                                     <Table.Cell>{item.prenomPersAContact}</Table.Cell>
-                                    <Table.Cell>{item.numbureau}</Table.Cell>
+                                    <Table.Cell>{item.phoneBureau}</Table.Cell>
                                     <Table.Cell>
                                         <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
                                             <DeleteIcon />
