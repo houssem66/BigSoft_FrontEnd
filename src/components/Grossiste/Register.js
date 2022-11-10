@@ -44,11 +44,12 @@ function Register() {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   async function _submitForm(values, actions) {
+    console.log("wtf")
     formData.append('Documents', values.documents);
     formData.append('adresse', values.adresse);
     formData.append('Nom', values.nom);
     formData.append('prenom', values.prenom);
-    formData.append('emailPersAContact', values.emailPersAContact);
+    formData.append('emailPersAContact', values.emailPersonneAcontact);
     formData.append('userName', values.userName);
     formData.append('raisonSocial', values.raisonSocial);
     formData.append('email', values.email);

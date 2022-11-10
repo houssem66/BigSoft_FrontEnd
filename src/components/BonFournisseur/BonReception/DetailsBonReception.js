@@ -26,7 +26,7 @@ function DetailsBonReception() {
       );
       },[location])
     return (
-        <>{(bon)?(  <DetailsBon selector={"Fournisseur"} title="Bon de réception" bon={bon}></DetailsBon>)
+        <>{(bon)?(  <DetailsBon selector={"Fournisseur"} title="Receipt order" bon={bon}></DetailsBon>)
             :(<div></div>)}
       
         </>

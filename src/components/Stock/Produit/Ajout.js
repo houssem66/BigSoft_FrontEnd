@@ -68,7 +68,7 @@ function Ajout() {
 
 
     const annuler = (e) => {
-        navigate("/feed/produit");
+        navigate("/feed/product");
 
     }
     function CalculatePrixTTC() {
@@ -95,7 +95,7 @@ function Ajout() {
             await ProduitService.ajout(client).then(
                 (response) => {
 
-                    navigate("/feed/produit");
+                    navigate("/feed/product");
                     window.location.reload();
                 },
                 (error) => {
@@ -122,27 +122,27 @@ function Ajout() {
                 <Grid container component="main" sx={{ mx: 3, my: 2, maxWidth: "90%" }} direction="row" spacing={4} alignItems="flex-start" justifyContent="space-between"  >
                     <Grid md={12} item>
                         <Typography component="h1" variant="h5">
-                            Ajouter un Produit
+                           Add product
                         </Typography>
                     </Grid>
                     <Grid item md={12}>
                         <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    informations Générale:
+                                    General informatio,:
                                 </Typography>
                             </Grid>
 
                             <Grid md={6} item>
                                 <Textfield
                                     name="productName"
-                                    label="Nom de produit"
+                                    label="Product name"
                                 />
                             </Grid>
                             <Grid md={6} item >
                                 <Textfield
                                     name="barcode"
-                                    label="Code a barre"
+                                    label="Barcode"
                                 />
                             </Grid>
                             <Grid item md={12}>
@@ -160,7 +160,7 @@ function Ajout() {
                                     <Grid item md={4} >
                                         <Select
                                             name="category"
-                                            label="catégorie"
+                                            label="Category"
                                             options={Category}
                                         />
                                     </Grid>
@@ -177,13 +177,13 @@ function Ajout() {
                         <Grid justifyContent="space-between" sx={{ my: 2 }} spacing={5} container  >
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                    Informatino Monitaire :
+                                 Monitary   Information :
                                 </Typography>
                             </Grid>
                             <Grid item md={2} >
                                 <Textfield
                                     name="priceHT"
-                                    label="Prix hors tax"
+                                    label="hors tax Price"
                                 />
                             </Grid>
                             <Grid item md={3} >
@@ -196,12 +196,12 @@ function Ajout() {
                             <Grid item md={2} >
                                 <Select
                                     name="unitOfMeasure"
-                                    label="Unité de mesure"
+                                    label="Unité of mesure"
                                     options={UnitOfMeasure}
                                 />
                             </Grid>
                             <Grid item md={5} >
-                                <Alert severity="success">prix TTC: <strong>{(CalculatePrixTTC() < 1) ? (<div></div>) : (CalculatePrixTTC())} TND  par {unit[Unit]}</strong> </Alert>
+                                <Alert severity="success">price TTC: <strong>{(CalculatePrixTTC() < 1) ? (<div></div>) : (CalculatePrixTTC())} TND  of {unit[Unit]}</strong> </Alert>
                             </Grid>
 
                         </Grid>
@@ -212,12 +212,12 @@ function Ajout() {
                             alignItems="flex-end">
                             <Grid item >
                                 <Butt variant='contained' color="error" onClick={() => { annuler() }} >
-                                    annuler
+                                    Cancel
                                 </Butt>
                             </Grid>
                             <Grid item >
                                 <Button >
-                                    Enregistrer
+                                    Save
                                 </Button>
                             </Grid>
                         </Grid>

@@ -90,7 +90,7 @@ function EditBon({ selector, listFournisseur, SetDetailsBonReceptionModels, deta
               </Typography>
               <Typography variant="body1" gutterBottom>
                 Date:
-                <strong style={{ color: "black" }}> </strong>
+                <strong style={{ color: "black" }}>{bon.date.toString().substring(0,10)} </strong>
               </Typography>
             </Grid>
           </Grid>
@@ -99,22 +99,22 @@ function EditBon({ selector, listFournisseur, SetDetailsBonReceptionModels, deta
         <Grid item md={3} >
 
           <Typography variant="body1" gutterBottom>
-            Raison Sociale:  <strong>{Grossiste.raisonSocial}</strong>
+           Corporate name:  <strong>{Grossiste.raisonSocial}</strong>
           </Typography>
 
 
 
 
         </Grid>
-        <Grid item md={3}>Adresse:<strong>{(Fournisseur) ? (Fournisseur.adresse) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Adress:<strong>{(Fournisseur) ? (Fournisseur.adresse) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
-        <Grid item md={3}>Adresse: <strong>{Grossiste.adresse}</strong></Grid>
-        <Grid item md={3}>Numéro Mobile:<strong>{(Fournisseur) ? (Fournisseur.numFax) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Adress: <strong>{Grossiste.adresse}</strong></Grid>
+        <Grid item md={3}>Mobile phone number:<strong>{(Fournisseur) ? (Fournisseur.numFax) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
-        <Grid item md={3}>Numéro Mobile: <strong>{Grossiste.numMobile}</strong></Grid>
-        <Grid item md={3}>Numéro Fix:<strong>{(Fournisseur) ? (Fournisseur.numbureau) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Mobile phone number: <strong>{Grossiste.numMobile}</strong></Grid>
+        <Grid item md={3}>Office phone number:<strong>{(Fournisseur) ? (Fournisseur.numbureau) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
-        <Grid item md={3}>Numéro Fix: <strong>{Grossiste.numbureau}</strong></Grid>
+        <Grid item md={3}>Office phone number: <strong>{Grossiste.numbureau}</strong></Grid>
 
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
@@ -126,7 +126,7 @@ function EditBon({ selector, listFournisseur, SetDetailsBonReceptionModels, deta
         </TableC>
       </Grid>
       <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
-        <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirmer</Button></Grid>
+        <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirm</Button></Grid>
 
       </Grid>
     </Box>

@@ -28,7 +28,7 @@ export default function AjoutBon() {
             await BonCommandeService.ajout(aux).then(
                 (response) => {
 
-                   navig("/feed/bonCommandeFournisseur");
+                   navig("/feed/purchaseOrder");
                    window.location.reload();
                 },
                 (error) => {
@@ -59,6 +59,6 @@ export default function AjoutBon() {
         );
     }, [])
     return (
-        <>{(listFournisseur) ? (<Ajout title="bon de commande" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
+        <>{(listFournisseur) ? (<Ajout title="Purchase order" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
     )
 }

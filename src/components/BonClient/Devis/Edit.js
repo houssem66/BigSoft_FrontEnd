@@ -59,7 +59,7 @@ function Edit() {
       await BonLivraison.Put(aux).then(
         (response) => {
 
-          navig("/feed/devis");
+          navig("/feed/salesQuotes");
           window.location.reload();
         },
         (error) => {
@@ -91,7 +91,7 @@ function Edit() {
   return (
     <>{(listFournisseur && bon && (detailsBonReceptionModels)) ?
       (<EditBon bon={bon}
-        title="devis"
+        title="Sales Quotes"
         Fournisseur={Fournisseur}
         setFournisseur={setFournisseur}
         detailsBonReceptionModels={detailsBonReceptionModels}

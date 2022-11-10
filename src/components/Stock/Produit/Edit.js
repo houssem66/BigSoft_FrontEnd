@@ -64,10 +64,7 @@ function Edit() {
   let navigate = useNavigate();
 
 
-  const annuler = (e) => {
-    navigate("/feed/produit");
 
-  }
   function CalculatePrixTTC() {
     console.log(TVA, "TVA")
     console.log(PrixHT, "PrixHT")
@@ -93,7 +90,7 @@ function Edit() {
       await ProduitService.Put(client).then(
         (response) => {
 
-          navigate("/feed/produit");
+          navigate("/feed/product");
           window.location.reload();
         },
         (error) => {
@@ -120,27 +117,27 @@ function Edit() {
         <Grid container component="main" sx={{ mx: 3, my: 2, maxWidth: "90%" }} direction="row" spacing={4} alignItems="flex-start" justifyContent="space-between"  >
           <Grid md={12} item>
             <Typography component="h1" variant="h5">
-              Ajouter un Produit
+             Edit the Product: <strong style={{color:"red"}}>{location.state.produit.productName}</strong> 
             </Typography>
           </Grid>
           <Grid item md={12}>
             <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
               <Grid item md={12} >
                 <Typography variant="button" display="block" gutterBottom>
-                  informations Générale:
+                 General informations :
                 </Typography>
               </Grid>
 
               <Grid md={6} item>
                 <Textfield
                   name="productName"
-                  label="Nom de produit"
+                  label="Product name"
                 />
               </Grid>
               <Grid md={6} item >
                 <Textfield
                   name="barcode"
-                  label="Code a barre"
+                  label="Barcode"
                 />
               </Grid>
               <Grid item md={12}>
@@ -158,7 +155,7 @@ function Edit() {
                   <Grid item md={4} >
                     <Select
                       name="category"
-                      label="catégorie"
+                      label="Category"
                       options={Category}
                     />
                   </Grid>
@@ -175,7 +172,7 @@ function Edit() {
             <Grid justifyContent="space-between" sx={{ my: 2 }} spacing={5} container  >
               <Grid item md={12} >
                 <Typography variant="button" display="block" gutterBottom>
-                  Informatino Monitaire :
+                Monitary  Information  :
                 </Typography>
               </Grid>
               <Grid item md={2} >
@@ -194,7 +191,7 @@ function Edit() {
               <Grid item md={2} >
                 <Select
                   name="unitOfMeasure"
-                  label="Unité de mesure"
+                  label="Unite of mesure"
                   options={UnitOfMeasure}
                 />
               </Grid>
@@ -209,13 +206,13 @@ function Edit() {
               justifyContent="flex-end"
               alignItems="flex-end">
               <Grid item >
-                <Butt variant='contained' color="error" onClick={() => { annuler() }} >
-                  annuler
+                <Butt variant='contained' color="error" onClick={() => { navigate("/feed/product"); }} >
+                  Cancel
                 </Butt>
               </Grid>
               <Grid item >
                 <Button >
-                  Enregistrer
+                  Save
                 </Button>
               </Grid>
             </Grid>

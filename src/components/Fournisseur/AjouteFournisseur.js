@@ -1,5 +1,5 @@
 
-import {  Grid  } from "@mui/material";
+import { Grid } from "@mui/material";
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import fournisseurService from '../../Services/FournisseurService';
@@ -12,8 +12,7 @@ import Civility from '../../Data/Civility.json'
 import Gouvernorats from '../../Data/Gouvernorats.json'
 import Button from '../FormsUI/Button'
 import { Button as Butt } from '@mui/material';
-import authService from "../../Services/AuthServices";
-
+import FormeJuridique from '../../Data/FormeJuridique.json'
 function Ajout() {
     const FORM_VALIDATION = Yup.object().shape({
         email: Yup.string().email('Invalid email.').required('required'),
@@ -28,24 +27,27 @@ function Ajout() {
                 'Enter correct url!'
             )
             .required('Please enter website'),
-        numbureau: Yup.number()
-            .integer()
-            .typeError('Please enter a valid phone number')
-            .required('Required'),
-        numFax: Yup.number()
-            .integer()
-            .typeError('Please enter a valid phone number')
-            .required('Required'),
+        phoneBureau: Yup.
+            string().required("required")
+            .length(8).matches(/^([0-9]+)$/, "must be a number"),
+        numMobile: Yup
+            .string()
+            .required("required")
+            .length(8).matches(/^([0-9]+)$/, "must be a number"),
         adresse: Yup.string().required('required'),
         civility: Yup.string()
             .required('Required'),
         gouvernorats: Yup.string()
             .required('Required'),
-          
-          
+        formeJuridique: Yup.string().required("required"),
+        identifiant_fiscale: Yup
+        .string()
+        .required("required")
+        .matches(/^[0-9]{8}[A-Za-z]$/, "Must be a In this format 12345678X.")
+       
 
     });
-    
+
     const INITIAL_FORM_STATE = {
 
         raisonSocial: '',
@@ -54,11 +56,13 @@ function Ajout() {
         codePostale: '',
         email: '',
         siteWeb: '',
-        numbureau: '',
-        numFax: '',
+        phoneBureau: '',
+        numMobile: '',
         adresse: '',
         civility: '',
         gouvernorats: '',
+        identifiant_fiscale: '',
+        formeJuridique: ''
     };
     let navigate = useNavigate();
 
@@ -68,7 +72,7 @@ function Ajout() {
     }
     const handlesubmit = async (fournisseur) => {
 
-     
+
         try {
             await fournisseurService.ajout(fournisseur).then(
                 (response) => {
@@ -105,7 +109,7 @@ function Ajout() {
                         <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
                             <Grid item md={12} >
                                 <Typography variant="button" display="block" gutterBottom>
-                                  Corporate Informations:
+                                    Corporate Informations:
                                 </Typography>
                             </Grid>
 
@@ -123,9 +127,16 @@ function Ajout() {
                             </Grid>
 
                             <Grid item md={6} >
+                                <Select
+                                    name="formeJuridique"
+                                    label="Legal status"
+                                    options={FormeJuridique}
+                                />
+                            </Grid>
+                            <Grid item md={6} >
                                 <Textfield
-                                    name="numFax"
-                                    label="Fax Number"
+                                    name="identifiant_fiscale"
+                                    label="Fiscale Fiscale"
                                 />
                             </Grid>
                         </Grid>
@@ -152,8 +163,14 @@ function Ajout() {
                             </Grid>
                             <Grid item md={6} >
                                 <Textfield
-                                    name="numbureau"
-                                    label="Numéro de bureau"
+                                    name="phoneBureau"
+                                    label="Office number"
+                                />
+                            </Grid>
+                            <Grid item md={6} >
+                                <Textfield
+                                    name="numMobile"
+                                    label="Mobile Number"
                                 />
                             </Grid>
                             <Grid item md={6}>

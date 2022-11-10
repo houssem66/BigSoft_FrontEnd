@@ -66,7 +66,7 @@ const handleClick2 = () => {
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/produit");}} primary="Products" />
+          <ListItemText onClick={event=>{navig("/feed/product");}} primary="Products" />
         </ListItemButton>
       </List>
     </Collapse> 
@@ -83,19 +83,19 @@ const handleClick2 = () => {
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/bonCommandeFournisseur");}} primary="Purchase orders" />
+          <ListItemText onClick={event=>{navig("/feed/purchaseOrder");}} primary="Purchase orders" />
         </ListItemButton> 
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/bonReception");}} primary="Receipts" />
+          <ListItemText onClick={event=>{navig("/feed/receiptOrder");}} primary="Receipt orders" />
         </ListItemButton> 
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/factureFournisseur");}} primary="Invoices" />
+          <ListItemText onClick={event=>{navig("/feed/invoiceVendor");}} primary="Invoices" />
         </ListItemButton>
       </List>
     </Collapse> 
@@ -112,31 +112,31 @@ const handleClick2 = () => {
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/bonCommandeClient");}} primary="Purchase orders" />
+          <ListItemText onClick={event=>{navig("/feed/purchaseOrderClient");}} primary="Purchase orders" />
         </ListItemButton> 
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/bonLivraison");}} primary="Delivery orders" />
+          <ListItemText onClick={event=>{navig("/feed/deliveryOrder");}} primary="Delivery orders" />
         </ListItemButton> 
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/bonSortie");}} primary="Exit orders" />
+          <ListItemText onClick={event=>{navig("/feed/exitOrder");}} primary="Exit orders" />
         </ListItemButton>
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/devis");}} primary="Sales quotes" />
+          <ListItemText onClick={event=>{navig("/feed/salesQuotes");}} primary="Sales quotes" />
         </ListItemButton>
         <ListItemButton  sx={{ pl: 4 }}>
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText onClick={event=>{navig("/feed/factureClient");}} primary="Invoices" />
+          <ListItemText onClick={event=>{navig("/feed/invoiceClient");}} primary="Invoices" />
         </ListItemButton>
       </List>
     </Collapse> 

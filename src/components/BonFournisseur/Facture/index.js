@@ -64,10 +64,58 @@ function FactureFournisseurIndex({iDC}) {
     };
     const handleDetails = (item) => {
 
-        navig('/feed/factureFournisseur_details/', { state: { Facture: item.id } });
+        navig('/feed/invoiceVendor_details/', { state: { Facture: item.id } });
 
     };
+    async function sort({ items, sortDescriptor }) {
+        if (sortDescriptor.direction === "descending") {
+            switch (sortDescriptor.column) {
 
+                case ".0.5":
+                    setList(list.sort((a, b) => {
+
+                        return a.prixTotaleHt - b.prixTotaleHt
+                    }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return a.prixTotaleTTc - b.prixTotaleTTc
+                }))
+                    break;
+
+                default:
+            }
+
+        }
+        else {
+            switch (sortDescriptor.column) {
+                case ".0.5": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleHt - a.prixTotaleHt
+                }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleTTc - a.prixTotaleTTc
+                }))
+                    break;
+                default:
+                    break;
+            }
+            //  filteredList.sort((a, b) => { return b.prixTotaleTTc - a.prixTotaleTTc })
+
+        }
+
+
+    }
+    const listSort = useAsyncList({ sort });
+    let filteredList = list.filter((item) => {
+
+        if (name!==''){
+            return item.bonDeReceptionFournisseur.fournisseur.raisonSocial.toLowerCase().includes(name.toLowerCase())
+        }
+        else {return item}
+    })
     return (
         <Box
             sx={{
@@ -81,6 +129,8 @@ function FactureFournisseurIndex({iDC}) {
             <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
                 <Grid item md={10}>
                     <Input
+                    value={name}
+                    onChange={(e)=>{setName(e.target.value)}}
                         clearable
                         underlined
                         color="success"
@@ -105,21 +155,22 @@ function FactureFournisseurIndex({iDC}) {
                             height: "auto",
                             minWidth: "100%",
                         }}
-
+                        sortDescriptor={listSort.sortDescriptor}
+                        onSortChange={listSort.sort}
                     >
                         <Table.Header>
-                            <Table.Column>Date</Table.Column>
-                            <Table.Column>Raison Sociale Fournisseur</Table.Column>
-                            <Table.Column>Email Fournisseur</Table.Column>
-                            <Table.Column>Numéro Bureau</Table.Column>
-                            <Table.Column>Site Web Fournisseur</Table.Column>
-                            <Table.Column>Prix Totale HT</Table.Column>
-                            <Table.Column>Prix TTC</Table.Column>
-                            <Table.Column>Bon Reception</Table.Column>
+                            <Table.Column >Date</Table.Column>
+                            <Table.Column>Vendor corporate name</Table.Column>
+                            <Table.Column>Vendor Email</Table.Column>
+                            <Table.Column>Office phone number</Table.Column>
+                            <Table.Column>vendor website</Table.Column>
+                            <Table.Column allowsSorting>Total price  HT</Table.Column>
+                            <Table.Column allowsSorting>Total Price TTC</Table.Column>
+                            <Table.Column>Receipt order</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
-                            {list.map(item => (
+                            {filteredList.map(item => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
                                     <Table.Cell>{item.bonDeReceptionFournisseur.fournisseur.raisonSocial}</Table.Cell>

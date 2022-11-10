@@ -23,7 +23,7 @@ function Ajout() {
           await BonLivraison.ajout(aux).then(
               (response) => {
 
-                 navig("/feed/devis");
+                 navig("/feed/salesQuotes");
                  window.location.reload();
               },
               (error) => {
@@ -55,7 +55,7 @@ function Ajout() {
   return (
     <>{(listFournisseur) ?
       (<AjoutL
-          title="Devis"
+          title="Sales Quotes"
           Fournisseur={Fournisseur}
           setFournisseur={setFournisseur}
           detailsBonReceptionModels={detailsBonReceptionModels}

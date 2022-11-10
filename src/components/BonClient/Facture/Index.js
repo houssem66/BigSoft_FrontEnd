@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { Button } from "@nextui-org/react";
+import { Button, useAsyncList } from "@nextui-org/react";
 import SearchIcon from '@mui/icons-material/Search';
 import { Input, Table } from '@nextui-org/react';
 import Box from '@mui/material/Box';
@@ -18,11 +18,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from '@mui/material/Link';
 import ArticleIcon from '@mui/icons-material/Article';
-function Index({iDC}) {
+function Index({ iDC }) {
     let navig = useNavigate();
     const [list, setList] = useState([]);
     const [open, setOpen] = useState(false);
     const [Fetch, setFetch] = useState(true);
+    const [name, setName] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,9 +36,9 @@ function Index({iDC}) {
     useEffect(() => {
         if (Fetch) {
             setFetch(false)
-            let params={include:"BonLivraisonClient.Client",idP:0}
+            let params = { include: "BonLivraisonClient.Client", idP: 0 }
             params.idP = 0
-            params.iDC=(iDC)?(iDC):(0)
+            params.iDC = (iDC) ? (iDC) : (0)
             FactureService.GetList(params).then(
                 (res) => {
                     setList(res.data);
@@ -62,142 +63,190 @@ function Index({iDC}) {
         setFetch(true)
         setOpen(false);
     };
-    const handleDetails = (item) => {
+    
+    async function sort({ items, sortDescriptor }) {
+        if (sortDescriptor.direction === "descending") {
+            switch (sortDescriptor.column) {
 
-        navig('/feed/factureClient_details/', { state: { Facture: item.id } });
+                case ".0.5":
+                    setList(list.sort((a, b) => {
 
-    };
-  return (
-    <Box
-    sx={{
-        my: 8,
-        mx: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    }}
->
-    <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
-        <Grid item md={10}>
-            <Input
-                clearable
-                underlined
-                color="success"
-                labelPlaceholder="Search"
-                width="100%"
-                contentRight={
-                    <SearchIcon filled width="16" height="16" fill="#f5a623" />
-                }
-            />
+                        return a.prixTotaleHt - b.prixTotaleHt
+                    }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
 
-        </Grid>
-        <Grid item md={2}>
+                    return a.prixTotaleTTc - b.prixTotaleTTc
+                }))
+                    break;
 
-        </Grid>
-        <Grid item md={12}>
-            <Table
-                bordered
-                shadow={false}
-                color="secondary"
-                aria-label="Example pagination  table"
-                css={{
-                    height: "auto",
-                    minWidth: "100%",
-                }}
+                default:
+            }
 
-            >
-                <Table.Header>
-                    <Table.Column>Date</Table.Column>
-                    <Table.Column>Raison Sociale Client</Table.Column>
-                    <Table.Column>Email Client</Table.Column>
-                    <Table.Column>Numéro Mobile</Table.Column>
-                    <Table.Column>Nom Clientt</Table.Column>
-                    <Table.Column>Prix Totale HT</Table.Column>
-                    <Table.Column>Prix TTC</Table.Column>
-                    <Table.Column>Bon Livraison</Table.Column>
-                    <Table.Column></Table.Column>
-                </Table.Header>
-                <Table.Body>
-                    {list.map(item => (
-                        <Table.Row key={item.id}>
-                            <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
-                            <Table.Cell>{item.bonLivraisonClient.client.raisonSocial}</Table.Cell>
-                            <Table.Cell>{item.bonLivraisonClient.client.email}</Table.Cell>
-                            <Table.Cell>{item.bonLivraisonClient.client.numMobile}</Table.Cell>
-                            <Table.Cell>{item.bonLivraisonClient.client.nom}</Table.Cell>
+        }
+        else {
+            switch (sortDescriptor.column) {
+                case ".0.5": setList(list.sort((a, b) => {
 
-                            <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
-                            <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
-                            <Table.Cell><Link onClick={(event, value) => {
-                                event.preventDefault();
-                                navig('/feed/bonLivraison_details/', { state: { Bon: item.bonLivraisonClient.id } });
+                    return b.prixTotaleHt - a.prixTotaleHt
+                }))
+                    break;
+                case ".0.6": setList(list.sort((a, b) => {
+
+                    return b.prixTotaleTTc - a.prixTotaleTTc
+                }))
+                    break;
+                default:
+                    break;
+            }
+            //  filteredList.sort((a, b) => { return b.prixTotaleTTc - a.prixTotaleTTc })
+
+        }
 
 
-                            }}
-                                underline="hover"
-                                sx={{ display: 'flex', alignItems: 'center' }}
-                                color="inherit"
-                                href="/"
-                            >
-                                <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                                {item.date.toString().substring(0, 10)}
-                            </Link></Table.Cell>
+    }
+    const listSort = useAsyncList({ sort });
+    let filteredList = list.filter((item) => {
 
-                            <Table.Cell>
-                                <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
-                                    <DeleteIcon />
-                                </IconButton>
+        if (name !== '') {
+            return item.bonLivraisonClient.fournisseur.raisonSocial.toLowerCase().includes(name.toLowerCase())
+        }
+        else { return item }
+    })
+    return (
+        <Box
+            sx={{
+                my: 8,
+                mx: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+        >
+            <Grid sx={{ mt: 2, ml: 5, mx: 2 }} container spacing={5}>
+                <Grid item md={10}>
+                    <Input
+                        value={name}
+                        onChange={(e) => { setName(e.target.value) }}
+                        clearable
+                        underlined
+                        color="success"
+                        labelPlaceholder="Search"
+                        width="100%"
+                        contentRight={
+                            <SearchIcon filled width="16" height="16" fill="#f5a623" />
+                        }
+                    />
+
+                </Grid>
+                <Grid item md={2}>
+
+                </Grid>
+                <Grid item md={12}>
+                    <Table
+                        bordered
+                        shadow={false}
+                        color="secondary"
+                        aria-label="Example pagination  table"
+                        css={{
+                            height: "auto",
+                            minWidth: "100%",
+                        }}
+                        sortDescriptor={listSort.sortDescriptor}
+                        onSortChange={listSort.sort}
+                    >
+                        <Table.Header>
+                        <Table.Column >Date</Table.Column>
+                            <Table.Column>Client corporate name</Table.Column>
+                            <Table.Column>Vendor Email</Table.Column>
+                            <Table.Column>Client phone number</Table.Column>
+                            <Table.Column>client Name</Table.Column>
+                            <Table.Column allowsSorting>Total price  HT</Table.Column>
+                            <Table.Column allowsSorting>Total Price TTC</Table.Column>
+                            <Table.Column>Purchase order</Table.Column>
+                            <Table.Column></Table.Column>
+                        </Table.Header>
+                        <Table.Body>
+                            {list.map(item => (
+                                <Table.Row key={item.id}>
+                                    <Table.Cell>{item.date.toString().substring(0, 10)}</Table.Cell>
+                                    <Table.Cell>{item.bonLivraisonClient.client.raisonSocial}</Table.Cell>
+                                    <Table.Cell>{item.bonLivraisonClient.client.email}</Table.Cell>
+                                    <Table.Cell>{item.bonLivraisonClient.client.numMobile}</Table.Cell>
+                                    <Table.Cell>{item.bonLivraisonClient.client.nom}</Table.Cell>
+
+                                    <Table.Cell><strong>{item.prixTotaleHt}</strong></Table.Cell>
+                                    <Table.Cell><strong>{item.prixTotaleTTc}</strong></Table.Cell>
+                                    <Table.Cell><Link onClick={(event, value) => {
+                                        event.preventDefault();
+                                        navig('/feed/deliveryOrder_details/', { state: { Bon: item.bonLivraisonClient.id } });
 
 
-                                <IconButton onClick={() => { handleDetails(item) }} color="default" aria-label="Edit">
-                                    <VisibilityIcon />
-                                </IconButton>
-                                <div>
-
-                                    <Dialog
-                                        open={open}
-                                        onClose={handleClose}
-                                        aria-labelledby="alert-dialog-title"
-                                        aria-describedby="alert-dialog-description"
+                                    }}
+                                        underline="hover"
+                                        sx={{ display: 'flex', alignItems: 'center' }}
+                                        color="inherit"
+                                        href="/"
                                     >
-                                        <DialogTitle id="alert-dialog-title">
-                                            {"Confirmer le suppression"}
-                                        </DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                        <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                                        {item.date.toString().substring(0, 10)}
+                                    </Link></Table.Cell>
+
+                                    <Table.Cell>
+                                        <IconButton onClick={handleClickOpen} color="primary" aria-label="delete">
+                                            <DeleteIcon />
+                                        </IconButton>
 
 
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button color="gradient" onClick={handleClose} auto>fermer</Button>
-                                            <Button color="warning" onClick={() => {
+                                        <IconButton onClick={() => {   navig('/feed/invoiceClient_details/', { state: { Facture: item.id } }); }} color="default" aria-label="Edit">
+                                            <VisibilityIcon />
+                                        </IconButton>
+                                        <div>
 
-                                                handleDelete(item.id);
+                                            <Dialog
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Confirmer le suppression"}
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
 
-                                            }} autoFocus>
-                                                supprimer
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
-                                </div>
-                            </Table.Cell>
 
-                        </Table.Row>))}
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button color="gradient" onClick={handleClose} auto>fermer</Button>
+                                                    <Button color="warning" onClick={() => {
+
+                                                        handleDelete(item.id);
+
+                                                    }} autoFocus>
+                                                        supprimer
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+                                        </div>
+                                    </Table.Cell>
+
+                                </Table.Row>))}
 
 
-                </Table.Body>
-                <Table.Pagination
-                    shadow
-                    noMargin
-                    align="center"
-                    rowsPerPage={10}
-                    onPageChange={(page) => console.log({ page })}
-                />
-            </Table>
+                        </Table.Body>
+                        <Table.Pagination
+                            shadow
+                            noMargin
+                            align="center"
+                            rowsPerPage={10}
+                            onPageChange={(page) => console.log({ page })}
+                        />
+                    </Table>
 
-        </Grid>
-    </Grid></Box >  )
+                </Grid>
+            </Grid></Box >)
 }
 
 export default Index

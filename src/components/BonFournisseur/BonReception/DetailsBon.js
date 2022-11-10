@@ -74,19 +74,19 @@ function DetailsBon({selector,bon,title}) {
           <Grid item md={3} >
   
             <Typography variant="body1" gutterBottom>
-              Raison Sociale:  <strong>{bon.grossiste.raisonSocial}</strong>
+              Corporate:  <strong>{bon.grossiste.raisonSocial}</strong>
             </Typography>
   
   
   
   
           </Grid>
-          <Grid item md={3}>Adresse:<strong>{(bon.fournisseur) ? (bon.fournisseur.adresse) : (bon.client.adresse)} </strong></Grid>
+          <Grid item md={3}>Adress:<strong>{(bon.fournisseur) ? (bon.fournisseur.adresse) : (bon.client.adresse)} </strong></Grid>
           <Grid item md={6} ></Grid>
-          <Grid item md={3}>Adresse: <strong>{bon.grossiste.adresse}</strong></Grid>
-          <Grid item md={3}>Numéro Mobile:<strong>{(bon.fournisseur) ? (bon.fournisseur.numFax) : (bon.client.numMobile)} </strong></Grid>
+          <Grid item md={3}>Adress: <strong>{bon.grossiste.adresse}</strong></Grid>
+          <Grid item md={3}>Mobile phone number:<strong>{(bon.fournisseur) ? (bon.fournisseur.numFax) : (bon.client.numMobile)} </strong></Grid>
           <Grid item md={6} ></Grid>
-          <Grid item md={3}>Numéro Mobile: <strong>{bon.grossiste.numMobile}</strong></Grid>
+          <Grid item md={3}>Mobile phone number: <strong>{bon.grossiste.numMobile}</strong></Grid>
          
   
         </Grid>

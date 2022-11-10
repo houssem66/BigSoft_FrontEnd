@@ -91,7 +91,7 @@ function Edit() {
     return (
         <>{(listFournisseur && bon && (detailsBonReceptionModels)) ?
             (<EditBon bon={bon}
-                title="bon de commande"
+                title="Purchase Order"
                 Fournisseur={Fournisseur}
                 setFournisseur={setFournisseur}
                 detailsBonReceptionModels={detailsBonReceptionModels}

@@ -63,17 +63,19 @@ function Profile(props) {
         <Grid md={4} item>
           <Grid container spaing={5} >
             <Grid item md={3} >
-              <Avatar
+              {/* <Avatar
                 alt="Remy Sharp"
                 src={logo}
                 sx={{ width: 100, height: 100 }}
-              />
+              /> */}
             </Grid>
             <Grid item md={6} >
-              {user.userName}
+            {/* <Typography variant="h6" gutterBottom>
+             Name: {user.userName}
+            </Typography>  */}
             </Grid>
             <Grid sx={{ mt: 2 }} item md={6} >
-              <Formik initialValues={{
+              {/* <Formik initialValues={{
                 ...INITIAL_FORM_STATE
               }}
                 validationSchema={FORM_VALIDATION}
@@ -88,14 +90,14 @@ function Profile(props) {
                   <Textfield name="nom" ></Textfield>
                   <Button> Enregistrer</Button>
                 </Form>
-              </Formik>
+              </Formik> */}
             </Grid>
           </Grid>
         </Grid>
         <Grid md={8} item>
           <Grid container>
             <Grid item md={10}> <Typography variant="h6" gutterBottom>
-              Details Générale:
+             General details:
             </Typography></Grid>
             <Grid item md={2}>
               <Butt onClick={() => { dispatch(change("compte")); dispatch(increment(1)); }} variant="contained" color="secondary" startIcon={<CreateIcon />}>
@@ -105,7 +107,7 @@ function Profile(props) {
 
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Raison Sociale  </Typography>
+                  <Typography variant="button" gutterBottom> Corporate Name  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -127,7 +129,7 @@ function Profile(props) {
                 </Grid>
               </Grid>  <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> SiteWeb  </Typography>
+                  <Typography variant="button" gutterBottom> WebSite  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -138,7 +140,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Numéro Fax  </Typography>
+                  <Typography variant="button" gutterBottom> Fax Number  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -160,7 +162,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Code Postale  </Typography>
+                  <Typography variant="button" gutterBottom> ZIP Code </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -171,7 +173,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Adresse  </Typography>
+                  <Typography variant="button" gutterBottom> Adress  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -183,13 +185,13 @@ function Profile(props) {
 
             </Grid>
             <Grid item md={10}> <Typography variant="h6" gutterBottom>
-              Détails personne à contacter :
+             person to contact details :
             </Typography></Grid>
             <Grid item md={12} sx={{ ml: 3, mt: 4 }}>
 
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Nom  </Typography>
+                  <Typography variant="button" gutterBottom> Name  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -201,7 +203,7 @@ function Profile(props) {
 
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Prénom  </Typography>
+                  <Typography variant="button" gutterBottom> Last name  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -222,7 +224,7 @@ function Profile(props) {
                 </Grid>
               </Grid><Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Adresse Email  </Typography>
+                  <Typography variant="button" gutterBottom>  Email  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -233,7 +235,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Date de naissance  </Typography>
+                  <Typography variant="button" gutterBottom> Birthdate  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -244,7 +246,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Numéro Mobile  </Typography>
+                  <Typography variant="button" gutterBottom>Mobile phone number </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -255,7 +257,7 @@ function Profile(props) {
               </Grid>
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Numéro Bureau  </Typography>
+                  <Typography variant="button" gutterBottom> office phone number  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>
@@ -269,14 +271,14 @@ function Profile(props) {
 
             </Grid>
             <Grid item md={10}> <Typography variant="h6" gutterBottom>
-              Détails monétaire :
+              Monitary details :
             </Typography>
             </Grid>
             <Grid item md={12} sx={{ ml: 3, mt: 4 }}>
 
               <Grid container spacing={-2}>
                 <Grid item md={3}>
-                  <Typography variant="button" gutterBottom> Identifiant Fiscale  </Typography>
+                  <Typography variant="button" gutterBottom> Tax Identifier  </Typography>
                 </Grid>
                 <Grid item md={1}>
                   <div>:</div>

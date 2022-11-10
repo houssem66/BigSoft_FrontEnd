@@ -50,7 +50,7 @@ function Details() {
 
           </Grid>
           <Grid item md={2}> <Typography variant="body1" gutterBottom>
-            En stock
+           Quantity in stock
             <strong style={{ color: "blue" }}> {(location.state.produit.stockProduit[0])?(location.state.produit.stockProduit[0].quantite):(0) }</strong>
           </Typography>
             <Button variant="contained" color="secondary" onClick={() => {
