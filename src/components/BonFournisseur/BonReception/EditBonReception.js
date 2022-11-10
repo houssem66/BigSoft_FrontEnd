@@ -61,7 +61,7 @@ function EditBonReception() {
       await BonReceptionService.Put(aux).then(
         (response) => {
 
-          navig("/feed/bonReception");
+          navig("/feed/receiptOrder");
           window.location.reload();
         },
         (error) => {
@@ -98,7 +98,7 @@ function EditBonReception() {
         detailsBonReceptionModels={detailsBonReceptionModels}
         SetDetailsBonReceptionModels={SetDetailsBonReceptionModels}
         selector="Fournisseur" handleSubmit={handleSubmit}
-        listFournisseur={listFournisseur} title="Bon de réception"
+        listFournisseur={listFournisseur} title="Receipt Order"
       >
       </Edit>)
       : (<div>Edit</div>)}</>

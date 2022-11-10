@@ -95,7 +95,7 @@ function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListD
             <Grid justifyContent="space-between" sx={{ my: 2, }} spacing={5} container square>
               <Grid item md={12} >
                 <Typography variant="button" display="block" gutterBottom>
-                  informations Générale:
+                 Find product and enter the quantity:
                 </Typography>
               </Grid>
 
@@ -105,12 +105,13 @@ function Modale({ detailsBonReceptionModels, SetDetailsBonReceptionModels, ListD
                   options={ListProduits}
                   optionName={"productName"}
                   ref={product}
+                  label="Products"
                 />
               </Grid>
               <Grid md={4} item >
                 <Textfield
                   name="quantite"
-                  label="quantite"
+                  label="quantity"
 
 
                 />

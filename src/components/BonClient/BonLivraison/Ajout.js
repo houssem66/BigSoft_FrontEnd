@@ -24,7 +24,7 @@ console.log("client",Fournisseur.id)
             await BonLivraison.ajout(aux).then(
                 (response) => {
 
-                    navig("/feed/bonLivraison");
+                    navig("/feed/deliveryOrder");
                     window.location.reload();
                 },
                 (error) => {

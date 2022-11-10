@@ -28,7 +28,7 @@ function DetailsBon() {
     },[location])
   return (
     <>
-    <Details selector={"Fournisseur"} title="Bon de commande" bon={bon}></Details>
+    <Details selector={"Fournisseur"} title="Purchase order" bon={bon}></Details>
     </>
   )
 }

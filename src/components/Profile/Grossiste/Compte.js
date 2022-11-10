@@ -153,7 +153,7 @@ function Compte(props) {
             <Grid sx={{ mx: 2, maxWidth: "93%" }} container spacing={2}>
               <Grid item md={12}>
                 <Typography component="h1" variant="h5">
-                  Éditer vos Informations
+                  Edit your informations
                 </Typography>
               </Grid>
               <Grid item md={12}>
@@ -166,7 +166,7 @@ function Compte(props) {
                   <Grid item md={6}> <Textfield
                     required
                     name="raisonSocial"
-                    label="Raison Sociale"
+                    label="Corporate name"
                     color="secondary"
                   /></Grid>
                   <Grid item md={6}><Textfield
@@ -183,13 +183,13 @@ function Compte(props) {
                   /></Grid>
                   <Grid item md={12} >
                     <Typography variant="button" display="block" gutterBottom>
-                      Information Générale:
+                     General informations:
                     </Typography>
                   </Grid>
                   <Grid item md={6} >
                     <Textfield
                       name="codePostale"
-                      label="Code Postale"
+                      label="Zip Code"
                     />
                   </Grid>
                   <Grid item md={6} >
@@ -200,13 +200,13 @@ function Compte(props) {
                     />
                   </Grid>
                   <Grid item md={12}>
-                    <Textfield name="adresse" label="Adresse " multiline rows={3} />
+                    <Textfield name="adresse" label="Adress " multiline rows={3} />
                   </Grid>
                   <Grid item md={6}>
-                    <Textfield name="siteWeb" label="Site Web " />
+                    <Textfield name="siteWeb" label="WebiSite " />
                   </Grid>
                   <Grid item md={6}>
-                    <Textfield name="numFax" label="Numéro Fax " />
+                    <Textfield name="numFax" label="Fax Number" />
                   </Grid>
                   <Grid item md={6}>
                     <Textfield name="rib" label="Rib " />
@@ -214,24 +214,24 @@ function Compte(props) {
                   <Grid item md={6} >
                     <Textfield
                       name="identifiant_fiscale"
-                      label="Identifiant Fiscale"
+                      label="Tax ID"
                     />
                   </Grid>
                   <Grid item md={12} >
                     <Typography variant="button" display="block" gutterBottom>
-                      Détails personne à contacter :
+                       person to contact details :
                     </Typography>
                   </Grid>
                   <Grid item md={6} >
                     <Textfield
                       name="nom"
-                      label="Nom "
+                      label="Name "
                     />
                   </Grid>
                   <Grid item md={6} >
                     <Textfield
                       name="prenom"
-                      label="Prénom"
+                      label="Last name"
                     />
                   </Grid>
                   <Grid item md={3} >
@@ -251,19 +251,19 @@ function Compte(props) {
                   <Grid item md={6} >
                     <Textfield
                       name="numbureau"
-                      label="Numéro bureau"
+                      label="Office phone number"
                     />
                   </Grid>
                   <Grid item md={6} >
                     <Textfield
                       name="numMobile"
-                      label="Numéro Mobile"
+                      label="Mobile phone number"
                     />
                   </Grid>
                   <Grid item md={12}>
                     <Grid container justifyContent="flex-start" alignItems="flex-start" >
                       <Grid item md={4}>
-                        <Typography variant="button" gutterBottom> Date de naissance:<b>{user.birthDate}</b>  </Typography>
+                        <Typography variant="button" gutterBottom> Birthdate:<b>{user.birthDate}</b>  </Typography>
                       </Grid>
                       <Grid item md={4} >
                         <DateTimePicker
@@ -280,7 +280,7 @@ function Compte(props) {
                  
                   <Grid item md={12}>
                     <Button color="secondary" fullWidth>
-                      Enregistrer
+                      save
                     </Button>
 
                   </Grid>

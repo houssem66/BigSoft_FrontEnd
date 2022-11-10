@@ -12,6 +12,7 @@ import Civility from '../../Data/Civility.json'
 import Gouvernorats from '../../Data/Gouvernorats.json'
 import Button from '../FormsUI/Button'
 import { Button as Butt } from '@mui/material';
+import FormeJuridique from '../../Data/FormeJuridique.json'
 
 function EditFournisseur() {
     const location = useLocation();
@@ -28,23 +29,28 @@ function EditFournisseur() {
                 'Enter correct url!'
             )
             .required('Please enter website'),
-        numbureau: Yup.number()
-            .integer()
-            .typeError('Please enter a valid phone number')
-            .required('Required'),
-        numFax: Yup.number()
-            .integer()
-            .typeError('Please enter a valid phone number')
-            .required('Required'),
+        phoneBureau: Yup.
+            string().required("required")
+            .length(8).matches(/^([0-9]+)$/, "must be a number"),
+        numMobile: Yup
+            .string()
+            .required("required")
+            .length(8).matches(/^([0-9]+)$/, "must be a number"),
         adresse: Yup.string().required('required'),
         civility: Yup.string()
             .required('Required'),
         gouvernorats: Yup.string()
             .required('Required'),
+        formeJuridique: Yup.string().required("required"),
+        identifiant_fiscale: Yup
+        .string()
+        .required("required")
+        .matches(/^[0-9]{8}[A-Za-z]$/, "Must be a In this format 12345678X.")
 
     });
     
     const INITIAL_FORM_STATE = {
+      
         id: location.state.fournisseur.id,
         raisonSocial: location.state.fournisseur.raisonSocial,
         nomPersAContact: location.state.fournisseur.nomPersAContact,
@@ -52,11 +58,13 @@ function EditFournisseur() {
         codePostale: location.state.fournisseur.codePostale,
         email: location.state.fournisseur.email,
         siteWeb: location.state.fournisseur.siteWeb,
-        numbureau: location.state.fournisseur.numbureau,
-        numFax: location.state.fournisseur.numFax,
+        phoneBureau: location.state.fournisseur.phoneBureau,
+        numMobile: location.state.fournisseur.numMobile,
         adresse: location.state.fournisseur.adresse,
         civility: location.state.fournisseur.civility,
         gouvernorats: location.state.fournisseur.gouvernorats,
+        identifiant_fiscale: location.state.fournisseur.identifiant_fiscale,
+        formeJuridique: location.state.fournisseur.formeJuridique
     };
     let navigate = useNavigate();
 
@@ -122,9 +130,16 @@ function EditFournisseur() {
                             </Grid>
 
                             <Grid item md={6} >
+                                <Select
+                                    name="formeJuridique"
+                                    label="Legal status"
+                                    options={FormeJuridique}
+                                />
+                            </Grid>
+                            <Grid item md={6} >
                                 <Textfield
-                                    name="numFax"
-                                    label="Fax Number"
+                                    name="identifiant_fiscale"
+                                    label="Fiscale Fiscale"
                                 />
                             </Grid>
                         </Grid>
@@ -151,7 +166,13 @@ function EditFournisseur() {
                             </Grid>
                             <Grid item md={6} >
                                 <Textfield
-                                    name="numbureau"
+                                    name="numMobile"
+                                    label="Mobile Number"
+                                />
+                            </Grid>
+                            <Grid item md={6} >
+                                <Textfield
+                                    name="phoneBureau"
                                     label="Office Number"
                                 />
                             </Grid>
@@ -168,6 +189,7 @@ function EditFournisseur() {
                                     options={Civility}
                                 />
                             </Grid>
+                            <Grid item md={3}></Grid>
                         </Grid>
                     </Grid>
                     <Grid item md={12}>

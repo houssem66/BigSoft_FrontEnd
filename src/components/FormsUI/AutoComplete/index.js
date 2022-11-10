@@ -4,6 +4,7 @@ import { useField, useFormikContext } from 'formik';
 const AutoCompleteWrapper = ({
     name,
     options,
+    label,
     optionName,
     ...otherProps
 }) => {
@@ -25,6 +26,7 @@ const AutoCompleteWrapper = ({
     return (
         <Autocomplete
             disablePortal
+            
             id="combo-box-demo"
             {...defaultProps}
             sx={{ width: 300 }} name={name} onChange={(event, value) => {

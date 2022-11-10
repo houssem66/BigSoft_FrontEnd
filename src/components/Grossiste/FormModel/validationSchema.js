@@ -34,7 +34,7 @@ export default [
         }),
         [passWord.name]: Yup.string().required(passWord.requiredErrorMsg).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/, "Must be a In this format 21754318hH@."),
         [confirmPassword.name]: Yup.string()
-            .oneOf([Yup.ref(passWord.name), null], 'Les mots de passe doivent correspondre'),
+            .oneOf([Yup.ref(passWord.name), null], 'Passwords must match'),
 
     }),
     Yup.object().shape({

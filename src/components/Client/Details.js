@@ -156,14 +156,11 @@ function DetailsClient() {
                     open={open}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose} disableRipple>
+                    <MenuItem onClick={()=>{ navigate('/feed/client_edit/', { state: { client: location.state.client } });}} disableRipple>
                       <EditIcon />
                       Edit
                     </MenuItem>
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <DeleteIcon />
-                      Supprimer
-                    </MenuItem>
+                   
 
                   </StyledMenu>
                 </Grid>

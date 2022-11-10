@@ -114,12 +114,12 @@ function BonDeCommandeIndex({iDC}) {
     };
     const handleEdit = (item) => {
 
-        navig('/feed/bonCommandeFournisseur_edit/', { state: { Bon: item.id } });
+        navig('/feed/PurchaseOrder_edit/', { state: { Bon: item.id } });
 
     };
     const handleDetails = (item) => {
 
-        navig('/feed/bonCommandeFournisseur_details/', { state: { Bon: item.id } });
+        navig('/feed/PurchaseOrder_details/', { state: { Bon: item.id } });
 
     };
     return (
@@ -149,7 +149,7 @@ function BonDeCommandeIndex({iDC}) {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/bonCommandeFournisseur_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/PurchaseOrder_add"); }} auto icon={<AddIcon />}>Add</Button>
 
                 </Grid>
 
@@ -168,12 +168,12 @@ function BonDeCommandeIndex({iDC}) {
                     >
                         <Table.Header>
                             <Table.Column>Date</Table.Column>
-                            <Table.Column>Raison Sociale Fournisseur</Table.Column>
-                            <Table.Column>Email Fournisseur</Table.Column>
-                            <Table.Column>Numéro Bureau</Table.Column>
-                            <Table.Column>Site Web Fournisseur</Table.Column>
-                            <Table.Column allowsSorting>Prix Totale HT</Table.Column>
-                            <Table.Column allowsSorting>Prix TTC</Table.Column>
+                            <Table.Column>Vendor corporate name</Table.Column>
+                            <Table.Column>Email</Table.Column>
+                            <Table.Column>Vendor email</Table.Column>
+                            <Table.Column>vendor website</Table.Column>
+                            <Table.Column allowsSorting>priceHT</Table.Column>
+                            <Table.Column allowsSorting>PriceTTC</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
                         <Table.Body>
@@ -214,7 +214,7 @@ function BonDeCommandeIndex({iDC}) {
                                                     {"Confirmer le suppression"}
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                                    <DialogContentText id="alert-dialog-description"><p>  You will delete the purchase order :    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
 
 
                                                     </DialogContentText>

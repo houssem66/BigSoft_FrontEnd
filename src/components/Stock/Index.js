@@ -59,7 +59,7 @@ function Index() {
     }
     return item
   }).filter((item)=>{
-    if (Category!=='')
+    if (Category!==''&&Category!==2)
     {
       
       return  item.produit.category === Category
@@ -220,12 +220,12 @@ function Index() {
             onChange={handleChange}
             fullWidth
           >
-            <MenuItem sx={{ fontSize: "15px" }} value={0}>Boissons</MenuItem>
-            <MenuItem sx={{ fontSize: "15px" }} value={1}>Alimentaire</MenuItem>
+            <MenuItem sx={{ fontSize: "15px" }} value={2}>All</MenuItem>
+            <MenuItem sx={{ fontSize: "15px" }} value={0}>Beverages</MenuItem>
+            <MenuItem sx={{ fontSize: "15px" }} value={1}>Alimental</MenuItem>
           </Select>
         </Grid>
-        <Grid item md={2}>
-          <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/produit_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+       
         <Grid item md={12}>
           <Table
             bordered
@@ -244,15 +244,15 @@ function Index() {
             onSortChange={list.sort}
           >
             <Table.Header>
-              <Table.Column>productName</Table.Column>
-              <Table.Column allowsSorting>Prix Unitaire Ht</Table.Column>
-              <Table.Column allowsSorting>Prix Unitaire TTc</Table.Column>
+              <Table.Column>Product Name</Table.Column>
+              <Table.Column allowsSorting> Unit Price Ht</Table.Column>
+              <Table.Column allowsSorting>Unit Price TTc</Table.Column>
               <Table.Column>category</Table.Column>
               <Table.Column>TVA</Table.Column>
-              <Table.Column >Unité de mésure</Table.Column>
-              <Table.Column allowsSorting>Quantite</Table.Column>
-              <Table.Column allowsSorting>Prix Totale TTC</Table.Column>
-              <Table.Column allowsSorting>Prix Totale HT</Table.Column>
+              <Table.Column >Unit of mesure</Table.Column>
+              <Table.Column allowsSorting>Quantity</Table.Column>
+              <Table.Column allowsSorting> Total Price TTC</Table.Column>
+              <Table.Column allowsSorting>Total Price HT</Table.Column>
             </Table.Header>
             <Table.Body>
               {filteredList.map(item => (

@@ -104,7 +104,7 @@ function Client() {
 
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/client_ajout"); }} auto icon={<AddIcon />}>Add</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/client_add"); }} auto icon={<AddIcon />}>Add</Button></Grid>
                 <Grid item md={12}>
                     <Table
                         bordered

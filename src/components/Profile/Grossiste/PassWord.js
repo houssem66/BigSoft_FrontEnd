@@ -39,7 +39,6 @@ return<div></div>;
            window.location.reload();
         },
         (error) => {
-          console.log("here1")
           console.log(error.response.data);
           SetErr(error.response.data);
         }

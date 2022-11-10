@@ -44,11 +44,11 @@ function Stock({ Produit }) {
             >
               <Table.Header>
                 <Table.Column>Date</Table.Column>
-                <Table.Column>Quantite</Table.Column>
+                <Table.Column>Quantity</Table.Column>
                 <Table.Column>priceHT</Table.Column>
                 <Table.Column>priceTTc</Table.Column>
-                <Table.Column>TypeTransactions</Table.Column>
-                <Table.Column>Voir Facture</Table.Column>
+                <Table.Column>Transcation Types</Table.Column>
+                <Table.Column>Check invoice</Table.Column>
                
 
               </Table.Header>
@@ -59,11 +59,11 @@ function Stock({ Produit }) {
                             <Table.Cell>{item.quantite}</Table.Cell>
                             <Table.Cell>{item.montantHt}</Table.Cell>
                             <Table.Cell>{item.montantTTc}</Table.Cell>
-                            <Table.Cell>Achat</Table.Cell>
+                            <Table.Cell>Purchase</Table.Cell>
                             <Table.Cell><Link onClick={(event, value) => {
                                         event.preventDefault();
                                        
-                                        navig('/feed/factureFournisseur_details/', { state: { Facture: item.factureFournisseur.id } });
+                                        navig('/feed/invoiceVendor_details/', { state: { Facture: item.factureFournisseur.id } });
 
 
                                     }}
@@ -73,7 +73,7 @@ function Stock({ Produit }) {
                                         href="/"
                                     >
                                         <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                                        Voir 
+                                        Check invoice 
                                     </Link></Table.Cell>
                          
                          
@@ -85,11 +85,11 @@ function Stock({ Produit }) {
                             <Table.Cell>{item.quantite}</Table.Cell>
                             <Table.Cell>{item.montantHt}</Table.Cell>
                             <Table.Cell>{item.montantTTc}</Table.Cell>
-                            <Table.Cell>Vente</Table.Cell>
+                            <Table.Cell>sale</Table.Cell>
                             <Table.Cell><Link onClick={(event, value) => {
                                         event.preventDefault();
                                       
-                                        navig('/feed/factureClient_details/', { state: { Facture: item.factureClient.id } });
+                                        navig('/feed/invoiceClient_details/', { state: { Facture: item.factureClient.id } });
 
 
                                     }}
@@ -99,7 +99,7 @@ function Stock({ Produit }) {
                                         href="/"
                                     >
                                         <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                                        Voir 
+                                        Check invoice 
                                     </Link></Table.Cell>
                          
                          

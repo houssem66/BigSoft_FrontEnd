@@ -59,7 +59,7 @@ export default function Edit() {
             await BonLivraison.Put(aux).then(
                 (response) => {
 
-                    navig("/feed/bonLivraison");
+                    navig("/feed/deliveryOrder");
                     window.location.reload();
                 },
                 (error) => {
@@ -92,7 +92,7 @@ export default function Edit() {
     return (
         <>{(listFournisseur && bon && (detailsBonReceptionModels)) ?
             (<EditBon bon={bon}
-                title="bon de livraison"
+                title="Delivery order"
                 Fournisseur={Fournisseur}
                 setFournisseur={setFournisseur}
                 detailsBonReceptionModels={detailsBonReceptionModels}

@@ -4,47 +4,47 @@ export default {
         nom: {
             name: 'nom',
             label: 'Nom de personne a contacter',
-            requiredErrorMsg: 'Nom de personne a contacter est obligatoire'
+            requiredErrorMsg: 'Name is required'
         }, userName: {
             name: 'userName',
             label: 'User Name',
-            requiredErrorMsg: 'User Name est obligatoire'
+            requiredErrorMsg: 'UserName is required'
         },
         prenom: {
             name: 'prenom',
             label: 'Prenom de peronnse a contacter',
-            requiredErrorMsg: 'Prenom de peronnse a contacter est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         codePostale: {
             name: 'codePostale',
             label: 'Code Postale',
-            requiredErrorMsg: 'Code Postale est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         email: {
             name: 'email',
             label: 'Email',
-            requiredErrorMsg: 'Email est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         emailPersonneAcontact: {
             name: 'emailPersonneAcontact',
             label: 'email de Personne a Contacter',
-            requiredErrorMsg: 'email de Personne a Contacter est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
-        confirmPassword:{name:'confirmPassword',label:"Confirmer le Mot de passe",requiredErrorMsg:'Les mots de passe doivent correspondre'},
+        confirmPassword:{name:'confirmPassword',label:"Confirme Password",requiredErrorMsg:'this is required'},
         passWord: {
             name: 'passWord',
             label: 'Mot de passe',
-            requiredErrorMsg: 'Mot de passe est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         numbureau: {
             name: 'numbureau',
             label: 'Numéro de bureau',
-            requiredErrorMsg: 'Numéro du bureau est obligatoire'
+            requiredErrorMsg: 'this is required'
         }, 
         numMobile: {
             name: 'numMobile',
             label: 'Numéro Mobile',
-            requiredErrorMsg: 'Numéro Mobile est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         numFax: {
             name: 'numFax',
@@ -55,45 +55,45 @@ export default {
         adresse: {
             name: 'adresse',
             label: 'Adresse',
-            requiredErrorMsg: 'Adresse est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         birthDate: {
             name: 'birthDate',
             label: 'birthDate',
-            requiredErrorMsg: 'birthDate est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         civility: {
             name: 'civility',
             label: 'Civlity',
-            requiredErrorMsg: 'civility est obligatoire'
+            requiredErrorMsg: 'this is required'
         }, 
        
         gouvernorats: {
             name: 'gouvernorats',
             label: 'Gouvernorats',
-            requiredErrorMsg: 'Gouvernorats est obligatoire'
+            requiredErrorMsg: 'this is required'
         },
         raisonSocial: {
             name: 'raisonSocial',
             label: 'Raison Sociale',
-            requiredErrorMsg: 'Raison Sociale est obligatoire',
+            requiredErrorMsg: 'this is required',
         },
         identifiant_fiscale: {
             name: 'identifiant_fiscale',
             label: ' Identifiant fiscale',
-            requiredErrorMsg: ' Identifiant fiscale est obligatoire',
-            invalidErrorMsg:'Identifiant fiscale est invalide(e.g 12345678X)'
+            requiredErrorMsg: ' this is required',
+            invalidErrorMsg:'Identifiant fiscale is invalid(e.g 12345678X)'
         },
         rib: {
             name: 'rib',
             label: ' Rib',
-            invalidErrorMsg:'Rib est invalide doit etre un nombre et avec la longeur 20 chiffre'
+            invalidErrorMsg:'Rib is invalide must be a number and with length 20 digits'
         } ,
         siteWeb: {
             name: 'siteWeb',
             label: ' SiteWeb',
-            requiredErrorMsg: ' SiteWeb  est obligatoire',
-            invalidErrorMsg:'le siteWeb est invalide'
+            requiredErrorMsg: ' SiteWeb  is required',
+            invalidErrorMsg:'le siteWeb is invalid'
         }
 
     }

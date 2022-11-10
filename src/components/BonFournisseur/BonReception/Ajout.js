@@ -74,29 +74,26 @@ function Ajout({ title,selector, listFournisseur, SetDetailsBonReceptionModels, 
         <Grid item md={3} >
 
           <Typography variant="body1" gutterBottom>
-            Raison Sociale:  <strong>{Grossiste.raisonSocial}</strong>
+            Corporate name:  <strong>{Grossiste.raisonSocial}</strong>
           </Typography>
 
 
 
 
         </Grid>
-        <Grid item md={3}>Adresse:<strong>{(Fournisseur) ? (Fournisseur.adresse) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Adress:<strong>{(Fournisseur) ? (Fournisseur.adresse) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
-        <Grid item md={3}>Adresse: <strong>{Grossiste.adresse}</strong></Grid>
-        <Grid item md={3}>Numéro Mobile:<strong>{(Fournisseur) ? (Fournisseur.numFax) : (<div></div>)} </strong></Grid>
+        <Grid item md={3}>Adress: <strong>{Grossiste.adresse}</strong></Grid>
+        <Grid item md={3}>Mobile phone number:<strong>{(Fournisseur) ? (Fournisseur.numFax) : (<div></div>)} </strong></Grid>
         <Grid item md={6} ></Grid>
-        <Grid item md={3}>Numéro Mobile: <strong>{Grossiste.numMobile}</strong></Grid>
-        <Grid item md={3}>Numéro Fix:<strong>{(Fournisseur) ? (Fournisseur.numbureau) : (<div></div>)} </strong></Grid>
-        <Grid item md={6} ></Grid>
-        <Grid item md={3}>Numéro Fix: <strong>{Grossiste.numbureau}</strong></Grid>
-
+        <Grid item md={3}>Mobile phone number: <strong>{Grossiste.numMobile}</strong></Grid>
+       
       </Grid>
       <Grid sx={{ mt: 10, ml: 5, mx: 2 }} container spacing={5}>
         <TableC client={client} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} ></TableC>
       </Grid>
       <Grid sx={{ mt: 5, ml: 5, mx: 2 }} justifyContent="center" container spacing={5}>
-        <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirmer</Button></Grid>
+        <Grid md={5} item><Button variant="contained" color="success" onClick={(e) => { handleSubmit(e) }} fullWidth>Confirm</Button></Grid>
 
       </Grid>
     </Box>

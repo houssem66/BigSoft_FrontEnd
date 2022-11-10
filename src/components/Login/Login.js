@@ -65,7 +65,7 @@ export default function SignInSide() {
                     window.location.reload();
                 },
                 (error) => {
-                    
+
                     setErr(error.response.data);
                 }
             );
@@ -98,8 +98,9 @@ export default function SignInSide() {
         if (Err != "") {
             console.log(Err)
             return <Alert severity="error">
-                <AlertTitle>Erreur</AlertTitle>
-                <strong>Email or password incorrect</strong>
+                <AlertTitle>Error</AlertTitle>
+                {(Err === "email not yet confirmed") ? (<strong>email not yet confirmed</strong>) : (<strong>Email or password incorrect</strong>)}
+
             </Alert>;
         }
     }
@@ -198,10 +199,10 @@ export default function SignInSide() {
                                 sx={{ mt: 3, mb: 2 }}
                                 color="secondary"
                             >
-                                Register
+                                Login
                             </Button>
 
-                          
+
                             <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>

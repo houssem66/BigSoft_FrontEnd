@@ -67,7 +67,7 @@ function ConfirmationMenu({ color, id, item }) {
     const handleDetailsFacture = () => {
        
         if (item) {
-            navigate("/feed/factureFournisseur_details", { state: { Facture: item.factureFournisseur.id } })
+            navigate("/feed/invoiceVendor_details", { state: { Facture: item.factureFournisseur.id } })
         }
       // 
 
@@ -84,7 +84,7 @@ function ConfirmationMenu({ color, id, item }) {
             endIcon={<KeyboardArrowDownIcon />}
             color={color}
         >
-            Confirmer
+            Confirm
         </Button>
         <StyledMenu
             id="demo-customized-menu"
@@ -100,7 +100,7 @@ function ConfirmationMenu({ color, id, item }) {
                 handleSubmitFacture();
             }} disableRipple>
                 <ArchiveIcon />
-                Confirmer et Créer une facture
+                Confirm and create invoice
             </MenuItem>
 
         </StyledMenu>
@@ -116,7 +116,7 @@ function ConfirmationMenu({ color, id, item }) {
             endIcon={<KeyboardArrowDownIcon />}
             color={color}
         >
-            Confirmée
+            Confirm
         </Button>
         <StyledMenu
             id="demo-customized-menu"
@@ -132,7 +132,7 @@ function ConfirmationMenu({ color, id, item }) {
                 handleDetailsFacture();
             }} disableRipple>
                 <ArchiveIcon />
-                Voir le facture
+                Check invoice
             </MenuItem>
 
         </StyledMenu>

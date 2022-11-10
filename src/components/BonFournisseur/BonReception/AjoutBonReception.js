@@ -26,7 +26,7 @@ function AjoutBonReception() {
             await BonReceptionService.ajout(aux).then(
                 (response) => {
 
-                  navig("/feed/bonReception");
+                  navig("/feed/receiptOrder");
                  window.location.reload();
                 },
                 (error) => {
@@ -57,7 +57,7 @@ function AjoutBonReception() {
         );
     }, [])
     return (
-        <>{(listFournisseur) ? (<Ajout title=" Bon de réception" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
+        <>{(listFournisseur) ? (<Ajout title="Receipt order" Fournisseur={Fournisseur} setFournisseur={setFournisseur} detailsBonReceptionModels={detailsBonReceptionModels} SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} selector="Fournisseur" handleSubmit={handleSubmit} listFournisseur={listFournisseur}></Ajout>) : (<div>ajout</div>)}</>
     )
 }
 

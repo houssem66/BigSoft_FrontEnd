@@ -23,11 +23,11 @@ function Infromation(props) {
             <Paper sx={{height:"100%"}} elevation={3} >
             <Grid container  sx={{ my: 5 }}>
                 <Grid item md={3} sx={{ ml: 2 }}>
-                    <Typography variant='button'>Categoryie</Typography>
+                    <Typography variant='button'>Category</Typography>
                     <Typography variant='body1'>{cat[produit.category]}</Typography>
                 </Grid>
                 <Grid item md={3}>
-                    <Typography variant='button'>Unité de mesure</Typography>
+                    <Typography variant='button'>Unit of mesure</Typography>
                     <Typography variant='body1'>{unit[produit.unitOfMeasure]}</Typography>
                 </Grid>
 
@@ -40,7 +40,7 @@ function Infromation(props) {
                 <Grid item md={4} sx={{ ml: 2, mt: 8 }}>
                     <Grid container direction="column"  justifyContent="space-around" alignItems="flex-start" >
                         <Grid md={4}>
-                        <Typography variant='button'>Prix
+                        <Typography variant='button'>Price
                          </Typography>
                         </Grid>
                         <Grid md={4}sx={{mt:2}}>
@@ -65,7 +65,7 @@ function Infromation(props) {
                 <Grid item md={3} sx={{ ml: 2, mt: 8 }}>
                     <Grid container direction="column"  justifyContent="space-around" alignItems="flex-start" >
                         <Grid md={4}>
-                        <Typography variant='button'>Valeur unitaire en stock
+                        <Typography variant='button'>Value in stock
                          </Typography>
                         </Grid>
                         <Grid md={4}sx={{mt:2}}>

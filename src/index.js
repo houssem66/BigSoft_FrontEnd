@@ -84,53 +84,53 @@ root.render(
           <Route path="vendor_edit" element={<EditFournisseur />} />
           <Route path="vendor_details" element={<DetailsFournisseur />} />
 
-          <Route path="client_ajout" element={<AjoutClient />} />
+          <Route path="client_add" element={<AjoutClient />} />
           <Route path="client" element={<Client />} />
           <Route path="client_details" element={<DetailsClient />} />
           <Route path="client_edit" element={<EditClient />} />
 
           <Route path="stock" element={<Stock />} />
-          <Route path="produit" element={<Produit />} />
-          <Route path="produit_ajout" element={<Ajout />} />
-          <Route path="produit_edit" element={<Edit />} />
-          <Route path="produit_details" element={<Details />} />
+          <Route path="product" element={<Produit />} />
+          <Route path="product_add" element={<Ajout />} />
+          <Route path="product_edit" element={<Edit />} />
+          <Route path="product_details" element={<Details />} />
 
 
-          <Route path="bonReception" element={<BonReception />}></Route>
-          <Route path="bonReception_ajout" element={<AjoutBon />}></Route>
-          <Route path="bonReception_details" element={<DetailsBon />}></Route>
-          <Route path="bonReception_edit" element={<EditBon />}></Route>
+          <Route path="receiptOrder" element={<BonReception />}></Route>
+          <Route path="receiptOrder_add" element={<AjoutBon />}></Route>
+          <Route path="receiptOrder_details" element={<DetailsBon />}></Route>
+          <Route path="receiptOrder_edit" element={<EditBon />}></Route>
 
-          <Route path="factureFournisseur" element={<FactureFournisseur />}></Route>
-          <Route path="factureFournisseur_details" element={<DetailsFactureFournisseur />}></Route>
+          <Route path="invoiceVendor" element={<FactureFournisseur />}></Route>
+          <Route path="invoiceVendor_details" element={<DetailsFactureFournisseur />}></Route>
 
-          <Route path="bonCommandeFournisseur" element={<BonCommandeFournisseur />}></Route>
-          <Route path="bonCommandeFournisseur_ajout" element={<AjoutBonC />}></Route>
-          <Route path="bonCommandeFournisseur_details" element={<DetailsC />}></Route>
-          <Route path="bonCommandeFournisseur_edit" element={<EditBonC />}></Route>
+          <Route path="purchaseOrder" element={<BonCommandeFournisseur />}></Route>
+          <Route path="purchaseOrder_add" element={<AjoutBonC />}></Route>
+          <Route path="purchaseOrder_details" element={<DetailsC />}></Route>
+          <Route path="purchaseOrder_edit" element={<EditBonC />}></Route>
 
-          <Route path="bonLivraison" element={<BonL />}></Route>
-          <Route path="bonLivraison_ajout" element={<AjoutBl />}></Route>
-          <Route path="bonLivraison_details" element={<DetailsBL />}></Route>
-          <Route path="bonLivraison_edit" element={<EditBL />}></Route>
+          <Route path="deliveryOrder" element={<BonL />}></Route>
+          <Route path="deliveryOrder_add" element={<AjoutBl />}></Route>
+          <Route path="deliveryOrder_details" element={<DetailsBL />}></Route>
+          <Route path="deliveryOrder_edit" element={<EditBL />}></Route>
 
-          <Route path="factureClient" element={<FactureClient />}></Route>
-          <Route path="factureClient_details" element={<DetailsCl />}></Route>
+          <Route path="invoiceClient" element={<FactureClient />}></Route>
+          <Route path="invoiceClient_details" element={<DetailsCl />}></Route>
 
-          <Route path="bonCommandeClient" element={<BonCommandeCl />}></Route>
-          <Route path="bonCommandeClient_ajout" element={<AjoutCLBC />}></Route>
-          <Route path="bonCommandeClient_details" element={<DetailsClBC />}></Route>
-          <Route path="bonCommandeClient_edit" element={<EditBoncl />}></Route>
+          <Route path="purchaseOrderClient" element={<BonCommandeCl />}></Route>
+          <Route path="purchaseOrderClient_add" element={<AjoutCLBC />}></Route>
+          <Route path="purchaseOrderClient_details" element={<DetailsClBC />}></Route>
+          <Route path="purchaseOrderClient_edit" element={<EditBoncl />}></Route>
 
-          <Route path="bonSortie" element={<BonSortieCl />}></Route>
-          <Route path="bonSortie_ajout" element={<AjoutCLBS />}></Route>
-          <Route path="bonSortie_details" element={<DetailsClBS />}></Route>
-          <Route path="bonSortie_edit" element={<EditClBS />}></Route>
+          <Route path="exitOrder" element={<BonSortieCl />}></Route>
+          <Route path="exitOrder_add" element={<AjoutCLBS />}></Route>
+          <Route path="exitOrder_details" element={<DetailsClBS />}></Route>
+          <Route path="exitOrder_edit" element={<EditClBS />}></Route>
 
-          <Route path="devis_details" element={<DetailsClD />}></Route>
-          <Route path="devis_ajout" element={<AjoutCLD />}></Route>
-          <Route path="devis_edit" element={<EditClD />}></Route>
-          <Route path="devis" element={<DevisCl />}></Route>
+          <Route path="salesQuotes_details" element={<DetailsClD />}></Route>
+          <Route path="salesQuotes_add" element={<AjoutCLD />}></Route>
+          <Route path="salesQuotes_edit" element={<EditClD />}></Route>
+          <Route path="salesQuotes" element={<DevisCl />}></Route>
 
 
 

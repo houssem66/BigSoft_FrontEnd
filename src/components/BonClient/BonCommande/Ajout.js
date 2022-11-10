@@ -55,7 +55,7 @@ function Ajout() {
   return (
     <>{(listFournisseur) ?
       (<AjoutL
-          title=" Bon de Commande"
+          title="Purchase Order"
           Fournisseur={Fournisseur}
           setFournisseur={setFournisseur}
           detailsBonReceptionModels={detailsBonReceptionModels}

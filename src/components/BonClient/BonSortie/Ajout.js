@@ -23,7 +23,7 @@ function Ajout() {
           await BonLivraison.ajout(aux).then(
               (response) => {
 
-                 navig("/feed/bonSortie");
+                 navig("/feed/exitOrder");
                  window.location.reload();
               },
               (error) => {
@@ -55,7 +55,7 @@ function Ajout() {
   return (
     <>{(listFournisseur) ?
       (<AjoutL
-          title=" Bon de Sortie"
+          title="Exit order"
           Fournisseur={Fournisseur}
           setFournisseur={setFournisseur}
           detailsBonReceptionModels={detailsBonReceptionModels}

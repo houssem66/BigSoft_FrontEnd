@@ -56,9 +56,9 @@ function ProfileGrossiste() {
         aria-label="icon position tabs example"
       >
 
-        <Tab onClick={() => { dispatch(change("profile")); dispatch(increment(0)) }} icon={<PersonPinIcon />} iconPosition="end" label={"Profile"} />
-        <Tab onClick={() => { dispatch(change("compte")); dispatch(increment(1)) }} icon={<ManageAccountsIcon />} iconPosition="end" label="Mon Compte" />
-        <Tab onClick={() => { dispatch(change("passe")); dispatch(increment(2)) }} icon={<LockIcon />} iconPosition="end" label="Changer mot de passe" />
+        <Tab onClick={() => { dispatch(change("profile")); dispatch(increment(0)) }} icon={<PersonPinIcon />} iconPosition="end" label={"Profil"} />
+        <Tab onClick={() => { dispatch(change("compte")); dispatch(increment(1)) }} icon={<ManageAccountsIcon />} iconPosition="end" label="Account" />
+        <Tab onClick={() => { dispatch(change("passe")); dispatch(increment(2)) }} icon={<LockIcon />} iconPosition="end" label="Change Password" />
         
       </Tabs>
     </Grid>

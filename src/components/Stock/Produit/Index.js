@@ -66,11 +66,11 @@ function Index() {
     //Handles
     const handleEdit = (item) => {
 
-        navig('/feed/produit_edit/', { state: { produit: item } });
+        navig('/feed/product_edit/', { state: { produit: item } });
 
     }; const handleDetails = (item) => {
 
-        navig('/feed/produit_details/', { state: { produit: item } });
+        navig('/feed/product_details/', { state: { produit: item } });
 
     };
     const handleDelete = async (id) => {
@@ -129,7 +129,7 @@ function Index() {
     })
     .filter((item)=>{
 
-        if (Category!==''){
+        if (Category!==''&&Category!==2){
             return item.category.toString().includes(Category.toString())          }
         else {return item}
     });
@@ -169,12 +169,13 @@ function Index() {
                             onChange={handleChange}
                             fullWidth
                         >
-                            <MenuItem sx={{ fontSize: "15px" }} value={0}>Boissons</MenuItem>
-                            <MenuItem sx={{ fontSize: "15px" }} value={1}>Alimentaire</MenuItem>
+                            <MenuItem sx={{ fontSize: "15px" }} value={2}>All</MenuItem>
+                            <MenuItem sx={{ fontSize: "15px" }} value={0}>beverages</MenuItem>
+                            <MenuItem sx={{ fontSize: "15px" }} value={1}>alimental</MenuItem>
                         </Select>
                     </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/produit_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/product_add"); }} auto icon={<AddIcon />}>Add product</Button></Grid>
                 <Grid item md={12}>
                     <Table
                         bordered
@@ -190,12 +191,12 @@ function Index() {
                     >
                         <Table.Header>
                             <Table.Column>Id</Table.Column>
-                            <Table.Column>productName</Table.Column>
+                            <Table.Column>product Name</Table.Column>
                             <Table.Column allowsSorting>priceHT</Table.Column>
                             <Table.Column allowsSorting>priceTTc</Table.Column>
-                            <Table.Column>category</Table.Column>
+                            <Table.Column>Category</Table.Column>
                             <Table.Column>TVA</Table.Column>
-                            <Table.Column>Unité de mésure</Table.Column>
+                            <Table.Column>unit of mesure</Table.Column>
                             <Table.Column>Actions</Table.Column>
                         </Table.Header>
                         <Table.Body>

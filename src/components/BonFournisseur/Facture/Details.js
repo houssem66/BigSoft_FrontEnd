@@ -32,7 +32,7 @@ function Details() {
       {(facture) ?
         (
 
-          <DetailsBon selector={"Fournisseur"} title="Facture" bon={facture}></DetailsBon>
+          <DetailsBon selector={"Fournisseur"} title="Invoice" bon={facture}></DetailsBon>
         )
         : (
           <div>not ok</div>

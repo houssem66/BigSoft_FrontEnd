@@ -29,7 +29,6 @@ function BonReception({iDC}) {
     const [Category, setCategory] = useState('');
     const handleChange = (event) => {
         setCategory(event.target.value);
-        console.log(event.target.value, "category")
     };
     const handleClickOpen = () => {
         setOpen(true);
@@ -64,12 +63,12 @@ function BonReception({iDC}) {
     //Handles
     const handleEdit = (item) => {
 
-        navig('/feed/bonReception_edit/', { state: { Bon: item.id } });
+        navig('/feed/receiptOrder_edit/', { state: { Bon: item.id } });
 
     };
     const handleDetails = (item) => {
 
-        navig('/feed/bonReception_details/', { state: { Bon: item.id } });
+        navig('/feed/receiptOrder_details/', { state: { Bon: item.id } });
 
     };
     const handleDelete = async (id) => {
@@ -177,13 +176,13 @@ function BonReception({iDC}) {
                         defaultValue="Tous"
 
                     >
-                        <MenuItem sx={{ fontSize: "15px" }} value={''}>Tous</MenuItem>
-                        <MenuItem sx={{ fontSize: "15px" }} value={true}>Confirmé</MenuItem>
-                        <MenuItem sx={{ fontSize: "15px" }} value={false}>Non confirmé</MenuItem>
+                        <MenuItem sx={{ fontSize: "15px" }} value={''}>All</MenuItem>
+                        <MenuItem sx={{ fontSize: "15px" }} value={true}>Confirmed</MenuItem>
+                        <MenuItem sx={{ fontSize: "15px" }} value={false}>Not confirmed</MenuItem>
                     </Select>
                 </Grid>
                 <Grid item md={2}>
-                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/bonReception_ajout"); }} auto icon={<AddIcon />}>Ajouter</Button></Grid>
+                    <Button css={{ width: "100%" }} flat color="success" onClick={event => { navig("/feed/receiptOrder_add"); }} auto icon={<AddIcon />}>Add</Button></Grid>
                 <Grid item md={12}>
                     <Table
                         bordered
@@ -199,12 +198,12 @@ function BonReception({iDC}) {
                     >
                         <Table.Header>
                             <Table.Column>Date</Table.Column>
-                            <Table.Column>Raison Sociale Fournisseur</Table.Column>
-                            <Table.Column>Email Fournisseur</Table.Column>
-                            <Table.Column>Numéro Bureau</Table.Column>
-                            <Table.Column>Site Web Fournisseur</Table.Column>
-                            <Table.Column allowsSorting>Prix Totale HT</Table.Column>
-                            <Table.Column allowsSorting>Prix Totale TTC</Table.Column>
+                            <Table.Column>Vendor corporate name</Table.Column>
+                            <Table.Column>vendor Email</Table.Column>
+                            <Table.Column>Office phone number</Table.Column>
+                            <Table.Column>vendor website</Table.Column>
+                            <Table.Column allowsSorting>Total price  HT</Table.Column>
+                            <Table.Column allowsSorting>Total Price TTC</Table.Column>
                             <Table.Column>Confirmation</Table.Column>
                             <Table.Column></Table.Column>
                         </Table.Header>
@@ -246,19 +245,19 @@ function BonReception({iDC}) {
                                                     {"Confirmer le suppression"}
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description"><p>  Vous allez supprimer le fournisseur    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
+                                                    <DialogContentText id="alert-dialog-description"><p>  You will delete the receipt order    <Typography component="h1" variant="h5">{item.raisonSocial}</Typography> !!</p>
 
 
                                                     </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
-                                                    <Button color="gradient" onClick={handleClose} auto>fermer</Button>
+                                                    <Button color="gradient" onClick={handleClose} auto>Close</Button>
                                                     <Button color="warning" onClick={() => {
 
                                                         handleDelete(item.id);
 
                                                     }} autoFocus>
-                                                        supprimer
+                                                        Delete
                                                     </Button>
                                                 </DialogActions>
                                             </Dialog>

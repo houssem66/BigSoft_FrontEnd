@@ -44,7 +44,7 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
             })
         }
 
-        return sum
+        return sum+0.600
     } function priceTotaleHT(list) {
         let sum = 0;
         if (list) {
@@ -83,16 +83,16 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
                     <TableCell align="center" colSpan={5}>
                         Details
                     </TableCell>
-                    <TableCell align="right">Prix</TableCell>
+                    <TableCell align="right">Price</TableCell>
 
                 </TableRow>
                 <TableRow>
-                    <TableCell>Nom Produit</TableCell>
-                    <TableCell align="right">Prix UnitTTC</TableCell>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell align="right">Unit priceTTC</TableCell>
                     <TableCell align="right">Qty</TableCell>
-                    <TableCell align="right">MontantHT</TableCell>
+                    <TableCell align="right">AmounttHT</TableCell>
                     <TableCell align="right">TVA</TableCell>
-                    <TableCell align="right">MontantTTC</TableCell>
+                    <TableCell align="right">AmountTTC</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -109,10 +109,14 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
 
                 <TableRow>
                     <TableCell rowSpan={3} />
-                    <TableCell colSpan={4} align="right">Totale HT</TableCell>
+                    <TableCell colSpan={4} align="right">Total HT</TableCell>
                     <TableCell colSpan={1} align="right">{ccyFormat(TotaleHt)}</TableCell>
                 </TableRow>
 
+                <TableRow>
+                    <TableCell colSpan={4} align="right">Tax stamp</TableCell>
+                    <TableCell align="right">0.600</TableCell>
+                </TableRow>
                 <TableRow>
                     <TableCell colSpan={4} align="right">Total TTC</TableCell>
                     <TableCell align="right">{ccyFormat(TotaleTTc)}</TableCell>
@@ -126,17 +130,17 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
                     <TableCell align="center" colSpan={5}>
                         Details
                     </TableCell>
-                    <TableCell align="right">Prix</TableCell>
+                    <TableCell align="right">Price</TableCell>
                     <TableCell align="right">Actions</TableCell>
                 </TableRow>
                 <TableRow>
 
-                    <TableCell>Nom Produit</TableCell>
-                    <TableCell align="right">Prix UnitTTC</TableCell>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell align="right">Unit priceTTC</TableCell>
                     <TableCell align="right">Qty</TableCell>
-                    <TableCell align="right">MontantHT</TableCell>
+                    <TableCell align="right">AmountHT</TableCell>
                     <TableCell align="right">TVA</TableCell>
-                    <TableCell align="right">MontantTTC</TableCell>
+                    <TableCell align="right">AmountTTC</TableCell>
                     <TableCell align="right"></TableCell>
 
 
@@ -156,7 +160,7 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
                 ))}
                 <TableRow>
                     <TableCell rowSpan={1} />
-                    <TableCell colSpan={3} align="center"><Button variant="contained" onClick={handleOpen}>ajouter Produit</Button></TableCell>
+                    <TableCell colSpan={3} align="center"><Button variant="contained" onClick={handleOpen}>Add purchase</Button></TableCell>
                     <Modale
                      detailsBonReceptionModels={detailsBonReceptionModels} 
                      SetDetailsBonReceptionModels={SetDetailsBonReceptionModels} 
@@ -167,10 +171,14 @@ function TableC({ detailsBonReceptionModels, SetDetailsBonReceptionModels, listD
                 </TableRow>
                 <TableRow>
                     <TableCell rowSpan={3} />
-                    <TableCell colSpan={4} align="right">Totale HT</TableCell>
+                    <TableCell colSpan={4} align="right">Total HT</TableCell>
                     <TableCell colSpan={1} align="right">{ccyFormat(TotaleHt)}</TableCell>
                 </TableRow>
 
+                <TableRow>
+                    <TableCell colSpan={4} align="right">tax stamp</TableCell>
+                    <TableCell align="right">0.600</TableCell>
+                </TableRow>
                 <TableRow>
                     <TableCell colSpan={4} align="right">Total TTC</TableCell>
                     <TableCell align="right">{ccyFormat(TotaleTTc)}</TableCell>
